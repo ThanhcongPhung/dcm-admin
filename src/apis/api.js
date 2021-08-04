@@ -1,28 +1,29 @@
 import axios from 'axios';
 import camelCase from 'camelcase-keys';
-import { getCookie } from '../utils/cookie';
+import { API_URL } from '../configs';
 
 const axiosClient = axios.create({
-  baseURL: `${process.env.REACT_APP_API_DOMAIN}/api/v1`,
+  baseURL: `${API_URL}/api/v1`,
   responseType: 'json',
   timeout: 15 * 1000,
   transformResponse: [(data) => camelCase(data, { deep: true })],
 });
 
-axiosClient.interceptors.request.use(async (config) => {
-  const accessToken = getCookie('accessToken');
-  // eslint-disable-next-line no-param-reassign
-  config.headers.Authorization = `Bearer ${accessToken}`;
-  return config;
-});
+axiosClient.interceptors.request.use(
+  (config) => {
+    return config;
+  },
+  (error) => {
+    Promise.reject(error);
+  },
+);
 
 axiosClient.interceptors.response.use(
   (response) => {
-    return response.data;
+    return response;
   },
   (error) => {
-    // Handle error
-    console.error(error);
+    return error.response;
   },
 );
 

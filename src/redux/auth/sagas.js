@@ -1,19 +1,40 @@
-const { put, all, takeLatest } = require('redux-saga/effects');
-const apis = require('../../apis');
-const actions = require('../actions');
-const { setCookie } = require('../../utils/cookie');
+import { put, all, takeLatest, takeEvery } from 'redux-saga/effects';
+import apiConfig from '../../apis/api';
+import { setCookie } from '../../utils/cookie';
 
-function* loginSaga(email, password) {
+import api from '../../apis';
+import actions from '../actions';
+
+function* verifyTokenSaga({ accessToken }) {
   try {
-    const A_WEEK = 7 * 24 * 60 * 60 * 1000;
-    const { accessToken } = yield apis.auth.login(email, password);
-    setCookie('accessToken', accessToken, A_WEEK);
-    yield put(actions.auth.loginSuccess(accessToken));
+    const data = yield api.auth.verify(accessToken);
+    if (!data.status) throw new Error();
+    apiConfig.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
+    yield put(
+      actions.auth.verifyTokenSuccess({
+        accessToken,
+        user: data.result,
+      }),
+    );
   } catch (error) {
-    yield put(actions.auth.loginFailure());
+    yield put(actions.auth.verifyTokenFailure());
+  }
+}
+
+function* logoutSaga() {
+  try {
+    const { status } = yield api.auth.logout();
+    if (!status) throw new Error();
+    yield put(actions.auth.logoutSuccess());
+    setCookie('accessToken', null, 1);
+  } catch (error) {
+    throw new Error();
   }
 }
 
 export default function* rootSaga() {
-  yield all([takeLatest(actions.auth.actionTypes.LOGIN, loginSaga)]);
+  yield all([
+    takeEvery(actions.auth.actionTypes.VERIFY_TOKEN, verifyTokenSaga),
+    takeLatest(actions.auth.actionTypes.LOGOUT, logoutSaga),
+  ]);
 }

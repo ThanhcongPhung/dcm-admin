@@ -94,4 +94,3 @@ typings/
 .dynamodb/
 .env
 .vscode/
-/package.json

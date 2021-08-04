@@ -1,18 +1,25 @@
 import React from 'react';
-import { Route, Redirect } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { SSO_URL } from '../configs';
 
-import routes from '../constants/route';
-
-export default function PrivateRoute({ component: Component, ...rest }) {
-  const accessToken = useSelector((state) => state.auth.accessToken);
+export default function PrivateRoute({ component: Component, path, ...rest }) {
+  const { accessToken, verifying } = useSelector((state) => state.auth);
 
   return (
     <Route
       {...rest}
-      render={(props) =>
-        accessToken ? <Component {...props} /> : <Redirect to={routes.LOGIN} />
-      }
+      render={(props) => {
+        if (accessToken)
+          return <Component {...props} accessToken={accessToken} />;
+
+        if (!verifying && !accessToken)
+          window.location.assign(
+            `${SSO_URL}/login?redirect_uri=${window.location.href}`,
+          );
+
+        return null;
+      }}
     />
   );
 }
