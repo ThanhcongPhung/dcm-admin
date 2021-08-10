@@ -1,24 +1,20 @@
 import React from 'react';
-import { useTranslation } from 'react-i18next';
-import logo from './logo.svg';
-import './App.css';
+import { Provider } from 'react-redux';
+import { ThemeProvider as MuiThemeProvider } from '@material-ui/styles';
+import { ThemeProvider as StyledThemeProvider } from 'styled-components';
+import store from './redux/store';
+import AppRouter from './router';
+import theme from './styles/theme';
 
 function App() {
-  const { t } = useTranslation();
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          {t('learnReact')}
-        </a>
-      </header>
-    </div>
+    <MuiThemeProvider theme={theme}>
+      <StyledThemeProvider theme={theme}>
+        <Provider store={store()}>
+          <AppRouter />
+        </Provider>
+      </StyledThemeProvider>
+    </MuiThemeProvider>
   );
 }
 
