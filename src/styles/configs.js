@@ -19,6 +19,7 @@ const FEATURE_COLOR = {
   oceanGreen: '#48bb78',
   mediumPurple: '#9f7aea',
 
+  textError: COLOR.red[600],
   backgroundMenu: '#eee',
 };
 

@@ -6,4 +6,9 @@ export default [
     icon: 'home',
     route: routes.HOME,
   },
+  {
+    heading: 'serviceManageMenu',
+    icon: 'account_tree',
+    route: routes.SERVICE_MANAGE,
+  },
 ];
