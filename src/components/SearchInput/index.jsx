@@ -1,11 +1,12 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import debounce from 'lodash/debounce';
 import { TextField, InputAdornment, Icon } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { SearchInputStyled } from './index.style';
 
-export default function SearchInput({ search, setSearch, onHandleSearch }) {
+export default function SearchInput({ onHandleSearch }) {
   const { t } = useTranslation();
+  const [search, setSearch] = useState('');
 
   const delaySearch = useRef(
     debounce(async (searchValue) => {

@@ -34,6 +34,7 @@ function ServerTable({
   setIsLoading,
   fetchGetServices,
   handleClickServiceEdit,
+  pagination,
 }) {
   const { t } = useTranslation();
   const { enqueueSnackbar } = useSnackbar();
@@ -68,7 +69,7 @@ function ServerTable({
     const { data } = await api.service.deleteService(serviceDelete);
     setIsLoading(true);
     setServiceDelete('');
-    fetchGetServices({ offset: 0 });
+    fetchGetServices();
     if (data.status) {
       enqueueSnackbar(t('deleteServiceSuccess'), {
         variant: 'success',
@@ -104,7 +105,7 @@ function ServerTable({
               <React.Fragment key={serviceItem.name}>
                 <TableRow className="bodyRow">
                   <TableCell align="center" className="bodyCell">
-                    {index + 1}
+                    {(pagination.page - 1) * pagination.limit + index + 1}
                   </TableCell>
                   <TableCell align="left" className="bodyCell">
                     {serviceItem.name}

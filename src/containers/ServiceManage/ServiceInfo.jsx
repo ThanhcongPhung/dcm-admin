@@ -69,23 +69,24 @@ export default function CreateServer(props) {
 
   const handleConfirmAdd = async () => {
     setIsFirst(false);
-    const conditionAdd =
-      service.name &&
-      service.description &&
-      service.inputs.length &&
-      service.actions.length &&
-      service.url;
-    if (conditionAdd) {
-      setIsLoading(true);
-      const { data } = await api.service.createService(service);
-      setIsLoading(false);
-      if (data.status) {
-        handleClose();
-        fetchGetServices({ offset: 0 });
-        enqueueSnackbar(t('addServiceSuccess'), { variant: 'success' });
-      } else {
-        enqueueSnackbar(data.message, { variant: 'error' });
-      }
+    const conditionNotAdd =
+      !service.name ||
+      !service.description ||
+      !service.inputs.length ||
+      !service.actions.length ||
+      !service.url;
+    if (conditionNotAdd) {
+      return;
+    }
+    setIsLoading(true);
+    const { data } = await api.service.createService(service);
+    setIsLoading(false);
+    if (data.status) {
+      await fetchGetServices();
+      handleClose();
+      enqueueSnackbar(t('addServiceSuccess'), { variant: 'success' });
+    } else {
+      enqueueSnackbar(data.message, { variant: 'error' });
     }
   };
 
@@ -101,8 +102,8 @@ export default function CreateServer(props) {
       const { data } = await api.service.editService(service);
       setIsLoading(false);
       if (data.status) {
+        await fetchGetServices();
         handleClose();
-        fetchGetServices({ offset: 0 });
         enqueueSnackbar(t('editServiceSuccess'), { variant: 'success' });
       } else {
         enqueueSnackbar(data.message, { variant: 'error' });

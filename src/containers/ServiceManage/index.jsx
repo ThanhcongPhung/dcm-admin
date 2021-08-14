@@ -6,17 +6,17 @@ import { useTranslation } from 'react-i18next';
 import api from '../../apis';
 import ServiceTable from './ServiceTable';
 import ServiceInfo from './ServiceInfo';
-import SearchInput from '../../components/Input/SearchInput';
+import SearchInput from '../../components/SearchInput';
+import { PAGINATION } from '../../constants';
 import { ServiceManageStyled } from './index.style';
 
 function ServerManage() {
   const { t } = useTranslation();
   const [pagination, setPagination] = useState({
     page: 1,
-    limit: 10,
+    limit: PAGINATION.TABLE_MANAGE,
     totalPages: 1,
   });
-  const [search, setSearch] = useState('');
   const [serviceList, setServiceList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isCreate, setIsCreate] = useState(false);
@@ -25,7 +25,7 @@ function ServerManage() {
   const fetchGetServices = async (serviceFields) => {
     const { data } = await api.service.getServices({
       offset: (serviceFields && serviceFields.offset) || 0,
-      search: (serviceFields && serviceFields.search) || search,
+      search: (serviceFields && serviceFields.search) || '',
       limit: pagination.limit,
       fields: '',
       sort: '',
@@ -50,11 +50,6 @@ function ServerManage() {
     }));
   };
 
-  useEffect(() => {
-    setIsLoading(true);
-    fetchGetServices();
-  }, []);
-
   const handleChangePagination = (e, value) => {
     setPagination((prev) => ({
       ...prev,
@@ -70,6 +65,11 @@ function ServerManage() {
     setServiceEdit(service);
   };
 
+  useEffect(() => {
+    setIsLoading(true);
+    fetchGetServices();
+  }, []);
+
   return (
     <div>
       <ServiceManageStyled>
@@ -79,11 +79,7 @@ function ServerManage() {
               {t('serviceManage')}
             </Typography>
             <div className="headButtons">
-              <SearchInput
-                search={search}
-                setSearch={setSearch}
-                onHandleSearch={onHandleSearch}
-              />
+              <SearchInput onHandleSearch={onHandleSearch} />
               <div>
                 <IconButton
                   onClick={() => setIsCreate(true)}
@@ -101,6 +97,7 @@ function ServerManage() {
               fetchGetServices={fetchGetServices}
               setIsLoading={setIsLoading}
               handleClickServiceEdit={handleClickServiceEdit}
+              pagination={pagination}
             />
           </div>
           <div className="pagination">
