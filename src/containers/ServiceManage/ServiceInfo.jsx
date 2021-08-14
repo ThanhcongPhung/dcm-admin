@@ -17,8 +17,14 @@ import api from '../../apis';
 import { ServiceInfoStyled } from './index.style';
 
 export default function CreateServer(props) {
-  const { open, handleClose, setIsLoading, fetchGetServices, serviceEdit } =
-    props;
+  const {
+    open,
+    handleClose,
+    setIsLoading,
+    serviceEdit,
+    onHandleEdit,
+    onHandleAdd,
+  } = props;
   const { t } = useTranslation();
   const { enqueueSnackbar } = useSnackbar();
   const [service, setService] = useState({
@@ -39,10 +45,7 @@ export default function CreateServer(props) {
 
   const handleAddNewInputs = (chip) => {
     if (!service.inputs.includes(chip))
-      setService((prev) => ({
-        ...prev,
-        inputs: [...service.inputs, chip],
-      }));
+      setService((prev) => ({ ...prev, inputs: [...service.inputs, chip] }));
   };
 
   const handleDeleteNewInputs = (chip) => {
@@ -54,10 +57,7 @@ export default function CreateServer(props) {
 
   const handleAddNewActions = (chip) => {
     if (!service.actions.includes(chip))
-      setService((prev) => ({
-        ...prev,
-        actions: [...service.actions, chip],
-      }));
+      setService((prev) => ({ ...prev, actions: [...service.actions, chip] }));
   };
 
   const handleDeleteNewActions = (chip) => {
@@ -67,23 +67,22 @@ export default function CreateServer(props) {
     }));
   };
 
+  const checkValidate = ({ name, description, inputs, actions, url }) => {
+    if (name && description && inputs.length && actions.length && url)
+      return true;
+    return false;
+  };
+
   const handleConfirmAdd = async () => {
     setIsFirst(false);
-    const conditionNotAdd =
-      !service.name ||
-      !service.description ||
-      !service.inputs.length ||
-      !service.actions.length ||
-      !service.url;
-    if (conditionNotAdd) {
-      return;
-    }
+    const isValid = checkValidate(service);
+    if (!isValid) return;
+
     setIsLoading(true);
     const { data } = await api.service.createService(service);
     setIsLoading(false);
     if (data.status) {
-      await fetchGetServices();
-      handleClose();
+      onHandleAdd();
       enqueueSnackbar(t('addServiceSuccess'), { variant: 'success' });
     } else {
       enqueueSnackbar(data.message, { variant: 'error' });
@@ -91,23 +90,17 @@ export default function CreateServer(props) {
   };
 
   const handleConfirmEdit = async () => {
-    if (
-      service.name &&
-      service.description &&
-      service.inputs.length &&
-      service.actions.length &&
-      service.url
-    ) {
-      setIsLoading(true);
-      const { data } = await api.service.editService(service);
-      setIsLoading(false);
-      if (data.status) {
-        await fetchGetServices();
-        handleClose();
-        enqueueSnackbar(t('editServiceSuccess'), { variant: 'success' });
-      } else {
-        enqueueSnackbar(data.message, { variant: 'error' });
-      }
+    const isValid = checkValidate(service);
+    if (!isValid) return;
+
+    setIsLoading(true);
+    const { data } = await api.service.editService(service);
+    setIsLoading(false);
+    if (data.status) {
+      onHandleEdit(service);
+      enqueueSnackbar(t('editServiceSuccess'), { variant: 'success' });
+    } else {
+      enqueueSnackbar(data.message, { variant: 'error' });
     }
   };
 
@@ -128,7 +121,7 @@ export default function CreateServer(props) {
             <Grid item xs={12} sm={3} className="label">
               <Typography
                 className={clsx('inputTitle', {
-                  inputError: service.name === '' && !isFirst,
+                  inputError: !service.name && !isFirst,
                 })}
               >
                 {t('serviceName')}
@@ -142,10 +135,8 @@ export default function CreateServer(props) {
                 name="name"
                 onChange={handleChangeService}
                 variant="outlined"
-                error={service.name === '' && !isFirst}
-                helperText={
-                  service.name === '' && !isFirst ? t('fieldNotEmpty') : ''
-                }
+                error={!service.name && !isFirst}
+                helperText={!service.name && !isFirst ? t('fieldNotEmpty') : ''}
               />
             </Grid>
           </Grid>
@@ -153,7 +144,7 @@ export default function CreateServer(props) {
             <Grid item xs={12} sm={3} className="label">
               <Typography
                 className={clsx('inputTitle', {
-                  inputError: service.description === '' && !isFirst,
+                  inputError: !service.description && !isFirst,
                 })}
               >
                 {t('description')}
@@ -169,11 +160,9 @@ export default function CreateServer(props) {
                 value={service.description}
                 onChange={handleChangeService}
                 variant="outlined"
-                error={service.description === '' && !isFirst}
+                error={!service.description && !isFirst}
                 helperText={
-                  service.description === '' && !isFirst
-                    ? t('fieldNotEmpty')
-                    : ''
+                  !service.description && !isFirst ? t('fieldNotEmpty') : ''
                 }
               />
             </Grid>
@@ -238,7 +227,7 @@ export default function CreateServer(props) {
             <Grid item xs={12} sm={3} className="label">
               <Typography
                 className={clsx('inputTitle', {
-                  inputError: service.url === '' && !isFirst,
+                  inputError: !service.url && !isFirst,
                 })}
               >
                 {t('url')}
@@ -252,10 +241,8 @@ export default function CreateServer(props) {
                 value={service.url}
                 onChange={handleChangeService}
                 variant="outlined"
-                error={service.url === '' && !isFirst}
-                helperText={
-                  service.url === '' && !isFirst ? t('fieldNotEmpty') : ''
-                }
+                error={!service.url && !isFirst}
+                helperText={!service.url && !isFirst ? t('fieldNotEmpty') : ''}
               />
             </Grid>
           </Grid>

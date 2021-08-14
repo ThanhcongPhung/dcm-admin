@@ -15,7 +15,7 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { useTranslation } from 'react-i18next';
 import { useSnackbar } from 'notistack';
 import api from '../../apis';
-import ConfirmDialog from '../../components/Dialog/confirmDialog';
+import ConfirmDialog from '../../components/Dialog/ConfirmDialog';
 import { TableStyled } from './index.style';
 
 const tableTitle = [
@@ -32,9 +32,9 @@ function ServerTable({
   serviceList,
   isLoading,
   setIsLoading,
-  fetchGetServices,
   handleClickServiceEdit,
   pagination,
+  onHandleDelete,
 }) {
   const { t } = useTranslation();
   const { enqueueSnackbar } = useSnackbar();
@@ -65,12 +65,11 @@ function ServerTable({
   }, [serviceList]);
 
   const handleDeleteService = async () => {
-    setIsLoading(false);
-    const { data } = await api.service.deleteService(serviceDelete);
     setIsLoading(true);
-    setServiceDelete('');
-    fetchGetServices();
+    const { data } = await api.service.deleteService(serviceDelete);
+    setIsLoading(false);
     if (data.status) {
+      onHandleDelete(serviceDelete);
       enqueueSnackbar(t('deleteServiceSuccess'), {
         variant: 'success',
       });
@@ -79,6 +78,7 @@ function ServerTable({
         variant: 'error',
       });
     }
+    setServiceDelete();
   };
 
   return (

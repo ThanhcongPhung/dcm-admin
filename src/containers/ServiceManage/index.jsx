@@ -28,7 +28,7 @@ function ServerManage() {
       search: (serviceFields && serviceFields.search) || '',
       limit: pagination.limit,
       fields: '',
-      sort: '',
+      sort: 'createdAt_desc',
     });
     setIsLoading(false);
     if (data.status) {
@@ -42,22 +42,48 @@ function ServerManage() {
     }
   };
 
+  const onCancelShowService = () => {
+    setIsCreate(false);
+    setServiceEdit(null);
+  };
+
   const onHandleSearch = (searchValue) => {
     fetchGetServices({ search: searchValue });
-    setPagination((prev) => ({
-      ...prev,
-      page: 1,
-    }));
+    setPagination((prev) => ({ ...prev, page: 1 }));
+  };
+
+  const onHandleDelete = (serviceDelete) => {
+    const tempServices = serviceList.filter(
+      (item) => item.id !== serviceDelete,
+    );
+    if (tempServices.length) {
+      fetchGetServices({ offset: (pagination.page - 1) * pagination.limit });
+      setPagination((prev) => ({ ...prev, page: pagination.page }));
+    } else {
+      fetchGetServices({ offset: (pagination.page - 2) * pagination.limit });
+      setPagination((prev) => ({ ...prev, page: pagination.page - 1 }));
+    }
+  };
+
+  const onHandleEdit = (serviceItem) => {
+    const tempServices = serviceList;
+    const index = serviceList.findIndex((item) => item.id === serviceItem.id);
+    if (index >= 0) {
+      tempServices[index] = serviceItem;
+      setServiceList(tempServices);
+      onCancelShowService();
+    }
+  };
+
+  const onHandleAdd = () => {
+    fetchGetServices();
+    onCancelShowService();
+    setPagination((prev) => ({ ...prev, page: 1 }));
   };
 
   const handleChangePagination = (e, value) => {
-    setPagination((prev) => ({
-      ...prev,
-      page: value,
-    }));
-    fetchGetServices({
-      offset: (value - 1) * pagination.limit,
-    });
+    setPagination((prev) => ({ ...prev, page: value }));
+    fetchGetServices({ offset: (value - 1) * pagination.limit });
   };
 
   const handleClickServiceEdit = (service) => {
@@ -98,6 +124,7 @@ function ServerManage() {
               setIsLoading={setIsLoading}
               handleClickServiceEdit={handleClickServiceEdit}
               pagination={pagination}
+              onHandleDelete={onHandleDelete}
             />
           </div>
           <div className="pagination">
@@ -112,13 +139,12 @@ function ServerManage() {
       {isCreate && (
         <ServiceInfo
           open={isCreate}
-          handleClose={() => {
-            setIsCreate(false);
-            setServiceEdit(null);
-          }}
+          handleClose={onCancelShowService}
           setIsLoading={setIsLoading}
           fetchGetServices={fetchGetServices}
           serviceEdit={serviceEdit}
+          onHandleEdit={onHandleEdit}
+          onHandleAdd={onHandleAdd}
         />
       )}
     </div>
