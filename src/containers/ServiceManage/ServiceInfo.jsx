@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import clsx from 'clsx';
+import { useTranslation } from 'react-i18next';
+import { useSnackbar } from 'notistack';
 import {
   Button,
   Dialog,
@@ -9,10 +11,13 @@ import {
   Typography,
   TextField,
   Grid,
+  FormControl,
+  MenuItem,
+  Select,
 } from '@material-ui/core';
+import FormHelperText from '@material-ui/core/FormHelperText';
 import ChipInput from 'material-ui-chip-input';
-import { useTranslation } from 'react-i18next';
-import { useSnackbar } from 'notistack';
+import { CAMPAIGN_TYPE } from '../../constants';
 import api from '../../apis';
 import { ServiceInfoStyled } from './index.style';
 
@@ -29,7 +34,7 @@ export default function CreateServer(props) {
   const { enqueueSnackbar } = useSnackbar();
   const [service, setService] = useState({
     name: '',
-    description: '',
+    campaignTypes: [],
     inputs: [],
     actions: [],
     url: '',
@@ -67,8 +72,8 @@ export default function CreateServer(props) {
     }));
   };
 
-  const checkValidate = ({ name, description, inputs, actions, url }) => {
-    if (name && description && inputs.length && actions.length && url)
+  const checkValidate = ({ name, campaignTypes, inputs, actions, url }) => {
+    if (name && campaignTypes && inputs.length && actions.length && url)
       return true;
     return false;
   };
@@ -140,33 +145,6 @@ export default function CreateServer(props) {
               />
             </Grid>
           </Grid>
-          <Grid container spacing={3} className="infoWrapper">
-            <Grid item xs={12} sm={3} className="label">
-              <Typography
-                className={clsx('inputTitle', {
-                  inputError: !service.description && !isFirst,
-                })}
-              >
-                {t('description')}
-              </Typography>
-            </Grid>
-            <Grid item xs={12} sm={9}>
-              <TextField
-                placeholder={t('descriptionPlaceholder')}
-                multiline
-                maxRows="4"
-                className="textInput"
-                name="description"
-                value={service.description}
-                onChange={handleChangeService}
-                variant="outlined"
-                error={!service.description && !isFirst}
-                helperText={
-                  !service.description && !isFirst ? t('fieldNotEmpty') : ''
-                }
-              />
-            </Grid>
-          </Grid>
           <Grid container spacing={3} className="infoWrapper textHelper">
             <Grid item xs={12} sm={3} className="label">
               <Typography
@@ -221,6 +199,42 @@ export default function CreateServer(props) {
                     : t('noteCreateAction')
                 }
               />
+            </Grid>
+          </Grid>
+          <Grid container spacing={3} className="infoWrapper">
+            <Grid item xs={12} sm={3} className="label">
+              <Typography
+                className={clsx('inputTitle', {
+                  inputError: !service.campaignTypes && !isFirst,
+                })}
+              >
+                {t('campaignType')}
+              </Typography>
+            </Grid>
+            <Grid item xs={12} sm={9}>
+              <FormControl
+                variant="outlined"
+                className="select"
+                error={!service.campaignTypes && !isFirst}
+              >
+                <Select
+                  multiple
+                  name="campaignTypes"
+                  value={service.campaignTypes}
+                  onChange={handleChangeService}
+                  className="multiSelect"
+                  renderValue={(selected) => selected.join(', ')}
+                >
+                  {Object.values(CAMPAIGN_TYPE).map((value) => (
+                    <MenuItem value={value} key={value}>
+                      {t(value)}
+                    </MenuItem>
+                  ))}
+                </Select>
+                {!service.campaignTypes && !isFirst && (
+                  <FormHelperText>{t('fieldNotEmpty')}</FormHelperText>
+                )}
+              </FormControl>
             </Grid>
           </Grid>
           <Grid container spacing={3} className="infoWrapper">

@@ -4,7 +4,7 @@ import { TextField, InputAdornment, Icon } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { SearchInputStyled } from './index.style';
 
-export default function SearchInput({ onHandleSearch }) {
+export default function SearchInput({ onHandleSearch, title }) {
   const { t } = useTranslation();
   const [search, setSearch] = useState('');
 
@@ -28,7 +28,7 @@ export default function SearchInput({ onHandleSearch }) {
         name="search"
         variant="outlined"
         className="searchInput"
-        placeholder={t('searchService')}
+        placeholder={t(title)}
         InputProps={{
           endAdornment: (
             <InputAdornment position="end">

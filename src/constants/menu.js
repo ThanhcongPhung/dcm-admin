@@ -11,4 +11,9 @@ export default [
     icon: 'account_tree',
     route: routes.SERVICE_MANAGE,
   },
+  {
+    heading: 'campaignManageMenu',
+    icon: 'widgets',
+    route: routes.CAMPAIGN_MANAGE,
+  },
 ];

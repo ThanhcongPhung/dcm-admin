@@ -1,4 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import Moment from 'moment';
+import { useTranslation } from 'react-i18next';
+import { useSnackbar } from 'notistack';
 import {
   Table,
   TableBody,
@@ -10,75 +13,60 @@ import {
   Menu,
   MenuItem,
   Icon,
+  Tooltip,
+  Typography,
 } from '@material-ui/core';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-import { useTranslation } from 'react-i18next';
-import { useSnackbar } from 'notistack';
 import api from '../../apis';
 import ConfirmDialog from '../../components/Dialog/ConfirmDialog';
 import { TableStyled } from './index.style';
 
 const tableTitle = [
-  'STT',
+  'no',
   'name',
-  'serviceInputs',
-  'serviceActions',
-  'campaignType',
-  'url',
+  'time',
+  'collectDataService',
+  'campaignAction',
+  'campaignVisibility',
+  'amountParticipant',
+  'status',
   'action',
 ];
 
-function ServerTable({
-  serviceList,
-  isLoading,
-  setIsLoading,
-  handleClickServiceEdit,
-  pagination,
-  onHandleDelete,
-}) {
+export default function CampaignTable(props) {
+  const {
+    campaignList,
+    services,
+    isLoading,
+    setIsLoading,
+    onHandleEdit,
+    pagination,
+    onHandleDelete,
+  } = props;
+  const [selectCampaignId, setSelectCampaignId] = useState('');
+  const [anchorEl, setAnchorEl] = useState();
+
   const { t } = useTranslation();
   const { enqueueSnackbar } = useSnackbar();
-  const [serviceDelete, setServiceDelete] = useState('');
 
-  const [anchorEl, setAnchorEl] = useState();
-  const [menuState, setMenuState] = useState([]);
-  const handleRequestCloseMenu = (index) => () => {
-    const newArr = [...menuState];
-    newArr[index] = false;
-    setMenuState(newArr);
-  };
-  const onContactOptionSelect = (index) => (e) => {
-    const newArr = [...menuState];
-    newArr[index] = true;
-    setMenuState(newArr);
-    setAnchorEl(e.currentTarget);
-  };
-
-  useEffect(() => {
-    if (serviceList) {
-      const newArr = [];
-      for (let i = 0; i < serviceList.length; i += 1) {
-        newArr.push(false);
-      }
-      setMenuState(newArr);
-    }
-  }, [serviceList]);
-
-  const handleDeleteService = async () => {
+  const handleDeleteCampaign = async () => {
     setIsLoading(true);
-    const { data } = await api.service.deleteService(serviceDelete);
+    setAnchorEl(null);
+    const { data } = await api.campaign.deleteCampaign(selectCampaignId);
     setIsLoading(false);
     if (data.status) {
-      onHandleDelete(serviceDelete);
-      enqueueSnackbar(t('deleteServiceSuccess'), {
-        variant: 'success',
-      });
+      onHandleDelete(selectCampaignId);
+      enqueueSnackbar(t('deleteCampaignSuccess'), { variant: 'success' });
     } else {
-      enqueueSnackbar(t('deleteServiceError'), {
-        variant: 'error',
-      });
+      enqueueSnackbar(t('deleteCampaignError'), { variant: 'error' });
     }
-    setServiceDelete();
+    setSelectCampaignId();
+  };
+
+  const getServiceName = (id) => {
+    const element = services.find((item) => item.id === id);
+    if (element) return t(element.name);
+    return null;
   };
 
   return (
@@ -100,34 +88,50 @@ function ServerTable({
           </TableRow>
         </TableHead>
         <TableBody>
-          {serviceList &&
-            serviceList.map((serviceItem, index) => (
-              <React.Fragment key={serviceItem.name}>
+          {campaignList &&
+            campaignList.map((item, index) => (
+              <React.Fragment key={item.name}>
                 <TableRow className="bodyRow">
                   <TableCell align="center" className="bodyCell">
                     {(pagination.page - 1) * pagination.limit + index + 1}
                   </TableCell>
                   <TableCell align="left" className="bodyCell">
-                    {serviceItem.name}
-                  </TableCell>
-                  <TableCell align="center" className="bodyCell">
-                    {serviceItem.inputs.toString().split(',').join(', ')}
-                  </TableCell>
-                  <TableCell align="center" className="bodyCell">
-                    {serviceItem.actions.toString().split(',').join(', ')}
+                    {item.name}
                   </TableCell>
                   <TableCell align="left" className="bodyCell">
-                    {serviceItem.campaignTypes.toString().split(',').join(', ')}
+                    <Tooltip
+                      title={`${Moment(item.startTime).format(
+                        'HH:mm DD/MM/YYYY',
+                      )} - ${Moment(item.endTime).format('HH:mm DD/MM/YYYY')}`}
+                    >
+                      <Typography>
+                        {Moment(item.startTime).format('DD/MM')} -{' '}
+                        {Moment(item.startTime).format('DD/MM')}
+                      </Typography>
+                    </Tooltip>
                   </TableCell>
                   <TableCell align="center" className="bodyCell">
-                    {serviceItem.url}
+                    {getServiceName(item.service)}
                   </TableCell>
+                  <TableCell align="center" className="bodyCell">
+                    {t(item.action)}
+                  </TableCell>
+                  <TableCell align="center" className="bodyCell">
+                    {t(item.campaignVisibility)}
+                  </TableCell>
+                  <TableCell align="center" className="bodyCell">
+                    {(item.participant && item.participant.length) || 0}
+                  </TableCell>
+                  <TableCell align="center" className="bodyCell">
+                    {t(item.status)}
+                  </TableCell>
+
                   <TableCell align="center" className="bodyCell">
                     <IconButton
                       aria-label="more"
                       aria-controls="long-menu"
                       aria-haspopup="true"
-                      onClick={onContactOptionSelect(index)}
+                      onClick={(e) => setAnchorEl(e.currentTarget)}
                     >
                       <MoreVertIcon />
                     </IconButton>
@@ -137,20 +141,19 @@ function ServerTable({
                   id="long-menu"
                   anchorEl={anchorEl}
                   keepMounted
-                  open={menuState[index] || false}
-                  onClose={handleRequestCloseMenu(index)}
-                  onClick={handleRequestCloseMenu(index)}
+                  open={Boolean(anchorEl)}
+                  onClose={() => setAnchorEl(null)}
                 >
                   <MenuItem
                     className="dropdownItem"
-                    onClick={() => handleClickServiceEdit(serviceItem)}
+                    onClick={() => onHandleEdit(item.id)}
                   >
                     <Icon aria-label="edit">edit</Icon>
                     {t('edit')}
                   </MenuItem>
                   <MenuItem
                     className="dropdownItem"
-                    onClick={() => setServiceDelete(serviceItem.id)}
+                    onClick={() => setSelectCampaignId(item.id)}
                   >
                     <Icon aria-label="delete" color="error">
                       delete
@@ -170,14 +173,15 @@ function ServerTable({
         </TableBody>
       </Table>
       <ConfirmDialog
-        open={!!serviceDelete}
+        open={!!selectCampaignId}
         title={t('confirm')}
         content={t('confirmDeleteService')}
-        handleClose={() => setServiceDelete('')}
-        handleConfirm={handleDeleteService}
+        handleClose={() => {
+          setSelectCampaignId('');
+          setAnchorEl(null);
+        }}
+        handleConfirm={handleDeleteCampaign}
       />
     </TableStyled>
   );
 }
-
-export default ServerTable;

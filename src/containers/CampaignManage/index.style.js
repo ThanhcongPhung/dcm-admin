@@ -13,7 +13,6 @@ const ServiceManageStyled = styled.div`
     justify-content: space-between;
     padding: 10px 5px;
     align-items: center;
-    margin-bottom: 20px;
     .headTitle {
       text-transform: uppercase;
     }
@@ -30,21 +29,15 @@ const ServiceManageStyled = styled.div`
       }
     }
   }
-  .serviceTable {
+  .campaignSearch {
+    margin-bottom: 10px;
+  }
+  .campaignTable {
     flex: 1;
   }
   .pagination {
     display: flex;
     justify-content: flex-end;
-  }
-`;
-
-const SearchStyled = styled.div`
-  .searchInput {
-    margin-right: 10px;
-    .MuiOutlinedInput-input {
-      padding: 13px;
-    }
   }
 `;
 
@@ -83,37 +76,13 @@ const TableStyled = styled.div`
   }
 `;
 
-const ServiceInfoStyled = styled.div`
-  min-width: 600px;
-  .infoWrapper {
-    margin-top: 10px;
-    .label {
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-    }
-    .textInput {
-      width: 100%;
-    }
-    .inputError {
-      color: ${FEATURE_COLOR.textError};
-    }
-    &.textHelper {
-      margin-bottom: 10px;
-    }
-    .select {
-      width: 100%;
-      .MuiInput-underline::before {
-        border: none;
-      }
-      .MuiInput-underline::after {
-        border: none;
-      }
-    }
-  }
-  .dialogAction {
-    margin-top: 10px;
+const CampaignSearchStyled = styled.div`
+  display: flex;
+  margin: 8px 0;
+  .search-information {
+    min-width: calc(100% / 4 - 10px);
+    margin-right: 10px;
   }
 `;
 
-export { ServiceManageStyled, SearchStyled, TableStyled, ServiceInfoStyled };
+export { ServiceManageStyled, TableStyled, CampaignSearchStyled };
