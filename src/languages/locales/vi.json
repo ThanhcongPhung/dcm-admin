@@ -137,6 +137,26 @@
   "start": "Bắt đầu",
   "continue": "Tiếp tục",
   "pause": "Tạm dừng",
-  "end": "Kết thúc"
+  "end": "Kết thúc",
+  "participantManage": "Quản lý người tham gia",
+  "email": "Email",
+  "totalContribution": "Số câu đóng góp",
+  "totalRating": "Số câu đánh giá",
+  "deleteParticipantSuccess": "Xóa người tham gia thành công",
+  "deleteParticipantError": "Xóa người tham gia không thành công",
+  "addParticipantSuccess": "Thêm người tham gia thành công",
+  "addParticipantError": "Thêm người tham gia không thành công",
+  "editParticipantSuccess": "Chỉnh sửa người tham gia thành công",
+  "editParticipantError": "Chỉnh sửa người tham gia không thành công",
+  "confirmDeleteParticipant": "Bạn có chắc chắn muốn Xóa người tham gia này khỏi chiến dịch?",
+  "view": "Xem chi tiết",
+  "participantList": "Danh sách người tham gia",
+  "avatar": "Ảnh đại diện",
+  "MANAGER": "Người quản lý",
+  "CONTRIBUTOR": "Người đóng góp",
+  "REVIEWER": "Người phê duyệt",
+  "VIEWER": "Người theo dõi",
+  "campaign": "chiến dịch",
+  "noOptions": "Không có lựa chọn nào"
 }
 

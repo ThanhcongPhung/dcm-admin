@@ -3,6 +3,7 @@ import Home from '../pages/Home';
 import ServiceManage from '../pages/ServiceManage';
 import CampaignManage from '../pages/CampaignManage';
 import CreateCampaign from '../pages/CreateCampaign';
+import ParticipantManage from '../pages/ParticipantManage';
 
 const appRoutes = {
   home: {
@@ -23,6 +24,11 @@ const appRoutes = {
   createCampaign: {
     url: routes.CREATE_CAMPAIGN,
     component: CreateCampaign,
+    private: true,
+  },
+  participants: {
+    url: routes.CAMPAIGN_PARTICIPANT,
+    component: ParticipantManage,
     private: true,
   },
 };

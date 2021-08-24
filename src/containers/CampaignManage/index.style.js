@@ -69,6 +69,13 @@ const TableStyled = styled.div`
     &.time {
       min-width: 85px;
     }
+    .viewParticipant {
+      cursor: pointer;
+      color: ${FEATURE_COLOR.havelockBlue};
+      &:hover {
+        text-decoration: underline;
+      }
+    }
   }
 `;
 
