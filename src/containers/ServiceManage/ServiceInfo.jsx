@@ -11,13 +11,9 @@ import {
   Typography,
   TextField,
   Grid,
-  FormControl,
-  MenuItem,
-  Select,
-  FormHelperText,
-  Chip,
 } from '@material-ui/core';
 import ChipInput from 'material-ui-chip-input';
+import Autocomplete from '@material-ui/lab/Autocomplete';
 import { CAMPAIGN_TYPE } from '../../constants';
 import api from '../../apis';
 import { ServiceInfoStyled } from './index.style';
@@ -41,6 +37,7 @@ export default function CreateServer(props) {
     url: '',
   });
   const [isFirst, setIsFirst] = useState(true);
+
   const handleChangeService = (e) => {
     e.persist();
     setService((prev) => ({
@@ -103,6 +100,7 @@ export default function CreateServer(props) {
   };
 
   const handleConfirmEdit = async () => {
+    setIsFirst(false);
     const isValid = checkValidate(service);
     if (!isValid) return;
 
@@ -222,37 +220,35 @@ export default function CreateServer(props) {
               </Typography>
             </Grid>
             <Grid item xs={12} sm={9}>
-              <FormControl
-                variant="outlined"
-                className="select"
-                error={
-                  !isFirst &&
-                  (!service.campaignTypes || !service.campaignTypes.length)
-                }
-              >
-                <Select
-                  multiple
-                  name="campaignTypes"
-                  value={service.campaignTypes}
-                  onChange={handleChangeService}
-                  className="multiSelect"
-                  renderValue={(selected) =>
-                    selected.map((value) => (
-                      <Chip key={value} label={value} className="chipInput" />
-                    ))
-                  }
-                >
-                  {Object.values(CAMPAIGN_TYPE).map((value) => (
-                    <MenuItem value={value} key={value}>
-                      {t(value)}
-                    </MenuItem>
-                  ))}
-                </Select>
-                {!isFirst &&
-                  (!service.campaignTypes || !service.campaignTypes.length) && (
-                    <FormHelperText>{t('fieldNotEmpty')}</FormHelperText>
-                  )}
-              </FormControl>
+              <Autocomplete
+                multiple
+                options={Object.values(CAMPAIGN_TYPE)}
+                getOptionLabel={(option) => option}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    variant="outlined"
+                    placeholder={t('chooseCampaignTypes')}
+                    error={
+                      !isFirst &&
+                      (!service.campaignTypes || !service.campaignTypes.length)
+                    }
+                    helperText={
+                      !isFirst &&
+                      (!service.campaignTypes ||
+                        !service.campaignTypes.length) &&
+                      t('fieldNotEmpty')
+                    }
+                  />
+                )}
+                value={service.campaignTypes}
+                onChange={(event, values) => {
+                  setService((prev) => ({
+                    ...prev,
+                    campaignTypes: values,
+                  }));
+                }}
+              />
             </Grid>
           </Grid>
           <Grid container spacing={3} className="infoWrapper">

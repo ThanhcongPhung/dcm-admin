@@ -55,5 +55,6 @@
   "no": "No",
   "PUBLIC": "Public",
   "PRIVATE": "Private",
-  "campaignType": "Campaign Type"
+  "campaignType": "Campaign Type",
+  "chooseCampaignTypes": "Choose Campaign Type"
 }
