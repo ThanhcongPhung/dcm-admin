@@ -109,6 +109,9 @@ const ServiceInfoStyled = styled.div`
       .MuiInput-underline::after {
         border: none;
       }
+      .chipInput {
+        margin-right: 3px;
+      }
     }
   }
   .dialogAction {

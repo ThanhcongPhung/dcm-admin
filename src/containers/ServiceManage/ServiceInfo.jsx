@@ -15,6 +15,7 @@ import {
   MenuItem,
   Select,
   FormHelperText,
+  Chip,
 } from '@material-ui/core';
 import ChipInput from 'material-ui-chip-input';
 import { CAMPAIGN_TYPE } from '../../constants';
@@ -73,7 +74,14 @@ export default function CreateServer(props) {
   };
 
   const checkValidate = ({ name, campaignTypes, inputs, actions, url }) => {
-    if (name && campaignTypes.length && inputs.length && actions.length && url)
+    if (
+      name &&
+      campaignTypes &&
+      campaignTypes.length &&
+      inputs.length &&
+      actions.length &&
+      url
+    )
       return true;
     return false;
   };
@@ -205,7 +213,9 @@ export default function CreateServer(props) {
             <Grid item xs={12} sm={3} className="label">
               <Typography
                 className={clsx('inputTitle', {
-                  inputError: !service.campaignTypes && !isFirst,
+                  inputError:
+                    !isFirst &&
+                    (!service.campaignTypes || !service.campaignTypes.length),
                 })}
               >
                 {t('campaignType')}
@@ -215,7 +225,10 @@ export default function CreateServer(props) {
               <FormControl
                 variant="outlined"
                 className="select"
-                error={!service.campaignTypes && !isFirst}
+                error={
+                  !isFirst &&
+                  (!service.campaignTypes || !service.campaignTypes.length)
+                }
               >
                 <Select
                   multiple
@@ -223,7 +236,11 @@ export default function CreateServer(props) {
                   value={service.campaignTypes}
                   onChange={handleChangeService}
                   className="multiSelect"
-                  renderValue={(selected) => selected.join(', ')}
+                  renderValue={(selected) =>
+                    selected.map((value) => (
+                      <Chip key={value} label={value} className="chipInput" />
+                    ))
+                  }
                 >
                   {Object.values(CAMPAIGN_TYPE).map((value) => (
                     <MenuItem value={value} key={value}>
@@ -231,9 +248,10 @@ export default function CreateServer(props) {
                     </MenuItem>
                   ))}
                 </Select>
-                {!service.campaignTypes && !isFirst && (
-                  <FormHelperText>{t('fieldNotEmpty')}</FormHelperText>
-                )}
+                {!isFirst &&
+                  (!service.campaignTypes || !service.campaignTypes.length) && (
+                    <FormHelperText>{t('fieldNotEmpty')}</FormHelperText>
+                  )}
               </FormControl>
             </Grid>
           </Grid>
