@@ -118,9 +118,10 @@ function ServerTable({
                     {serviceItem.actions.toString().split(',').join(', ')}
                   </TableCell>
                   <TableCell align="center" className="bodyCell">
-                    {serviceItem.campaignTypes.map((value) => (
-                      <Chip key={value} label={value} className="chipInput" />
-                    ))}
+                    {serviceItem.campaignTypes &&
+                      serviceItem.campaignTypes.map((value) => (
+                        <Chip key={value} label={value} className="chipInput" />
+                      ))}
                   </TableCell>
                   <TableCell align="center" className="bodyCell">
                     {serviceItem.url}
