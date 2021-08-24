@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import clsx from 'clsx';
+import { useTranslation } from 'react-i18next';
+import { useSnackbar } from 'notistack';
 import {
   Button,
   Dialog,
@@ -11,8 +13,8 @@ import {
   Grid,
 } from '@material-ui/core';
 import ChipInput from 'material-ui-chip-input';
-import { useTranslation } from 'react-i18next';
-import { useSnackbar } from 'notistack';
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import { CAMPAIGN_TYPE } from '../../constants';
 import api from '../../apis';
 import { ServiceInfoStyled } from './index.style';
 
@@ -29,18 +31,20 @@ export default function CreateServer(props) {
   const { enqueueSnackbar } = useSnackbar();
   const [service, setService] = useState({
     name: '',
-    description: '',
+    campaignTypes: [],
     inputs: [],
     actions: [],
     url: '',
   });
   const [isFirst, setIsFirst] = useState(true);
+
   const handleChangeService = (e) => {
     e.persist();
-    setService((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
+    setService((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const handleChangeCampaignType = (event, values) => {
+    setService((prev) => ({ ...prev, campaignTypes: values }));
   };
 
   const handleAddNewInputs = (chip) => {
@@ -67,11 +71,13 @@ export default function CreateServer(props) {
     }));
   };
 
-  const checkValidate = ({ name, description, inputs, actions, url }) => {
-    if (name && description && inputs.length && actions.length && url)
-      return true;
-    return false;
-  };
+  const checkValidate = ({ name, campaignTypes, inputs, actions, url }) =>
+    name &&
+    campaignTypes &&
+    campaignTypes.length &&
+    inputs.length &&
+    actions.length &&
+    url;
 
   const handleConfirmAdd = async () => {
     setIsFirst(false);
@@ -90,6 +96,7 @@ export default function CreateServer(props) {
   };
 
   const handleConfirmEdit = async () => {
+    setIsFirst(false);
     const isValid = checkValidate(service);
     if (!isValid) return;
 
@@ -105,9 +112,7 @@ export default function CreateServer(props) {
   };
 
   useEffect(() => {
-    if (serviceEdit) {
-      setService(serviceEdit);
-    }
+    if (serviceEdit) setService(serviceEdit);
   }, []);
 
   return (
@@ -137,33 +142,6 @@ export default function CreateServer(props) {
                 variant="outlined"
                 error={!service.name && !isFirst}
                 helperText={!service.name && !isFirst ? t('fieldNotEmpty') : ''}
-              />
-            </Grid>
-          </Grid>
-          <Grid container spacing={3} className="infoWrapper">
-            <Grid item xs={12} sm={3} className="label">
-              <Typography
-                className={clsx('inputTitle', {
-                  inputError: !service.description && !isFirst,
-                })}
-              >
-                {t('description')}
-              </Typography>
-            </Grid>
-            <Grid item xs={12} sm={9}>
-              <TextField
-                placeholder={t('descriptionPlaceholder')}
-                multiline
-                maxRows="4"
-                className="textInput"
-                name="description"
-                value={service.description}
-                onChange={handleChangeService}
-                variant="outlined"
-                error={!service.description && !isFirst}
-                helperText={
-                  !service.description && !isFirst ? t('fieldNotEmpty') : ''
-                }
               />
             </Grid>
           </Grid>
@@ -220,6 +198,45 @@ export default function CreateServer(props) {
                     ? t('fieldNotEmpty')
                     : t('noteCreateAction')
                 }
+              />
+            </Grid>
+          </Grid>
+          <Grid container spacing={3} className="infoWrapper">
+            <Grid item xs={12} sm={3} className="label">
+              <Typography
+                className={clsx('inputTitle', {
+                  inputError:
+                    !isFirst &&
+                    (!service.campaignTypes || !service.campaignTypes.length),
+                })}
+              >
+                {t('campaignType')}
+              </Typography>
+            </Grid>
+            <Grid item xs={12} sm={9}>
+              <Autocomplete
+                multiple
+                options={Object.values(CAMPAIGN_TYPE)}
+                getOptionLabel={(option) => option}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    variant="outlined"
+                    placeholder={t('chooseCampaignTypes')}
+                    error={
+                      !isFirst &&
+                      (!service.campaignTypes || !service.campaignTypes.length)
+                    }
+                    helperText={
+                      !isFirst &&
+                      (!service.campaignTypes ||
+                        !service.campaignTypes.length) &&
+                      t('fieldNotEmpty')
+                    }
+                  />
+                )}
+                value={service.campaignTypes}
+                onChange={handleChangeCampaignType}
               />
             </Grid>
           </Grid>

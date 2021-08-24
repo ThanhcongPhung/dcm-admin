@@ -10,6 +10,7 @@ import {
   Menu,
   MenuItem,
   Icon,
+  Chip,
 } from '@material-ui/core';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { useTranslation } from 'react-i18next';
@@ -21,9 +22,9 @@ import { TableStyled } from './index.style';
 const tableTitle = [
   'STT',
   'name',
-  'description',
   'serviceInputs',
   'serviceActions',
+  'campaignType',
   'url',
   'action',
 ];
@@ -90,11 +91,11 @@ function ServerTable({
               tableTitle.map((item) => (
                 <TableCell
                   key={item}
-                  align="left"
+                  align="center"
                   variant="head"
                   className="headerCell"
                 >
-                  <div className="cellContent">{t(item)}</div>
+                  {t(item)}
                 </TableCell>
               ))}
           </TableRow>
@@ -110,14 +111,17 @@ function ServerTable({
                   <TableCell align="left" className="bodyCell">
                     {serviceItem.name}
                   </TableCell>
-                  <TableCell align="left" className="bodyCell">
-                    {serviceItem.description}
-                  </TableCell>
                   <TableCell align="center" className="bodyCell">
                     {serviceItem.inputs.toString().split(',').join(', ')}
                   </TableCell>
                   <TableCell align="center" className="bodyCell">
                     {serviceItem.actions.toString().split(',').join(', ')}
+                  </TableCell>
+                  <TableCell align="center" className="bodyCell campaignType">
+                    {serviceItem.campaignTypes &&
+                      serviceItem.campaignTypes.map((value) => (
+                        <Chip key={value} label={value} className="chipInput" />
+                      ))}
                   </TableCell>
                   <TableCell align="center" className="bodyCell">
                     {serviceItem.url}

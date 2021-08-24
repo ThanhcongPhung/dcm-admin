@@ -54,15 +54,19 @@ const TableStyled = styled.div`
     border: 1px solid ${FEATURE_COLOR.white};
     color: ${FEATURE_COLOR.white};
     padding: 8px;
-    .cellContent {
-      display: flex;
-      justify-content: space-between;
-      padding: 0px 10px;
-      align-items: center;
-    }
   }
   .bodyCell {
     padding: 8px;
+    &.campaignType {
+      max-width: 150px;
+    }
+    .chipInput {
+      margin: 4px;
+      background-color: ${FEATURE_COLOR.tertiary};
+    }
+    .MuiChip-label {
+      padding: 8px 16px;
+    }
   }
   .dropdownItem {
     display: flex;
@@ -100,6 +104,18 @@ const ServiceInfoStyled = styled.div`
     }
     &.textHelper {
       margin-bottom: 10px;
+    }
+    .select {
+      width: 100%;
+      .MuiInput-underline::before {
+        border: none;
+      }
+      .MuiInput-underline::after {
+        border: none;
+      }
+      .chipInput {
+        margin-right: 3px;
+      }
     }
   }
   .dialogAction {

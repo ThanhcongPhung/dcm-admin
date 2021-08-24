@@ -54,5 +54,7 @@
   "searchCampaign": "Search Campaign",
   "no": "No",
   "PUBLIC": "Public",
-  "PRIVATE": "Private"
+  "PRIVATE": "Private",
+  "campaignType": "Campaign Type",
+  "chooseCampaignTypes": "Choose Campaign Type"
 }

@@ -15,7 +15,7 @@ export async function getServices({ search, fields, offset, limit, sort }) {
 
 export async function createService({
   name,
-  description,
+  campaignTypes,
   inputs,
   actions,
   url,
@@ -24,7 +24,7 @@ export async function createService({
     const response = await api({
       method: 'POST',
       url: '/services',
-      data: { name, description, inputs, actions, url },
+      data: { name, campaignTypes, inputs, actions, url },
     });
     return response;
   } catch (error) {
@@ -35,7 +35,7 @@ export async function createService({
 export async function editService({
   id,
   name,
-  description,
+  campaignTypes,
   inputs,
   actions,
   url,
@@ -44,7 +44,7 @@ export async function editService({
     const response = await api({
       method: 'PUT',
       url: `/services/${id}`,
-      data: { name, description, inputs, actions, url },
+      data: { name, campaignTypes, inputs, actions, url },
     });
     return response;
   } catch (error) {

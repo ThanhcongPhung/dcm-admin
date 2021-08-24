@@ -54,6 +54,8 @@
   "searchCampaign": "Tìm kiếm chiến dịch",
   "no": "STT",
   "PUBLIC": "Công khai",
-  "PRIVATE": "Riêng tư"
+  "PRIVATE": "Riêng tư",
+  "campaignType": "Loại chiến dịch",
+  "chooseCampaignTypes": "Chọn loại chiến dịch"
 }
 
