@@ -10,6 +10,7 @@ import {
   Menu,
   MenuItem,
   Icon,
+  Chip,
 } from '@material-ui/core';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { useTranslation } from 'react-i18next';
@@ -90,11 +91,11 @@ function ServerTable({
               tableTitle.map((item) => (
                 <TableCell
                   key={item}
-                  align="left"
+                  align="center"
                   variant="head"
                   className="headerCell"
                 >
-                  <div className="cellContent">{t(item)}</div>
+                  {t(item)}
                 </TableCell>
               ))}
           </TableRow>
@@ -116,8 +117,10 @@ function ServerTable({
                   <TableCell align="center" className="bodyCell">
                     {serviceItem.actions.toString().split(',').join(', ')}
                   </TableCell>
-                  <TableCell align="left" className="bodyCell">
-                    {serviceItem.campaignTypes.toString().split(',').join(', ')}
+                  <TableCell align="center" className="bodyCell">
+                    {serviceItem.campaignTypes.map((value) => (
+                      <Chip key={value} label={value} className="chipInput" />
+                    ))}
                   </TableCell>
                   <TableCell align="center" className="bodyCell">
                     {serviceItem.url}

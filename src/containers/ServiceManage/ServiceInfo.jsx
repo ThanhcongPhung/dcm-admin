@@ -14,8 +14,8 @@ import {
   FormControl,
   MenuItem,
   Select,
+  FormHelperText,
 } from '@material-ui/core';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import ChipInput from 'material-ui-chip-input';
 import { CAMPAIGN_TYPE } from '../../constants';
 import api from '../../apis';
@@ -73,7 +73,7 @@ export default function CreateServer(props) {
   };
 
   const checkValidate = ({ name, campaignTypes, inputs, actions, url }) => {
-    if (name && campaignTypes && inputs.length && actions.length && url)
+    if (name && campaignTypes.length && inputs.length && actions.length && url)
       return true;
     return false;
   };

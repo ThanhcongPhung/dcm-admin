@@ -54,15 +54,15 @@ const TableStyled = styled.div`
     border: 1px solid ${FEATURE_COLOR.white};
     color: ${FEATURE_COLOR.white};
     padding: 8px;
-    .cellContent {
-      display: flex;
-      justify-content: space-between;
-      padding: 0px 10px;
-      align-items: center;
-    }
   }
   .bodyCell {
     padding: 8px;
+    .chipInput {
+      margin: 2px 2px 0 0;
+    }
+    .MuiChip-label {
+      padding: 5px;
+    }
   }
   .dropdownItem {
     display: flex;
