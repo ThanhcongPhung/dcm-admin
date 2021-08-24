@@ -126,6 +126,13 @@
   "backAndSave": "Lưu và Trở lại",
   "back": "Trở lại",
   "saveCampaignError": "Lưu thông tin chiến dịch không thành công",
-  "saveCampaignSuccess": "Lưu thông tin chiến dịch thành công"
+  "saveCampaignSuccess": "Lưu thông tin chiến dịch thành công",
+  "clickToStart": "Nhấn để bắt đầu",
+  "clickToPause": "Nhấn đề tạm dừng chiến dịch",
+  "clickToEnd": "Nhấn kết thúc chiến dịch",
+  "clickToContinue": "Nhấn để tiếp tục chiến dịch",
+  "confirmChangeStatus": "Bạn chắc chắn muốn thay đổi trạng thái chiến dịch thành",
+  "changeStatusSuccess": "Thay đổi trạng thái chiến dịch thành công",
+  "changeStatusFailure": "Thay đổi trạng thái chiến dịch không thành công"
 }
 

@@ -126,5 +126,12 @@
   "backAndSave": "Back and Save",
   "back": "Back",
   "saveCampaignError": "Save Campaign Error",
-  "saveCampaignSuccess": "Save Campaign Success"
+  "saveCampaignSuccess": "Save Campaign Success",
+  "clickToStart": "Click To Start",
+  "clickToPause": "Click To Pause",
+  "clickToEnd": "Click To End",
+  "clickToContinue": "Click To Continue",
+  "confirmChangeStatus": "Are you sure change status this service",
+  "changeStatusSuccess": "Change Status Campaign Success",
+  "changeStatusFailure": "Change Status Campaign Failure"
 }

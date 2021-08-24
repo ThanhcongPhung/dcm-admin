@@ -150,3 +150,17 @@ export async function getIntents(campaignId) {
     return error.response;
   }
 }
+
+export async function updateStatusCampaign(campaignId, status) {
+  try {
+    const response = await api({
+      method: 'PUT',
+      url: `/campaigns/status`,
+      headers: { 'campaign-id': campaignId },
+      data: { status },
+    });
+    return response;
+  } catch (error) {
+    return error.response;
+  }
+}

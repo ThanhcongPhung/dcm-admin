@@ -105,6 +105,13 @@ export default function CampaignManage() {
     }
   };
 
+  const onHandleChangeStatus = () => {
+    fetchCampaigns({
+      offset: (pagination.page - 1) * pagination.limit,
+      ...campaignSearch,
+    });
+  };
+
   const onHandleCreate = () => {
     history.push(`/campaigns/create?step=0`);
   };
@@ -149,6 +156,7 @@ export default function CampaignManage() {
             onHandleEdit={onHandleEdit}
             pagination={pagination}
             onHandleDelete={onHandleDelete}
+            onHandleChangeStatus={onHandleChangeStatus}
             services={services}
           />
         </div>

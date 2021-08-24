@@ -55,7 +55,7 @@ export default function CreateCampaign() {
   }, []);
 
   useEffect(() => {
-    fetchCampaign();
+    if (campaignId) fetchCampaign();
   }, [campaignId]);
 
   useEffect(() => {

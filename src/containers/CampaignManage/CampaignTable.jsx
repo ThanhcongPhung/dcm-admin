@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import clsx from 'clsx';
 import Moment from 'moment';
 import { useTranslation } from 'react-i18next';
 import { useSnackbar } from 'notistack';
@@ -10,15 +11,14 @@ import {
   TableRow,
   IconButton,
   CircularProgress,
-  Menu,
-  MenuItem,
   Icon,
   Tooltip,
   Typography,
 } from '@material-ui/core';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
 import api from '../../apis';
 import ConfirmDialog from '../../components/Dialog/ConfirmDialog';
+import ShowStatus from './ShowStatus';
+import { CAMPAIGN_STATUS } from '../../constants';
 import { TableStyled } from './index.style';
 
 const tableTitle = [
@@ -42,27 +42,31 @@ export default function CampaignTable(props) {
     onHandleEdit,
     pagination,
     onHandleDelete,
+    onHandleChangeStatus,
   } = props;
   const [selectCampaignId, setSelectCampaignId] = useState();
   const [isDelete, setIsDelete] = useState(false);
-  const [anchorEl, setAnchorEl] = useState();
+  const [incomingStatus, setIncomingStatus] = useState();
 
   const { t } = useTranslation();
   const { enqueueSnackbar } = useSnackbar();
 
-  const handleOpenMenu = (e, campaignId) => {
-    setAnchorEl(e.currentTarget);
+  const handleCloseConfirm = () => {
+    setIsDelete(false);
+    setIncomingStatus();
+    setSelectCampaignId();
+  };
+
+  const handleClickStatus = (campaignId, status) => (e) => {
+    e.stopPropagation();
+    setIncomingStatus(status);
     setSelectCampaignId(campaignId);
   };
 
-  const handleCloseMenu = () => {
-    setAnchorEl();
-    setSelectCampaignId();
-  };
-
-  const handleCloseConfirm = () => {
-    setIsDelete(false);
-    setSelectCampaignId();
+  const handleClickDelete = (campaignId) => (e) => {
+    e.stopPropagation();
+    setIsDelete(true);
+    setSelectCampaignId(campaignId);
   };
 
   const handleDeleteCampaign = async () => {
@@ -74,6 +78,22 @@ export default function CampaignTable(props) {
       enqueueSnackbar(t('deleteCampaignSuccess'), { variant: 'success' });
     } else {
       enqueueSnackbar(t('deleteCampaignError'), { variant: 'error' });
+    }
+    handleCloseConfirm();
+  };
+
+  const handleChangeStatus = async () => {
+    setIsLoading(true);
+    const { data } = await api.campaign.updateStatusCampaign(
+      selectCampaignId,
+      incomingStatus,
+    );
+    setIsLoading(false);
+    if (data.status) {
+      onHandleChangeStatus();
+      enqueueSnackbar(t('changeStatusSuccess'), { variant: 'success' });
+    } else {
+      enqueueSnackbar(t('changeStatusError'), { variant: 'error' });
     }
     handleCloseConfirm();
   };
@@ -106,7 +126,10 @@ export default function CampaignTable(props) {
           {campaignList &&
             campaignList.map((item, index) => (
               <React.Fragment key={item.name}>
-                <TableRow className="bodyRow">
+                <TableRow
+                  className="bodyRow"
+                  onClick={() => onHandleEdit(item.id)}
+                >
                   <TableCell align="center" className="bodyCell">
                     {(pagination.page - 1) * pagination.limit + index + 1}
                   </TableCell>
@@ -137,44 +160,32 @@ export default function CampaignTable(props) {
                   <TableCell align="center" className="bodyCell">
                     {(item.participant && item.participant.length) || 0}
                   </TableCell>
-                  <TableCell align="center" className="bodyCell">
+                  <TableCell
+                    align="center"
+                    className={clsx('bodyCell status', {
+                      end: item.status === CAMPAIGN_STATUS.END,
+                    })}
+                  >
                     {t(item.status)}
                   </TableCell>
-
-                  <TableCell align="center" className="bodyCell">
-                    <IconButton
-                      aria-label="more"
-                      aria-controls="long-menu"
-                      aria-haspopup="true"
-                      onClick={(e) => handleOpenMenu(e, item.id)}
-                    >
-                      <MoreVertIcon />
-                    </IconButton>
+                  <TableCell align="center" className="bodyCell action">
+                    <ShowStatus
+                      status={item.status}
+                      campaignId={item.id}
+                      onChangeStatus={handleClickStatus}
+                    />
+                    <Tooltip title={t('clickToPause')}>
+                      <IconButton
+                        onClick={handleClickDelete(item.id)}
+                        className="iconButton"
+                      >
+                        <Icon aria-label="delete" color="error">
+                          delete
+                        </Icon>
+                      </IconButton>
+                    </Tooltip>
                   </TableCell>
                 </TableRow>
-                <Menu
-                  id="long-menu"
-                  anchorEl={anchorEl}
-                  open={!!selectCampaignId}
-                  onClose={handleCloseMenu}
-                >
-                  <MenuItem
-                    className="dropdownItem"
-                    onClick={() => onHandleEdit(selectCampaignId)}
-                  >
-                    <Icon aria-label="edit">edit</Icon>
-                    {t('edit')}
-                  </MenuItem>
-                  <MenuItem
-                    className="dropdownItem"
-                    onClick={() => setIsDelete(true)}
-                  >
-                    <Icon aria-label="delete" color="error">
-                      delete
-                    </Icon>
-                    {t('delete')}
-                  </MenuItem>
-                </Menu>
               </React.Fragment>
             ))}
           {isLoading && (
@@ -187,11 +198,15 @@ export default function CampaignTable(props) {
         </TableBody>
       </Table>
       <ConfirmDialog
-        open={isDelete}
+        open={!!incomingStatus || isDelete}
         title={t('confirm')}
-        content={t('confirmDeleteService')}
+        content={
+          isDelete
+            ? t('confirmDeleteService')
+            : `${t('confirmChangeStatus')}: ${t(incomingStatus)}`
+        }
         handleClose={handleCloseConfirm}
-        handleConfirm={handleDeleteCampaign}
+        handleConfirm={isDelete ? handleDeleteCampaign : handleChangeStatus}
       />
     </TableStyled>
   );

@@ -54,8 +54,26 @@ const TableStyled = styled.div`
       align-items: center;
     }
   }
+  .bodyRow {
+    cursor: pointer;
+    &:hover {
+      background-color: ${FEATURE_COLOR.backgroundMenu};
+    }
+  }
   .bodyCell {
+    cursor: pointer;
     padding: 8px;
+    &.action {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+    }
+    &.status {
+      font-weight: bold;
+    }
+    &.end {
+      color: ${FEATURE_COLOR.froly};
+    }
   }
   .dropdownItem {
     display: flex;
@@ -85,4 +103,24 @@ const CampaignSearchStyled = styled.div`
   }
 `;
 
-export { ServiceManageStyled, TableStyled, CampaignSearchStyled };
+const ShowStatusStyled = styled.div`
+  .button-status {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+  .iconButton {
+    width: 40px;
+    height: 40px;
+    .start {
+      color: ${FEATURE_COLOR.oceanGreen};
+    }
+  }
+`;
+
+export {
+  ServiceManageStyled,
+  TableStyled,
+  CampaignSearchStyled,
+  ShowStatusStyled,
+};
