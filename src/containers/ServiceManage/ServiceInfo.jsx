@@ -40,10 +40,11 @@ export default function CreateServer(props) {
 
   const handleChangeService = (e) => {
     e.persist();
-    setService((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
+    setService((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const handleChangeCampaignType = (event, values) => {
+    setService((prev) => ({ ...prev, campaignTypes: values }));
   };
 
   const handleAddNewInputs = (chip) => {
@@ -70,18 +71,13 @@ export default function CreateServer(props) {
     }));
   };
 
-  const checkValidate = ({ name, campaignTypes, inputs, actions, url }) => {
-    if (
-      name &&
-      campaignTypes &&
-      campaignTypes.length &&
-      inputs.length &&
-      actions.length &&
-      url
-    )
-      return true;
-    return false;
-  };
+  const checkValidate = ({ name, campaignTypes, inputs, actions, url }) =>
+    name &&
+    campaignTypes &&
+    campaignTypes.length &&
+    inputs.length &&
+    actions.length &&
+    url;
 
   const handleConfirmAdd = async () => {
     setIsFirst(false);
@@ -116,9 +112,7 @@ export default function CreateServer(props) {
   };
 
   useEffect(() => {
-    if (serviceEdit) {
-      setService(serviceEdit);
-    }
+    if (serviceEdit) setService(serviceEdit);
   }, []);
 
   return (
@@ -242,12 +236,7 @@ export default function CreateServer(props) {
                   />
                 )}
                 value={service.campaignTypes}
-                onChange={(event, values) => {
-                  setService((prev) => ({
-                    ...prev,
-                    campaignTypes: values,
-                  }));
-                }}
+                onChange={handleChangeCampaignType}
               />
             </Grid>
           </Grid>

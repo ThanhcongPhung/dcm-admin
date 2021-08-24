@@ -57,11 +57,15 @@ const TableStyled = styled.div`
   }
   .bodyCell {
     padding: 8px;
+    &.campaignType {
+      max-width: 150px;
+    }
     .chipInput {
-      margin: 2px 2px 0 0;
+      margin: 4px;
+      background-color: ${FEATURE_COLOR.tertiary};
     }
     .MuiChip-label {
-      padding: 5px;
+      padding: 8px 16px;
     }
   }
   .dropdownItem {
