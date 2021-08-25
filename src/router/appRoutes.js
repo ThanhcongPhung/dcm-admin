@@ -2,6 +2,7 @@ import routes from '../constants/route';
 import Home from '../pages/Home';
 import ServiceManage from '../pages/ServiceManage';
 import CampaignManage from '../pages/CampaignManage';
+import CreateCampaign from '../pages/CreateCampaign';
 
 const appRoutes = {
   home: {
@@ -17,6 +18,11 @@ const appRoutes = {
   campaignManage: {
     url: routes.CAMPAIGN_MANAGE,
     component: CampaignManage,
+    private: true,
+  },
+  createCampaign: {
+    url: routes.CREATE_CAMPAIGN,
+    component: CreateCampaign,
     private: true,
   },
 };
