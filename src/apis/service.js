@@ -13,6 +13,18 @@ export async function getServices({ search, fields, offset, limit, sort }) {
   }
 }
 
+export async function getService(serviceId) {
+  try {
+    const response = await api({
+      method: 'GET',
+      url: `/services/${serviceId}`,
+    });
+    return response;
+  } catch (error) {
+    return error.response;
+  }
+}
+
 export async function createService({
   name,
   campaignTypes,
