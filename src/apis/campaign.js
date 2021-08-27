@@ -112,11 +112,39 @@ export async function updateCampaign({
   }
 }
 
+export async function updateServiceCampaign(campaignId, detailCampaign) {
+  try {
+    const response = await api({
+      method: 'PUT',
+      url: `/campaigns/service`,
+      data: detailCampaign,
+      headers: { 'campaign-id': campaignId },
+    });
+    return response;
+  } catch (error) {
+    return error.response;
+  }
+}
+
 export async function getCampaign(campaignId) {
   try {
     const response = await api({
       method: 'GET',
       url: `/campaigns/${campaignId}`,
+    });
+    return response;
+  } catch (error) {
+    return error.response;
+  }
+}
+
+export async function getIntents({ campaignId, search }) {
+  try {
+    const response = await api({
+      method: 'GET',
+      url: `/campaigns/intents`,
+      headers: { 'campaign-id': campaignId },
+      params: { search },
     });
     return response;
   } catch (error) {

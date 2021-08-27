@@ -116,5 +116,8 @@
   "image": "Image",
   "visibility": "Visibility",
   "noDataAppID": "No Data",
-  "needIntegrateBot": "Need bot integration before continuing"
+  "needIntegrateBot": "Need bot integration before continuing",
+  "chooseIntent": "Choose intent",
+  "editUsecase": "Edit Usecase",
+  "errorSave": "Save Info Campaign error"
 }

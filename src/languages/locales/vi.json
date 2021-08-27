@@ -116,6 +116,9 @@
   "image": "Hình ảnh",
   "visibility": "Phạm vi",
   "noDataAppID": "Chưa có dữ liệu",
-  "needIntegrateBot": "Cần tích hợp bot trước khi tiếp tục"
+  "needIntegrateBot": "Cần tích hợp bot trước khi tiếp tục",
+  "chooseIntent": "Chọn ý định",
+  "editUsecase": "Chỉnh sửa kịch bản",
+  "errorSave": "Lưu thông tin chiến dịch không thành công"
 }
 
