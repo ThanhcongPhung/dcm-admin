@@ -43,15 +43,30 @@ export default function CampaignTable(props) {
     pagination,
     onHandleDelete,
   } = props;
-  const [selectCampaignId, setSelectCampaignId] = useState('');
+  const [selectCampaignId, setSelectCampaignId] = useState();
+  const [isDelete, setIsDelete] = useState(false);
   const [anchorEl, setAnchorEl] = useState();
 
   const { t } = useTranslation();
   const { enqueueSnackbar } = useSnackbar();
 
+  const handleOpenMenu = (e, campaignId) => {
+    setAnchorEl(e.currentTarget);
+    setSelectCampaignId(campaignId);
+  };
+
+  const handleCloseMenu = () => {
+    setAnchorEl();
+    setSelectCampaignId();
+  };
+
+  const handleCloseConfirm = () => {
+    setIsDelete(false);
+    setSelectCampaignId();
+  };
+
   const handleDeleteCampaign = async () => {
     setIsLoading(true);
-    setAnchorEl(null);
     const { data } = await api.campaign.deleteCampaign(selectCampaignId);
     setIsLoading(false);
     if (data.status) {
@@ -60,7 +75,7 @@ export default function CampaignTable(props) {
     } else {
       enqueueSnackbar(t('deleteCampaignError'), { variant: 'error' });
     }
-    setSelectCampaignId();
+    handleCloseConfirm();
   };
 
   const getServiceName = (id) => {
@@ -131,7 +146,7 @@ export default function CampaignTable(props) {
                       aria-label="more"
                       aria-controls="long-menu"
                       aria-haspopup="true"
-                      onClick={(e) => setAnchorEl(e.currentTarget)}
+                      onClick={(e) => handleOpenMenu(e, item.id)}
                     >
                       <MoreVertIcon />
                     </IconButton>
@@ -140,20 +155,19 @@ export default function CampaignTable(props) {
                 <Menu
                   id="long-menu"
                   anchorEl={anchorEl}
-                  keepMounted
-                  open={Boolean(anchorEl)}
-                  onClose={() => setAnchorEl(null)}
+                  open={!!selectCampaignId}
+                  onClose={handleCloseMenu}
                 >
                   <MenuItem
                     className="dropdownItem"
-                    onClick={() => onHandleEdit(item.id)}
+                    onClick={() => onHandleEdit(selectCampaignId)}
                   >
                     <Icon aria-label="edit">edit</Icon>
                     {t('edit')}
                   </MenuItem>
                   <MenuItem
                     className="dropdownItem"
-                    onClick={() => setSelectCampaignId(item.id)}
+                    onClick={() => setIsDelete(true)}
                   >
                     <Icon aria-label="delete" color="error">
                       delete
@@ -173,13 +187,10 @@ export default function CampaignTable(props) {
         </TableBody>
       </Table>
       <ConfirmDialog
-        open={!!selectCampaignId}
+        open={isDelete}
         title={t('confirm')}
         content={t('confirmDeleteService')}
-        handleClose={() => {
-          setSelectCampaignId('');
-          setAnchorEl(null);
-        }}
+        handleClose={handleCloseConfirm}
         handleConfirm={handleDeleteCampaign}
       />
     </TableStyled>
