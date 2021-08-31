@@ -119,6 +119,12 @@
   "needIntegrateBot": "Cần tích hợp bot trước khi tiếp tục",
   "chooseIntent": "Chọn ý định",
   "editUsecase": "Chỉnh sửa kịch bản",
-  "errorSave": "Lưu thông tin chiến dịch không thành công"
+  "errorSave": "Lưu thông tin chiến dịch không thành công",
+  "usecaseNoItem": "Bạn chưa taọ kịch bản nào",
+  "prevStepConfirm": "Xác nhận trở lại bước 1",
+  "warningPrevStep": "Nếu quay lại những thông tin chưa lưu có thể sẽ bị mất, xác nhận với các lựa chọn sau",
+  "backAndNotSave": "Không lưu và Trở lại  ",
+  "backAndSave": "Lưu và Trở lại",
+  "back": "Trở lại"
 }
 

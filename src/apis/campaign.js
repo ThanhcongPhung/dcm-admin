@@ -138,13 +138,12 @@ export async function getCampaign(campaignId) {
   }
 }
 
-export async function getIntents({ campaignId, search }) {
+export async function getIntents(campaignId) {
   try {
     const response = await api({
       method: 'GET',
       url: `/campaigns/intents`,
       headers: { 'campaign-id': campaignId },
-      params: { search },
     });
     return response;
   } catch (error) {

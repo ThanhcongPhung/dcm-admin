@@ -138,14 +138,14 @@ export default function DetailIntent({
                     </TableCell>
                     <TableCell align="right" className="tableCell">
                       <DeleteIcon
-                        className="icon iconDelete"
+                        className="icon"
+                        color="error"
                         onClick={() => handleDeleteIntent(row)}
                       />
                     </TableCell>
                   </TableRow>
                 );
               })}
-
           {currentIntents.length > MAX_ITEMS_SMALL && (
             <TablePagination
               rowsPerPageOptions={[]}

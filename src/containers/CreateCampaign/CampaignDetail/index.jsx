@@ -6,6 +6,7 @@ import { CardActions, Button } from '@material-ui/core';
 import { CAMPAIGN_TYPE } from '../../../constants';
 import api from '../../../apis';
 import DetailCondition from './DetailCondition';
+import BackConfirm from './BackConfirm';
 
 function DetailCampaign({
   campaignId,
@@ -17,6 +18,7 @@ function DetailCampaign({
   onCancel,
 }) {
   const [campaignIntents, setCampaignIntents] = useState([]);
+  const [isPrev, setIsPrev] = useState(false);
   const { t } = useTranslation();
   const { enqueueSnackbar } = useSnackbar();
 
@@ -53,15 +55,23 @@ function DetailCampaign({
   };
 
   const handleNextStep = () => saveDetailCampaign({ nextStep: true });
-  const handlePrevStep = () => saveDetailCampaign({ prevStep: true });
 
-  const fetchIntents = async (id) => {
-    const { data } = await api.campaign.getIntents({ campaignId: id });
+  const handlePrevStepAndNotSave = () => {
+    setIsPrev(false);
+    onPrevStep(campaignId);
+  };
+  const handlePrevStepAndSave = () => {
+    setIsPrev(false);
+    saveDetailCampaign({ prevStep: true });
+  };
+
+  const fetchIntents = async () => {
+    const { data } = await api.campaign.getIntents(campaignId);
     if (data.status) setCampaignIntents(data.result.intents);
   };
 
   useEffect(() => {
-    if (campaignId) fetchIntents(campaignId);
+    if (campaignId) fetchIntents();
   }, [campaignId]);
 
   return (
@@ -76,13 +86,23 @@ function DetailCampaign({
         <Button variant="outlined" onClick={onCancel}>
           {t('cancel')}
         </Button>
-        <Button variant="contained" color="primary" onClick={handlePrevStep}>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => setIsPrev(true)}
+        >
           {t('back')}
         </Button>
         <Button variant="contained" color="primary" onClick={handleNextStep}>
           {t('next')}
         </Button>
       </CardActions>
+      <BackConfirm
+        open={isPrev}
+        handleClose={() => setIsPrev(false)}
+        handlePrevStepAndNotSave={handlePrevStepAndNotSave}
+        handlePrevStepAndSave={handlePrevStepAndSave}
+      />
     </>
   );
 }

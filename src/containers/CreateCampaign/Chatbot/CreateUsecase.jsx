@@ -25,7 +25,6 @@ export default function CreateUsecase({
   setUsecase,
   intents,
   setIntents,
-  showSelect,
   isFirst,
   isLoadIntent,
   handleCancel,
@@ -41,13 +40,11 @@ export default function CreateUsecase({
 
   const ButtonAction = () => (
     <>
-      {showSelect && (
-        <Tooltip title={t('cancel')}>
-          <IconButton className="iconButton" onClick={handleCancel}>
-            <BackspaceIcon color="secondary" />
-          </IconButton>
-        </Tooltip>
-      )}
+      <Tooltip title={t('cancel')}>
+        <IconButton className="iconButton" onClick={handleCancel} size="small">
+          <BackspaceIcon color="secondary" />
+        </IconButton>
+      </Tooltip>
       <Tooltip title={t('save')}>
         <IconButton className="iconButton buttonSuccess" onClick={handleSave}>
           <CheckCircleIcon className="success" />
@@ -77,10 +74,14 @@ export default function CreateUsecase({
           }
           title={!usecase.id ? t('addUsecase') : t('editUsecase')}
           action={<ButtonAction />}
+          classes={{
+            title: 'titleHeader',
+          }}
+          className="cardHeader"
         />
-        <CardContent className="content">
+        <CardContent className="cardContent">
           <Grid container spacing={2} className="infoWrapper">
-            <Grid item xs={12} sm={2} className="label">
+            <Grid item xs={2} sm={2} className="label">
               <Typography
                 className={clsx('inputTitle', {
                   inputError: !usecase.name && !isFirst,
@@ -89,7 +90,7 @@ export default function CreateUsecase({
                 {t('usecaseName')}
               </Typography>
             </Grid>
-            <Grid item xs={12} sm={10}>
+            <Grid item xs={10} sm={10}>
               <TextField
                 placeholder={t('usecaseNamePlaceholder')}
                 className="textInput"
@@ -103,7 +104,7 @@ export default function CreateUsecase({
             </Grid>
           </Grid>
           <Grid container spacing={2} className="infoWrapper">
-            <Grid item xs={12} sm={2} className="label">
+            <Grid item xs={2} sm={2} className="label">
               <Typography
                 className={clsx('inputTitle', {
                   inputError: !usecase.description && !isFirst,
@@ -112,13 +113,13 @@ export default function CreateUsecase({
                 {t('usecaseDescription')}
               </Typography>
             </Grid>
-            <Grid item xs={12} sm={10}>
+            <Grid item xs={10} sm={10}>
               <TextField
                 className="textInput"
                 placeholder={t('usecaseDescriptionPlaceholder')}
                 value={usecase.description}
                 multiline
-                rows={4}
+                rows={3}
                 name="description"
                 onChange={handleChangeUsecase}
                 variant="outlined"
