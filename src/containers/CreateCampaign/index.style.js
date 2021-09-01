@@ -5,7 +5,7 @@ const CreateCampaignStyled = styled.div`
   .cardActions {
     padding-left: 0;
     padding-right: 0;
-    padding-top: 32px;
+    padding-top: 20px;
     justify-content: flex-end;
   }
 `;

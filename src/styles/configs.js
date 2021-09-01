@@ -21,6 +21,7 @@ const FEATURE_COLOR = {
 
   textError: COLOR.red[600],
   backgroundMenu: '#eee',
+  border: 'rgba(0, 0, 0, 0.12)',
 };
 
 const AVATAR_COLORS = [

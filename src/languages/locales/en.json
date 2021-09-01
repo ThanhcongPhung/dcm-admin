@@ -116,5 +116,14 @@
   "image": "Image",
   "visibility": "Visibility",
   "noDataAppID": "No Data",
-  "needIntegrateBot": "Need bot integration before continuing"
+  "needIntegrateBot": "Need bot integration before continuing",
+  "chooseIntent": "Choose intent",
+  "editUsecase": "Edit Usecase",
+  "errorSave": "Save Info Campaign error",
+  "usecaseNoItem": "You haven't created any scripts yet",
+  "prevStepConfirm": "Confirm Prev Step 1",
+  "warningPrevStep": "If returning unsaved information may be lost, confirm with the following options",
+  "backAndNotSave": "Back and Not Save",
+  "backAndSave": "Back and Save",
+  "back": "Back"
 }
