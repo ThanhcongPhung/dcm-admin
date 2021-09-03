@@ -145,8 +145,8 @@ export default function BaseContents({
       const { result } = response.data;
       setBaseCampaign(campaignInit);
       if (nextStep) {
-        onNextStep(result.id);
         onSetCampaignId(result.id);
+        onNextStep(result.id);
       } else {
         history.push(routes.CAMPAIGN_MANAGE);
       }
