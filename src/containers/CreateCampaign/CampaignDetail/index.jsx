@@ -13,7 +13,6 @@ function DetailCampaign({
   campaignType,
   detailCampaign,
   onSetDetailCampaign,
-  onNextStep,
   onPrevStep,
   onCancel,
 }) {
@@ -31,7 +30,7 @@ function DetailCampaign({
     (!detailCampaign.intents ||
       (detailCampaign.intents && !detailCampaign.intents.length));
 
-  const saveDetailCampaign = async ({ prevStep, nextStep }) => {
+  const saveDetailCampaign = async ({ prevStep, save }) => {
     if (checkInValidChatbotIntent())
       return enqueueSnackbar(t('errorAtLeastOneMoreIntent'), {
         variant: 'error',
@@ -47,14 +46,17 @@ function DetailCampaign({
     );
     if (data.status) {
       onSetDetailCampaign();
-      if (nextStep) onNextStep(campaignId);
+      if (save) {
+        onCancel();
+        enqueueSnackbar(t('saveCampaignSuccess'), { variant: 'success' });
+      }
       if (prevStep) onPrevStep(campaignId);
       return '';
     }
-    return enqueueSnackbar(t('errorSave'), { variant: 'error' });
+    return enqueueSnackbar(t('saveCampaignError'), { variant: 'error' });
   };
 
-  const handleNextStep = () => saveDetailCampaign({ nextStep: true });
+  const handleSave = () => saveDetailCampaign({ save: true });
 
   const handlePrevStepAndNotSave = () => {
     setIsPrev(false);
@@ -93,8 +95,8 @@ function DetailCampaign({
         >
           {t('back')}
         </Button>
-        <Button variant="contained" color="primary" onClick={handleNextStep}>
-          {t('next')}
+        <Button variant="contained" color="primary" onClick={handleSave}>
+          {t('save')}
         </Button>
       </CardActions>
       <BackConfirm

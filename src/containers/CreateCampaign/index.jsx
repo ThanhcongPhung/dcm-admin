@@ -10,22 +10,14 @@ import BaseContents from './BaseContents';
 import CampaignDetail from './CampaignDetail';
 import { CreateCampaignStyled } from './index.style';
 
-const steps = [
-  { title: 'createCampaign' },
-  { title: 'detailCampaign' },
-  { title: 'confirmCampaign' },
-];
+const stepTitles = ['createCampaign', 'detailCampaign', 'confirmCampaign'];
 
 export default function CreateCampaign() {
   const history = useHistory();
   const location = useLocation();
-  const [current, setCurrent] = useState(
-    Number(getUrlParams(location.search).step),
-  );
+  const [step, setStep] = useState(0);
   const [services, setServices] = useState([]);
-  const [campaignId, setCampaignId] = useState(
-    getUrlParams(location.search).campaignId || null,
-  );
+  const [campaignId, setCampaignId] = useState();
   const [campaignType, setCampaignType] = useState();
   const [detailCampaign, setDetailCampaign] = useState({});
 
@@ -36,12 +28,12 @@ export default function CreateCampaign() {
     setDetailCampaign((prev) => ({ ...prev, [name]: value }));
 
   const onNextStep = (id) => {
-    setCurrent(current + 1);
-    history.push(`/campaigns/create?campaignId=${id}&step=${current + 1}`);
+    setStep(step + 1);
+    history.push(`/campaigns/create?campaignId=${id}&step=${step + 1}`);
   };
   const onPrevStep = (id) => {
-    setCurrent(current - 1);
-    history.push(`/campaigns/create?campaignId=${id}&step=${current - 1}`);
+    setStep(step - 1);
+    history.push(`/campaigns/create?campaignId=${id}&step=${step - 1}`);
   };
   const onCancel = () => history.push(routes.CAMPAIGN_MANAGE);
 
@@ -63,31 +55,36 @@ export default function CreateCampaign() {
   }, []);
 
   useEffect(() => {
-    if (campaignId) {
-      fetchCampaign();
-      if (current !== Number(getUrlParams(location.search).step))
-        setCurrent(Number(getUrlParams(location.search).step));
+    fetchCampaign();
+  }, [campaignId]);
+
+  useEffect(() => {
+    const { campaignId: paramCampaignId, step: paramStep } = getUrlParams(
+      location.search,
+    );
+    setCampaignId(paramCampaignId);
+    setStep(Number(paramStep));
+
+    if (paramCampaignId) {
       history.push(
-        `/campaigns/create?campaignId=${campaignId}&step=${Number(
-          getUrlParams(location.search).step,
-        )}`,
+        `/campaigns/create?campaignId=${paramCampaignId}&step=${paramStep}`,
       );
     } else {
       history.push(`/campaigns/create?step=0`);
     }
-  }, [campaignId, Number(getUrlParams(location.search).step)]);
+  }, [location.search]);
 
   return (
     <CreateCampaignStyled>
       <Card flexDirection="column" padding="32px">
-        <Stepper activeStep={current}>
-          {steps.map((step) => (
-            <Step key={step.title}>
-              <StepLabel>{t(step.title)}</StepLabel>
+        <Stepper activeStep={step}>
+          {stepTitles.map((title) => (
+            <Step key={title}>
+              <StepLabel>{t(title)}</StepLabel>
             </Step>
           ))}
         </Stepper>
-        {current === 0 && (
+        {step === 0 && (
           <BaseContents
             campaignId={campaignId}
             services={services}
@@ -96,13 +93,12 @@ export default function CreateCampaign() {
             onCancel={onCancel}
           />
         )}
-        {current === 1 && (
+        {step === 1 && (
           <CampaignDetail
             campaignId={campaignId}
             campaignType={campaignType}
             detailCampaign={detailCampaign}
             onSetDetailCampaign={onSetDetailCampaign}
-            onNextStep={onNextStep}
             onPrevStep={onPrevStep}
             onCancel={onCancel}
           />
