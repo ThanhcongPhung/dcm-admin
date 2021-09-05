@@ -15,7 +15,12 @@ export default function CampaignSearch({
 
   return (
     <CampaignSearchStyled>
-      <SearchInput onHandleSearch={onHandleSearchName} title="searchCampaign" />
+      <div className="search-information">
+        <SearchInput
+          onHandleSearch={onHandleSearchName}
+          title="searchCampaign"
+        />
+      </div>
       <FormControl variant="outlined" className="search-information">
         <InputLabel>{t('collectDataService')}</InputLabel>
         <Select

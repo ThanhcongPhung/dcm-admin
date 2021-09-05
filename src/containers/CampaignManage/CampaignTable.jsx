@@ -26,8 +26,6 @@ const tableTitle = [
   'name',
   'time',
   'collectDataService',
-  'campaignAction',
-  'campaignVisibility',
   'amountParticipant',
   'status',
   'action',
@@ -113,11 +111,11 @@ export default function CampaignTable(props) {
               tableTitle.map((item) => (
                 <TableCell
                   key={item}
-                  align="left"
+                  align="center"
                   variant="head"
                   className="headerCell"
                 >
-                  <div className="cellContent">{t(item)}</div>
+                  {t(item)}
                 </TableCell>
               ))}
           </TableRow>
@@ -133,29 +131,23 @@ export default function CampaignTable(props) {
                   <TableCell align="center" className="bodyCell">
                     {(pagination.page - 1) * pagination.limit + index + 1}
                   </TableCell>
-                  <TableCell align="left" className="bodyCell">
+                  <TableCell align="left" className="bodyCell nameBodyCell">
                     {item.name}
                   </TableCell>
-                  <TableCell align="left" className="bodyCell">
+                  <TableCell align="center" className="bodyCell time">
                     <Tooltip
                       title={`${Moment(item.startTime).format(
                         'HH:mm DD/MM/YYYY',
                       )} - ${Moment(item.endTime).format('HH:mm DD/MM/YYYY')}`}
                     >
-                      <Typography>
-                        {Moment(item.startTime).format('DD/MM')} -{' '}
+                      <Typography variant="body2">
+                        {Moment(item.startTime).format('DD/MM')}-
                         {Moment(item.startTime).format('DD/MM')}
                       </Typography>
                     </Tooltip>
                   </TableCell>
                   <TableCell align="center" className="bodyCell">
-                    {getServiceName(item.service)}
-                  </TableCell>
-                  <TableCell align="center" className="bodyCell">
-                    {t(item.action)}
-                  </TableCell>
-                  <TableCell align="center" className="bodyCell">
-                    {t(item.campaignVisibility)}
+                    {getServiceName(item.serviceId)}
                   </TableCell>
                   <TableCell align="center" className="bodyCell">
                     {(item.participant && item.participant.length) || 0}
@@ -168,22 +160,24 @@ export default function CampaignTable(props) {
                   >
                     {t(item.status)}
                   </TableCell>
-                  <TableCell align="center" className="bodyCell action">
-                    <ShowStatus
-                      status={item.status}
-                      campaignId={item.id}
-                      onChangeStatus={handleClickStatus}
-                    />
-                    <Tooltip title={t('clickToPause')}>
-                      <IconButton
-                        onClick={handleClickDelete(item.id)}
-                        className="iconButton"
-                      >
-                        <Icon aria-label="delete" color="error">
-                          delete
-                        </Icon>
-                      </IconButton>
-                    </Tooltip>
+                  <TableCell align="center" className="bodyCell actionBodyCell">
+                    <div className="action">
+                      <ShowStatus
+                        status={item.status}
+                        campaignId={item.id}
+                        onChangeStatus={handleClickStatus}
+                      />
+                      <Tooltip title={t('delete')}>
+                        <IconButton
+                          onClick={handleClickDelete(item.id)}
+                          classes={{ root: 'iconButton' }}
+                        >
+                          <Icon aria-label="delete" color="error">
+                            delete
+                          </Icon>
+                        </IconButton>
+                      </Tooltip>
+                    </div>
                   </TableCell>
                 </TableRow>
               </React.Fragment>

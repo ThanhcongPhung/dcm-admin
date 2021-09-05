@@ -46,13 +46,7 @@ const TableStyled = styled.div`
     background: ${FEATURE_COLOR.havelockBlue};
     border: 1px solid ${FEATURE_COLOR.white};
     color: ${FEATURE_COLOR.white};
-    padding: 8px;
-    .cellContent {
-      display: flex;
-      justify-content: space-between;
-      padding: 0px 10px;
-      align-items: center;
-    }
+    padding: 13px 8px;
   }
   .bodyRow {
     cursor: pointer;
@@ -63,16 +57,30 @@ const TableStyled = styled.div`
   .bodyCell {
     cursor: pointer;
     padding: 8px;
-    &.action {
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
+    &.nameBodyCell {
+      min-width: 140px;
+    }
+    &.actionBodyCell {
+      max-width: 140px;
+      .action {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
     }
     &.status {
       font-weight: bold;
     }
     &.end {
       color: ${FEATURE_COLOR.froly};
+    }
+    &.time {
+      min-width: 85px;
+    }
+    .iconButton {
+      width: 35px;
+      height: 35px;
+      padding: 0;
     }
   }
   .dropdownItem {
@@ -98,22 +106,23 @@ const CampaignSearchStyled = styled.div`
   display: flex;
   margin: 8px 0;
   .search-information {
-    min-width: calc(100% / 4 - 10px);
+    width: calc(100% / 4 - 10px);
     margin-right: 10px;
   }
 `;
 
 const ShowStatusStyled = styled.div`
-  .button-status {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-  }
+  display: flex;
+  align-items: center;
   .iconButton {
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
+    padding: 0px;
     .start {
       color: ${FEATURE_COLOR.oceanGreen};
+    }
+    &.disable {
+      opacity: 0;
     }
   }
 `;

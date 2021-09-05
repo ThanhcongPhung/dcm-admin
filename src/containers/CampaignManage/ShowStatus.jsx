@@ -2,7 +2,6 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Tooltip, IconButton, Icon } from '@material-ui/core';
 import PauseIcon from '@material-ui/icons/Pause';
-import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import PlayCircleFilledWhiteIcon from '@material-ui/icons/PlayCircleFilledWhite';
 import { CAMPAIGN_STATUS } from '../../constants';
 import { ShowStatusStyled } from './index.style';
@@ -10,67 +9,51 @@ import { ShowStatusStyled } from './index.style';
 export default function ShowStatus({ campaignId, status, onChangeStatus }) {
   const { t } = useTranslation();
 
-  const changeStatus = (currentStatus) => {
-    switch (currentStatus) {
-      case CAMPAIGN_STATUS.WAITING:
-        return (
-          <div className="button-status">
-            <Tooltip title={t('clickToStart')}>
-              <IconButton
-                onClick={onChangeStatus(campaignId, CAMPAIGN_STATUS.RUNNING)}
-                className="iconButton"
-              >
-                <PlayCircleFilledWhiteIcon className="start" />
-              </IconButton>
-            </Tooltip>
-          </div>
-        );
-      case CAMPAIGN_STATUS.RUNNING:
-        return (
-          <div className="button-status">
-            <Tooltip title={t('clickToPause')}>
-              <IconButton
-                onClick={onChangeStatus(campaignId, CAMPAIGN_STATUS.PAUSE)}
-                className="iconButton"
-              >
-                <PauseIcon color="primary" />
-              </IconButton>
-            </Tooltip>
-            <Tooltip title={t('clickToEnd')}>
-              <IconButton
-                onClick={onChangeStatus(campaignId, CAMPAIGN_STATUS.END)}
-                className="iconButton"
-              >
-                <Icon color="primary">stop_circle</Icon>
-              </IconButton>
-            </Tooltip>
-          </div>
-        );
-      case CAMPAIGN_STATUS.PAUSE:
-        return (
-          <div className="button-status">
-            <Tooltip title={t('clickToContinue')}>
-              <IconButton
-                onClick={onChangeStatus(campaignId, CAMPAIGN_STATUS.RUNNING)}
-                className="iconButton"
-              >
-                <PlayArrowIcon color="primary" />
-              </IconButton>
-            </Tooltip>
-            <Tooltip title={t('clickToEnd')}>
-              <IconButton
-                onClick={onChangeStatus(campaignId, CAMPAIGN_STATUS.END)}
-                className="iconButton"
-              >
-                <Icon color="primary">stop_circle</Icon>
-              </IconButton>
-            </Tooltip>
-          </div>
-        );
-      default:
-        return <div />;
-    }
+  const contentStart = () => {
+    if (status === CAMPAIGN_STATUS.WAITING) return 'clickToStart';
+    if (status === CAMPAIGN_STATUS.PAUSE) return 'clickToContinue';
+    return '';
   };
 
-  return <ShowStatusStyled>{changeStatus(status)}</ShowStatusStyled>;
+  const validStart = [CAMPAIGN_STATUS.WAITING, CAMPAIGN_STATUS.PAUSE].includes(
+    status,
+  );
+  const validEnd = [CAMPAIGN_STATUS.RUNNING, CAMPAIGN_STATUS.PAUSE].includes(
+    status,
+  );
+
+  return (
+    <ShowStatusStyled>
+      <Tooltip title={t(contentStart())}>
+        <IconButton
+          onClick={onChangeStatus(campaignId, CAMPAIGN_STATUS.RUNNING)}
+          classes={{ root: 'iconButton' }}
+          disabled={!validStart}
+        >
+          <PlayCircleFilledWhiteIcon color={validStart ? 'primary' : ''} />
+        </IconButton>
+      </Tooltip>
+      <Tooltip title={t('clickToPause')}>
+        <IconButton
+          onClick={onChangeStatus(campaignId, CAMPAIGN_STATUS.PAUSE)}
+          classes={{ root: 'iconButton' }}
+          disabled={status !== CAMPAIGN_STATUS.RUNNING}
+        >
+          <PauseIcon
+            color={status === CAMPAIGN_STATUS.RUNNING ? 'primary' : ''}
+          />
+        </IconButton>
+      </Tooltip>
+
+      <Tooltip title={t('clickToEnd')}>
+        <IconButton
+          onClick={onChangeStatus(campaignId, CAMPAIGN_STATUS.END)}
+          classes={{ root: 'iconButton' }}
+          disabled={!validEnd}
+        >
+          <Icon color={validEnd ? 'primary' : ''}>stop_circle</Icon>
+        </IconButton>
+      </Tooltip>
+    </ShowStatusStyled>
+  );
 }
