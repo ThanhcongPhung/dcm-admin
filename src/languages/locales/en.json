@@ -31,6 +31,8 @@
   "editServiceSuccess": "Edit service success",
   "addServiceSuccess": "Add service success",
   "deleteServiceSuccess": "Delete service success",
+  "deleteServiceError": "Delete service Error",
+  "serviceIsUsedInCampaign": "The service is being used in a campaign",
   "noteCreateInputs": "Multiple data types can be added, press enter to add",
   "noteCreateAction": "Multiple collection method can be added, press enter to add",
   "campaignManage": "Campaign manage",
@@ -157,5 +159,6 @@
   "REVIEWER": "Reviewer",
   "VIEWER": "Viewer",
   "campaign": "campaign",
-  "noOptions": "No Options"
+  "noOptions": "No Options",
+  "error": "Error"
 }

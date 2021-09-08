@@ -105,8 +105,11 @@ function ServerManage() {
               {t('serviceManage')}
             </Typography>
             <div className="headButtons">
-              <SearchInput onHandleSearch={onHandleSearch} />
-              <div>
+              <SearchInput
+                onHandleSearch={onHandleSearch}
+                title="searchService"
+              />
+              <div className="addService">
                 <IconButton
                   onClick={() => setIsCreate(true)}
                   className="iconButton"

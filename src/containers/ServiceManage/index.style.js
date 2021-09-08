@@ -21,6 +21,9 @@ const ServiceManageStyled = styled.div`
       display: flex;
       justify-content: flex-end;
       justify-content: center;
+      .addService {
+        margin-left: 10px;
+      }
     }
     .iconButton {
       background-color: ${FEATURE_COLOR.havelockBlue};
