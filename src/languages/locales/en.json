@@ -133,5 +133,9 @@
   "clickToContinue": "Click To Continue",
   "confirmChangeStatus": "Are you sure change status this service",
   "changeStatusSuccess": "Change Status Campaign Success",
-  "changeStatusFailure": "Change Status Campaign Failure"
+  "changeStatusError": "Change Status Error",
+  "start": "Start",
+  "continue": "Continue",
+  "pause": "Pause",
+  "end": "End"
 }

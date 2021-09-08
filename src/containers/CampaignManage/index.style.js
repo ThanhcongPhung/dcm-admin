@@ -60,14 +60,6 @@ const TableStyled = styled.div`
     &.nameBodyCell {
       min-width: 140px;
     }
-    &.actionBodyCell {
-      max-width: 140px;
-      .action {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-    }
     &.status {
       font-weight: bold;
     }
@@ -77,28 +69,6 @@ const TableStyled = styled.div`
     &.time {
       min-width: 85px;
     }
-    .iconButton {
-      width: 35px;
-      height: 35px;
-      padding: 0;
-    }
-  }
-  .dropdownItem {
-    display: flex;
-    text-transform: capitalize;
-    align-items: center;
-    justify-content: center;
-    font-size: 13px;
-    padding: 10px 20px;
-    margin: 0 5px;
-    border-radius: 2px;
-    -webkit-transition: all 150ms linear;
-    transition: all 150ms linear;
-    clear: both;
-    font-weight: 400;
-    line-height: 1.42857143;
-    white-space: nowrap;
-    height: unset;
   }
 `;
 
@@ -111,19 +81,9 @@ const CampaignSearchStyled = styled.div`
   }
 `;
 
-const ShowStatusStyled = styled.div`
-  display: flex;
-  align-items: center;
-  .iconButton {
-    width: 35px;
-    height: 35px;
-    padding: 0px;
-    .start {
-      color: ${FEATURE_COLOR.oceanGreen};
-    }
-    &.disable {
-      opacity: 0;
-    }
+const MenuActionStyled = styled.div`
+  .iconAction {
+    margin-right: 5px;
   }
 `;
 
@@ -131,5 +91,5 @@ export {
   ServiceManageStyled,
   TableStyled,
   CampaignSearchStyled,
-  ShowStatusStyled,
+  MenuActionStyled,
 };

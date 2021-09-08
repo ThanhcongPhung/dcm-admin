@@ -11,14 +11,15 @@ import {
   TableRow,
   IconButton,
   CircularProgress,
-  Icon,
   Tooltip,
   Typography,
+  Menu,
 } from '@material-ui/core';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
 import api from '../../apis';
 import ConfirmDialog from '../../components/Dialog/ConfirmDialog';
-import ShowStatus from './ShowStatus';
 import { CAMPAIGN_STATUS } from '../../constants';
+import MenuAction from './MenuAction';
 import { TableStyled } from './index.style';
 
 const tableTitle = [
@@ -44,10 +45,24 @@ export default function CampaignTable(props) {
   } = props;
   const [selectCampaignId, setSelectCampaignId] = useState();
   const [isDelete, setIsDelete] = useState(false);
+  const [curStatus, setCurStatus] = useState();
   const [incomingStatus, setIncomingStatus] = useState();
+  const [anchorEl, setAnchorEl] = useState();
 
   const { t } = useTranslation();
   const { enqueueSnackbar } = useSnackbar();
+
+  const handleOpenMenu = (campaignId, status) => (e) => {
+    e.stopPropagation();
+    setAnchorEl(e.currentTarget);
+    setSelectCampaignId(campaignId);
+    setCurStatus(status);
+  };
+
+  const handleCloseMenu = () => {
+    setAnchorEl();
+    setSelectCampaignId();
+  };
 
   const handleCloseConfirm = () => {
     setIsDelete(false);
@@ -55,16 +70,14 @@ export default function CampaignTable(props) {
     setSelectCampaignId();
   };
 
-  const handleClickStatus = (campaignId, status) => (e) => {
+  const handleClickStatus = (status) => (e) => {
     e.stopPropagation();
     setIncomingStatus(status);
-    setSelectCampaignId(campaignId);
   };
 
-  const handleClickDelete = (campaignId) => (e) => {
+  const handleClickDelete = (e) => {
     e.stopPropagation();
     setIsDelete(true);
-    setSelectCampaignId(campaignId);
   };
 
   const handleDeleteCampaign = async () => {
@@ -150,7 +163,7 @@ export default function CampaignTable(props) {
                     {getServiceName(item.serviceId)}
                   </TableCell>
                   <TableCell align="center" className="bodyCell">
-                    {(item.participant && item.participant.length) || 0}
+                    {(item.participants && item.participants.length) || 0}
                   </TableCell>
                   <TableCell
                     align="center"
@@ -160,26 +173,29 @@ export default function CampaignTable(props) {
                   >
                     {t(item.status)}
                   </TableCell>
-                  <TableCell align="center" className="bodyCell actionBodyCell">
-                    <div className="action">
-                      <ShowStatus
-                        status={item.status}
-                        campaignId={item.id}
-                        onChangeStatus={handleClickStatus}
-                      />
-                      <Tooltip title={t('delete')}>
-                        <IconButton
-                          onClick={handleClickDelete(item.id)}
-                          classes={{ root: 'iconButton' }}
-                        >
-                          <Icon aria-label="delete" color="error">
-                            delete
-                          </Icon>
-                        </IconButton>
-                      </Tooltip>
-                    </div>
+                  <TableCell align="center" className="bodyCell">
+                    <IconButton
+                      aria-label="more"
+                      aria-controls="long-menu"
+                      aria-haspopup="true"
+                      onClick={handleOpenMenu(item.id, item.status)}
+                    >
+                      <MoreVertIcon />
+                    </IconButton>
                   </TableCell>
                 </TableRow>
+                <Menu
+                  id="long-menu"
+                  anchorEl={anchorEl}
+                  open={!!selectCampaignId}
+                  onClose={handleCloseMenu}
+                >
+                  <MenuAction
+                    status={curStatus}
+                    onClickDelete={handleClickDelete}
+                    onChangeStatus={handleClickStatus}
+                  />
+                </Menu>
               </React.Fragment>
             ))}
           {isLoading && (
