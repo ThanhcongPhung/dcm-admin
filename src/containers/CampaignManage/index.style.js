@@ -46,33 +46,29 @@ const TableStyled = styled.div`
     background: ${FEATURE_COLOR.havelockBlue};
     border: 1px solid ${FEATURE_COLOR.white};
     color: ${FEATURE_COLOR.white};
-    padding: 8px;
-    .cellContent {
-      display: flex;
-      justify-content: space-between;
-      padding: 0px 10px;
-      align-items: center;
+    padding: 13px 8px;
+  }
+  .bodyRow {
+    cursor: pointer;
+    &:hover {
+      background-color: ${FEATURE_COLOR.backgroundMenu};
     }
   }
   .bodyCell {
+    cursor: pointer;
     padding: 8px;
-  }
-  .dropdownItem {
-    display: flex;
-    text-transform: capitalize;
-    align-items: center;
-    justify-content: center;
-    font-size: 13px;
-    padding: 10px 20px;
-    margin: 0 5px;
-    border-radius: 2px;
-    -webkit-transition: all 150ms linear;
-    transition: all 150ms linear;
-    clear: both;
-    font-weight: 400;
-    line-height: 1.42857143;
-    white-space: nowrap;
-    height: unset;
+    &.nameBodyCell {
+      min-width: 140px;
+    }
+    &.status {
+      font-weight: bold;
+    }
+    &.end {
+      color: ${FEATURE_COLOR.froly};
+    }
+    &.time {
+      min-width: 85px;
+    }
   }
 `;
 
@@ -80,9 +76,20 @@ const CampaignSearchStyled = styled.div`
   display: flex;
   margin: 8px 0;
   .search-information {
-    min-width: calc(100% / 4 - 10px);
+    width: calc(100% / 4 - 10px);
     margin-right: 10px;
   }
 `;
 
-export { ServiceManageStyled, TableStyled, CampaignSearchStyled };
+const MenuActionStyled = styled.div`
+  .iconAction {
+    margin-right: 5px;
+  }
+`;
+
+export {
+  ServiceManageStyled,
+  TableStyled,
+  CampaignSearchStyled,
+  MenuActionStyled,
+};

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import clsx from 'clsx';
 import Moment from 'moment';
 import { useTranslation } from 'react-i18next';
 import { useSnackbar } from 'notistack';
@@ -10,15 +11,15 @@ import {
   TableRow,
   IconButton,
   CircularProgress,
-  Menu,
-  MenuItem,
-  Icon,
   Tooltip,
   Typography,
+  Menu,
 } from '@material-ui/core';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import api from '../../apis';
 import ConfirmDialog from '../../components/Dialog/ConfirmDialog';
+import { CAMPAIGN_STATUS } from '../../constants';
+import MenuAction from './MenuAction';
 import { TableStyled } from './index.style';
 
 const tableTitle = [
@@ -26,8 +27,6 @@ const tableTitle = [
   'name',
   'time',
   'collectDataService',
-  'campaignAction',
-  'campaignVisibility',
   'amountParticipant',
   'status',
   'action',
@@ -42,17 +41,22 @@ export default function CampaignTable(props) {
     onHandleEdit,
     pagination,
     onHandleDelete,
+    onHandleChangeStatus,
   } = props;
   const [selectCampaignId, setSelectCampaignId] = useState();
   const [isDelete, setIsDelete] = useState(false);
+  const [curStatus, setCurStatus] = useState();
+  const [incomingStatus, setIncomingStatus] = useState();
   const [anchorEl, setAnchorEl] = useState();
 
   const { t } = useTranslation();
   const { enqueueSnackbar } = useSnackbar();
 
-  const handleOpenMenu = (e, campaignId) => {
+  const handleOpenMenu = (campaignId, status) => (e) => {
+    e.stopPropagation();
     setAnchorEl(e.currentTarget);
     setSelectCampaignId(campaignId);
+    setCurStatus(status);
   };
 
   const handleCloseMenu = () => {
@@ -62,7 +66,18 @@ export default function CampaignTable(props) {
 
   const handleCloseConfirm = () => {
     setIsDelete(false);
+    setIncomingStatus();
     setSelectCampaignId();
+  };
+
+  const handleClickStatus = (status) => (e) => {
+    e.stopPropagation();
+    setIncomingStatus(status);
+  };
+
+  const handleClickDelete = (e) => {
+    e.stopPropagation();
+    setIsDelete(true);
   };
 
   const handleDeleteCampaign = async () => {
@@ -74,6 +89,22 @@ export default function CampaignTable(props) {
       enqueueSnackbar(t('deleteCampaignSuccess'), { variant: 'success' });
     } else {
       enqueueSnackbar(t('deleteCampaignError'), { variant: 'error' });
+    }
+    handleCloseConfirm();
+  };
+
+  const handleChangeStatus = async () => {
+    setIsLoading(true);
+    const { data } = await api.campaign.updateStatusCampaign(
+      selectCampaignId,
+      incomingStatus,
+    );
+    setIsLoading(false);
+    if (data.status) {
+      onHandleChangeStatus();
+      enqueueSnackbar(t('changeStatusSuccess'), { variant: 'success' });
+    } else {
+      enqueueSnackbar(t('changeStatusError'), { variant: 'error' });
     }
     handleCloseConfirm();
   };
@@ -93,11 +124,11 @@ export default function CampaignTable(props) {
               tableTitle.map((item) => (
                 <TableCell
                   key={item}
-                  align="left"
+                  align="center"
                   variant="head"
                   className="headerCell"
                 >
-                  <div className="cellContent">{t(item)}</div>
+                  {t(item)}
                 </TableCell>
               ))}
           </TableRow>
@@ -106,47 +137,48 @@ export default function CampaignTable(props) {
           {campaignList &&
             campaignList.map((item, index) => (
               <React.Fragment key={item.name}>
-                <TableRow className="bodyRow">
+                <TableRow
+                  className="bodyRow"
+                  onClick={() => onHandleEdit(item.id)}
+                >
                   <TableCell align="center" className="bodyCell">
                     {(pagination.page - 1) * pagination.limit + index + 1}
                   </TableCell>
-                  <TableCell align="left" className="bodyCell">
+                  <TableCell align="left" className="bodyCell nameBodyCell">
                     {item.name}
                   </TableCell>
-                  <TableCell align="left" className="bodyCell">
+                  <TableCell align="center" className="bodyCell time">
                     <Tooltip
                       title={`${Moment(item.startTime).format(
                         'HH:mm DD/MM/YYYY',
                       )} - ${Moment(item.endTime).format('HH:mm DD/MM/YYYY')}`}
                     >
-                      <Typography>
-                        {Moment(item.startTime).format('DD/MM')} -{' '}
+                      <Typography variant="body2">
+                        {Moment(item.startTime).format('DD/MM')}-
                         {Moment(item.startTime).format('DD/MM')}
                       </Typography>
                     </Tooltip>
                   </TableCell>
                   <TableCell align="center" className="bodyCell">
-                    {getServiceName(item.service)}
+                    {getServiceName(item.serviceId)}
                   </TableCell>
                   <TableCell align="center" className="bodyCell">
-                    {t(item.action)}
+                    {(item.participants && item.participants.length) || 0}
                   </TableCell>
-                  <TableCell align="center" className="bodyCell">
-                    {t(item.campaignVisibility)}
-                  </TableCell>
-                  <TableCell align="center" className="bodyCell">
-                    {(item.participant && item.participant.length) || 0}
-                  </TableCell>
-                  <TableCell align="center" className="bodyCell">
+                  <TableCell
+                    align="center"
+                    className={clsx('bodyCell status', {
+                      end: item.status === CAMPAIGN_STATUS.END,
+                    })}
+                  >
                     {t(item.status)}
                   </TableCell>
-
                   <TableCell align="center" className="bodyCell">
                     <IconButton
                       aria-label="more"
                       aria-controls="long-menu"
                       aria-haspopup="true"
-                      onClick={(e) => handleOpenMenu(e, item.id)}
+                      onClick={handleOpenMenu(item.id, item.status)}
                     >
                       <MoreVertIcon />
                     </IconButton>
@@ -158,22 +190,11 @@ export default function CampaignTable(props) {
                   open={!!selectCampaignId}
                   onClose={handleCloseMenu}
                 >
-                  <MenuItem
-                    className="dropdownItem"
-                    onClick={() => onHandleEdit(selectCampaignId)}
-                  >
-                    <Icon aria-label="edit">edit</Icon>
-                    {t('edit')}
-                  </MenuItem>
-                  <MenuItem
-                    className="dropdownItem"
-                    onClick={() => setIsDelete(true)}
-                  >
-                    <Icon aria-label="delete" color="error">
-                      delete
-                    </Icon>
-                    {t('delete')}
-                  </MenuItem>
+                  <MenuAction
+                    status={curStatus}
+                    onClickDelete={handleClickDelete}
+                    onChangeStatus={handleClickStatus}
+                  />
                 </Menu>
               </React.Fragment>
             ))}
@@ -187,11 +208,15 @@ export default function CampaignTable(props) {
         </TableBody>
       </Table>
       <ConfirmDialog
-        open={isDelete}
+        open={!!incomingStatus || isDelete}
         title={t('confirm')}
-        content={t('confirmDeleteService')}
+        content={
+          isDelete
+            ? t('confirmDeleteService')
+            : `${t('confirmChangeStatus')}: ${t(incomingStatus)}`
+        }
         handleClose={handleCloseConfirm}
-        handleConfirm={handleDeleteCampaign}
+        handleConfirm={isDelete ? handleDeleteCampaign : handleChangeStatus}
       />
     </TableStyled>
   );

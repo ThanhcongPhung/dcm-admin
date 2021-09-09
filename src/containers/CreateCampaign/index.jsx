@@ -10,7 +10,7 @@ import BaseContents from './BaseContents';
 import CampaignDetail from './CampaignDetail';
 import { CreateCampaignStyled } from './index.style';
 
-const stepTitles = ['createCampaign', 'detailCampaign', 'confirmCampaign'];
+const stepTitles = ['createCampaign', 'detailCampaign'];
 
 export default function CreateCampaign() {
   const history = useHistory();
@@ -55,7 +55,7 @@ export default function CreateCampaign() {
   }, []);
 
   useEffect(() => {
-    fetchCampaign();
+    if (campaignId) fetchCampaign();
   }, [campaignId]);
 
   useEffect(() => {
