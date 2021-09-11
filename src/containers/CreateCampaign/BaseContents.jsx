@@ -21,6 +21,7 @@ import {
   Radio,
   FormHelperText,
 } from '@material-ui/core';
+import Autocomplete from '@material-ui/lab/Autocomplete';
 import { CloudUpload } from '@material-ui/icons';
 import { Editor } from 'react-draft-wysiwyg';
 import { convertToRaw, convertFromRaw, EditorState } from 'draft-js';
@@ -36,7 +37,7 @@ const campaignInit = {
   image: '',
   campaignVisibility: CAMPAIGN_VISIBILITY.PUBLIC,
   serviceId: '',
-  action: '',
+  actions: [],
   campaignType: '',
   startTime: Moment(Date.now() + 1 * 24 * 60 * 60 * 1000).format(
     'YYYY-MM-DDT00:00:00',
@@ -117,7 +118,7 @@ export default function BaseContents({
     !baseCampaign.name ||
     !baseCampaign.description ||
     !baseCampaign.serviceId ||
-    !baseCampaign.action ||
+    !baseCampaign.actions.length ||
     !baseCampaign.campaignType;
 
   const saveCampaign = async (nextStep) => {
@@ -193,6 +194,9 @@ export default function BaseContents({
   useEffect(() => {
     if (campaignId) fetchCampaign();
   }, [campaignId]);
+
+  const inValidActions = () =>
+    !isFirst && (!baseCampaign.actions || !baseCampaign.actions.length);
 
   return (
     <CreateBaseContentsStyled>
@@ -376,39 +380,31 @@ export default function BaseContents({
           <>
             <Grid item xs={3} sm={2} className="label">
               <Typography
-                className={clsx('inputTitle', {
-                  inputError: !baseCampaign.action && !isFirst,
-                })}
+                className={clsx('inputTitle', { inputError: inValidActions() })}
               >
                 {t('campaignAction')}
               </Typography>
             </Grid>
             <Grid item xs={9} sm={4}>
-              <TextField
-                select
-                value={baseCampaign.action}
-                onChange={handleChangeBaseCampaign}
-                name="action"
-                variant="outlined"
-                className="textInput"
-                InputProps={{
-                  readOnly: !!campaignId,
-                }}
-                error={!baseCampaign.action && !isFirst}
-                helperText={
-                  !baseCampaign.action && !isFirst && t('fieldNotEmpty')
+              <Autocomplete
+                fullWidth
+                multiple
+                options={actions}
+                getOptionLabel={(option) => t(option)}
+                value={baseCampaign.actions}
+                onChange={(e, values) =>
+                  setBaseCampaign((prev) => ({ ...prev, actions: values }))
                 }
-              >
-                {actions.map((actionItem) => (
-                  <MenuItem
-                    value={actionItem}
-                    className="select-component-item"
-                    key={actionItem}
-                  >
-                    {t(actionItem)}
-                  </MenuItem>
-                ))}
-              </TextField>
+                disabled={!!campaignId}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    variant="outlined"
+                    error={inValidActions()}
+                    helperText={inValidActions() && t('fieldNotEmpty')}
+                  />
+                )}
+              />
             </Grid>
           </>
         )}
@@ -423,7 +419,7 @@ export default function BaseContents({
                 {t('campaignType')}
               </Typography>
             </Grid>
-            <Grid item xs={9} sm={4}>
+            <Grid item xs={9} sm={4} className="textField">
               <TextField
                 select={!!campaignTypes.length}
                 value={baseCampaign.campaignType}

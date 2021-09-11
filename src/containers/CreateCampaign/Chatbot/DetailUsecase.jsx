@@ -118,6 +118,7 @@ export default function DetailUsecase({
         setChooseIntents(intentExists);
       }
     }
+    if (!campUsecases.length) setChooseIntents(campaignIntents);
   }, [campUsecases]);
 
   return (

@@ -24,6 +24,10 @@ const CreateBaseContentsStyled = styled.div`
         }
       }
     }
+    .textField {
+      display: flex;
+      align-items: center;
+    }
     .textInput,
     .dateTimeInput {
       width: 100%;
