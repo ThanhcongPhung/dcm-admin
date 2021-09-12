@@ -16,4 +16,9 @@ export default [
     icon: 'widgets',
     route: routes.CAMPAIGN_MANAGE,
   },
+  {
+    heading: 'audioASRManage',
+    icon: 'queue_music',
+    route: routes.AUDIO_MANAGE,
+  }
 ];

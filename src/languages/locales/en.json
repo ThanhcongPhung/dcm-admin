@@ -160,5 +160,6 @@
   "VIEWER": "Viewer",
   "campaign": "campaign",
   "noOptions": "No Options",
-  "error": "Error"
+  "error": "Error",
+  "audioASRManage": "Audio manage"
 }
