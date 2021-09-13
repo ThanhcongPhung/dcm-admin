@@ -158,6 +158,7 @@
   "CONTRIBUTOR": "Contributor",
   "REVIEWER": "Reviewer",
   "VIEWER": "Viewer",
+  "OWNER": "Owner",
   "campaign": "campaign",
   "noOptions": "No Options",
   "error": "Error"

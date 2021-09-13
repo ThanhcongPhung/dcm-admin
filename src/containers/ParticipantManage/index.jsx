@@ -163,11 +163,13 @@ export default function ParticipantManage() {
                               onChange={handleEditChange}
                               fullWidth
                             >
-                              {Object.keys(CAMPAIGN_ROLE).map((value) => (
-                                <MenuItem key={value} value={value}>
-                                  {t(value)}
-                                </MenuItem>
-                              ))}
+                              {Object.keys(CAMPAIGN_ROLE)
+                                .filter((item) => item !== CAMPAIGN_ROLE.OWNER)
+                                .map((value) => (
+                                  <MenuItem key={value} value={value}>
+                                    {t(value)}
+                                  </MenuItem>
+                                ))}
                             </TextField>
                           </TableCell>
                           <TableCell align="center" className="bodyCell">
@@ -208,25 +210,29 @@ export default function ParticipantManage() {
                           {t(participant.role)}
                         </TableCell>
                         <TableCell align="center" className="bodyCell">
-                          <Tooltip
-                            title={t('edit')}
-                            onClick={() =>
-                              setEditRole({ ...participant, index })
-                            }
-                          >
-                            <IconButton>
-                              <Edit color="primary" />
-                            </IconButton>
-                          </Tooltip>
-                          <Tooltip title={t('delete')}>
-                            <IconButton
-                              onClick={() =>
-                                setDeleteUserId(participant.userId)
-                              }
-                            >
-                              <Delete color="error" />
-                            </IconButton>
-                          </Tooltip>
+                          {participant.role !== CAMPAIGN_ROLE.OWNER && (
+                            <>
+                              <Tooltip
+                                title={t('edit')}
+                                onClick={() =>
+                                  setEditRole({ ...participant, index })
+                                }
+                              >
+                                <IconButton>
+                                  <Edit color="primary" />
+                                </IconButton>
+                              </Tooltip>
+                              <Tooltip title={t('delete')}>
+                                <IconButton
+                                  onClick={() =>
+                                    setDeleteUserId(participant.userId)
+                                  }
+                                >
+                                  <Delete color="error" />
+                                </IconButton>
+                              </Tooltip>
+                            </>
+                          )}
                         </TableCell>
                       </TableRow>
                     );
