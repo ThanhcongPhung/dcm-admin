@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import clsx from 'clsx';
+import { useHistory } from 'react-router-dom';
 import Moment from 'moment';
 import { useTranslation } from 'react-i18next';
 import { useSnackbar } from 'notistack';
@@ -33,6 +34,7 @@ const tableTitle = [
 ];
 
 export default function CampaignTable(props) {
+  const history = useHistory();
   const {
     campaignList,
     services,
@@ -48,6 +50,7 @@ export default function CampaignTable(props) {
   const [curStatus, setCurStatus] = useState();
   const [incomingStatus, setIncomingStatus] = useState();
   const [anchorEl, setAnchorEl] = useState();
+  const [isHover, setIsHover] = useState(true);
 
   const { t } = useTranslation();
   const { enqueueSnackbar } = useSnackbar();
@@ -115,6 +118,11 @@ export default function CampaignTable(props) {
     return null;
   };
 
+  const handleParticipant = (campaignId) => (e) => {
+    e.stopPropagation();
+    history.push(`/campaigns/${campaignId}/participant`);
+  };
+
   return (
     <TableStyled>
       <Table className="table">
@@ -136,9 +144,9 @@ export default function CampaignTable(props) {
         <TableBody>
           {campaignList &&
             campaignList.map((item, index) => (
-              <React.Fragment key={item.name}>
+              <React.Fragment key={item.id}>
                 <TableRow
-                  className="bodyRow"
+                  className={isHover ? 'bodyRow' : ''}
                   onClick={() => onHandleEdit(item.id)}
                 >
                   <TableCell align="center" className="bodyCell">
@@ -163,7 +171,14 @@ export default function CampaignTable(props) {
                     {getServiceName(item.serviceId)}
                   </TableCell>
                   <TableCell align="center" className="bodyCell">
-                    {(item.participants && item.participants.length) || 0}
+                    <Typography
+                      className="viewParticipant"
+                      onClick={handleParticipant(item.id)}
+                      onMouseEnter={() => setIsHover(false)}
+                      onMouseLeave={() => setIsHover(true)}
+                    >
+                      {t('view')}
+                    </Typography>
                   </TableCell>
                   <TableCell
                     align="center"
@@ -179,6 +194,8 @@ export default function CampaignTable(props) {
                       aria-controls="long-menu"
                       aria-haspopup="true"
                       onClick={handleOpenMenu(item.id, item.status)}
+                      onMouseEnter={() => setIsHover(false)}
+                      onMouseLeave={() => setIsHover(true)}
                     >
                       <MoreVertIcon />
                     </IconButton>

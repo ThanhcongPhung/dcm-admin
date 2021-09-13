@@ -23,6 +23,18 @@ const CAMPAIGN_TYPE = {
   ASR: 'ASR',
 };
 
+const SYSTEM_ROLE = {
+  ADMIN: 'ADMIN',
+  USER: 'USER',
+};
+
+const CAMPAIGN_ROLE = {
+  MANAGER: 'MANAGER',
+  CONTRIBUTOR: 'CONTRIBUTOR',
+  REVIEWER: 'REVIEWER',
+  VIEWER: 'VIEWER',
+};
+
 const MAX_ITEMS_SMALL = 5;
 
 export {
@@ -31,4 +43,6 @@ export {
   CAMPAIGN_STATUS,
   CAMPAIGN_TYPE,
   MAX_ITEMS_SMALL,
+  SYSTEM_ROLE,
+  CAMPAIGN_ROLE,
 };

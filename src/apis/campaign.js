@@ -164,3 +164,57 @@ export async function updateStatusCampaign(campaignId, status) {
     return error.response;
   }
 }
+
+export async function getParticipants(campaignId) {
+  try {
+    const response = await api({
+      method: 'GET',
+      url: `/campaigns/participants`,
+      headers: { 'campaign-id': campaignId },
+    });
+    return response;
+  } catch (error) {
+    return error.response;
+  }
+}
+
+export async function addParticipant({ userId, role, campaignId }) {
+  try {
+    const response = await api({
+      method: 'POST',
+      url: `/participants`,
+      headers: { 'campaign-id': campaignId },
+      data: { participantId: userId, role },
+    });
+    return response;
+  } catch (error) {
+    return error.response;
+  }
+}
+
+export async function deleteParticipant(userId, campaignId) {
+  try {
+    const response = await api({
+      method: 'DELETE',
+      url: `/participants/${userId}`,
+      headers: { 'campaign-id': campaignId },
+    });
+    return response;
+  } catch (error) {
+    return error.response;
+  }
+}
+
+export async function editRoleParticipant({ campaignId, userId, role }) {
+  try {
+    const response = await api({
+      method: 'PUT',
+      url: `/participants/${userId}`,
+      headers: { 'campaign-id': campaignId },
+      data: { role },
+    });
+    return response;
+  } catch (error) {
+    return error.response;
+  }
+}
