@@ -31,6 +31,8 @@
   "editServiceSuccess": "Chỉnh sửa dịch vụ thành công",
   "addServiceSuccess": "Thêm mới dịch vụ thành công",
   "deleteServiceSuccess": "Xóa dịch vụ thành công",
+  "deleteServiceError": "Xóa dịch vụ không thành công",
+  "serviceIsUsedInCampaign": "Dịch vụ đang được sử dụng trong chiến dịch",
   "noteCreateInputs": "Có thể thêm nhiều kiểu dữ liệu, nhấn enter để thêm",
   "noteCreateAction": "Có thể thêm nhiều cách thu thập, nhấn enter để thêm",
   "campaignManage": "Quản lý chiến dịch",
@@ -157,6 +159,7 @@
   "REVIEWER": "Người phê duyệt",
   "VIEWER": "Người theo dõi",
   "campaign": "chiến dịch",
-  "noOptions": "Không có lựa chọn nào"
+  "noOptions": "Không có lựa chọn nào",
+  "error": "Lỗi"
 }
 

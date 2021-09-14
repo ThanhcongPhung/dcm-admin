@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   Table,
   TableBody,
@@ -39,47 +39,47 @@ function ServerTable({
 }) {
   const { t } = useTranslation();
   const { enqueueSnackbar } = useSnackbar();
-  const [serviceDelete, setServiceDelete] = useState('');
+  const [selectService, setSelectService] = useState();
+  const [isDelete, setIsDelete] = useState(false);
 
   const [anchorEl, setAnchorEl] = useState();
-  const [menuState, setMenuState] = useState([]);
-  const handleRequestCloseMenu = (index) => () => {
-    const newArr = [...menuState];
-    newArr[index] = false;
-    setMenuState(newArr);
-  };
-  const onContactOptionSelect = (index) => (e) => {
-    const newArr = [...menuState];
-    newArr[index] = true;
-    setMenuState(newArr);
+
+  const handleOpenMenu = (service) => (e) => {
     setAnchorEl(e.currentTarget);
+    setSelectService(service);
   };
 
-  useEffect(() => {
-    if (serviceList) {
-      const newArr = [];
-      for (let i = 0; i < serviceList.length; i += 1) {
-        newArr.push(false);
-      }
-      setMenuState(newArr);
-    }
-  }, [serviceList]);
+  const handleCloseMenu = () => {
+    setAnchorEl(null);
+    setSelectService();
+  };
+
+  const handleCloseConfirm = () => {
+    setIsDelete(false);
+    setSelectService();
+  };
+
+  const handleEditService = () => {
+    handleClickServiceEdit(selectService);
+    setSelectService();
+  };
 
   const handleDeleteService = async () => {
     setIsLoading(true);
-    const { data } = await api.service.deleteService(serviceDelete);
+    setIsDelete(false);
+    const { data } = await api.service.deleteService(selectService.id);
     setIsLoading(false);
     if (data.status) {
-      onHandleDelete(serviceDelete);
-      enqueueSnackbar(t('deleteServiceSuccess'), {
-        variant: 'success',
-      });
-    } else {
-      enqueueSnackbar(t('deleteServiceError'), {
+      onHandleDelete(selectService.id);
+      enqueueSnackbar(t('deleteServiceSuccess'), { variant: 'success' });
+    } else if (data.code === 600) {
+      enqueueSnackbar(`${t('error')}: ${t('serviceIsUsedInCampaign')}`, {
         variant: 'error',
       });
+    } else {
+      enqueueSnackbar(t('deleteServiceError'), { variant: 'error' });
     }
-    setServiceDelete();
+    setSelectService();
   };
 
   return (
@@ -131,7 +131,7 @@ function ServerTable({
                       aria-label="more"
                       aria-controls="long-menu"
                       aria-haspopup="true"
-                      onClick={onContactOptionSelect(index)}
+                      onClick={handleOpenMenu(serviceItem)}
                     >
                       <MoreVertIcon />
                     </IconButton>
@@ -141,20 +141,19 @@ function ServerTable({
                   id="long-menu"
                   anchorEl={anchorEl}
                   keepMounted
-                  open={menuState[index] || false}
-                  onClose={handleRequestCloseMenu(index)}
-                  onClick={handleRequestCloseMenu(index)}
+                  open={!!selectService}
+                  onClose={handleCloseMenu}
                 >
                   <MenuItem
                     className="dropdownItem"
-                    onClick={() => handleClickServiceEdit(serviceItem)}
+                    onClick={handleEditService}
                   >
                     <Icon aria-label="edit">edit</Icon>
                     {t('edit')}
                   </MenuItem>
                   <MenuItem
                     className="dropdownItem"
-                    onClick={() => setServiceDelete(serviceItem.id)}
+                    onClick={() => setIsDelete(true)}
                   >
                     <Icon aria-label="delete" color="error">
                       delete
@@ -174,10 +173,10 @@ function ServerTable({
         </TableBody>
       </Table>
       <ConfirmDialog
-        open={!!serviceDelete}
+        open={isDelete}
         title={t('confirm')}
         content={t('confirmDeleteService')}
-        handleClose={() => setServiceDelete('')}
+        handleClose={handleCloseConfirm}
         handleConfirm={handleDeleteService}
       />
     </TableStyled>
