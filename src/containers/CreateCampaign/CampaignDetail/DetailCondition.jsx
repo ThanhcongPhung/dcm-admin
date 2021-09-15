@@ -17,18 +17,21 @@ export default function DetailCondition({
   switch (campaignType) {
     case CAMPAIGN_TYPE.CHATBOT_INTENT: {
       let tempIntents = campaignIntents;
-      if (detailCampaign.intents && detailCampaign.intents.length) {
+      const validIntents =
+        detailCampaign &&
+        detailCampaign.intents &&
+        detailCampaign.intents.length;
+      if (validIntents)
         tempIntents = tempIntents.filter((intent) =>
           detailCampaign.intents.every((item) => item.id !== intent.id),
         );
-      }
       const onSetCampIntents = (value) => {
         onSetDetailCampaign(DETAIL_CAMPAIGN.INTENTS, value);
       };
       return (
         <DetailIntent
           chooseIntents={tempIntents}
-          currentIntents={detailCampaign.intents || []}
+          currentIntents={(detailCampaign && detailCampaign.intents) || []}
           onSetCurrentIntents={onSetCampIntents}
         />
       );
@@ -40,7 +43,7 @@ export default function DetailCondition({
       return (
         <DetailUsecase
           campaignIntents={campaignIntents}
-          campUsecases={detailCampaign.usecases || []}
+          campUsecases={(detailCampaign && detailCampaign.usecases) || []}
           onSetCampUsecases={onSetCampUsecase}
         />
       );
