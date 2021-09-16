@@ -29,11 +29,11 @@ export default function CreateCampaign() {
 
   const onNextStep = (id) => {
     setStep(step + 1);
-    history.push(`/campaigns/create?campaignId=${id}&step=${step + 1}`);
+    history.push(`/admin/campaigns/create?campaignId=${id}&step=${step + 1}`);
   };
   const onPrevStep = (id) => {
     setStep(step - 1);
-    history.push(`/campaigns/create?campaignId=${id}&step=${step - 1}`);
+    history.push(`/admin/campaigns/create?campaignId=${id}&step=${step - 1}`);
   };
   const onCancel = () => history.push(routes.CAMPAIGN_MANAGE);
 
@@ -67,10 +67,10 @@ export default function CreateCampaign() {
 
     if (paramCampaignId) {
       history.push(
-        `/campaigns/create?campaignId=${paramCampaignId}&step=${paramStep}`,
+        `/admin/campaigns/create?campaignId=${paramCampaignId}&step=${paramStep}`,
       );
     } else {
-      history.push(`/campaigns/create?step=0`);
+      history.push(`/admin/campaigns/create?step=0`);
     }
   }, [location.search]);
 
