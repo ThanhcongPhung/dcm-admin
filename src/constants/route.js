@@ -1,7 +1,7 @@
 export default {
-  HOME: '/',
-  SERVICE_MANAGE: '/service-manage',
-  CAMPAIGN_MANAGE: '/campaign-manage',
-  CREATE_CAMPAIGN: '/campaigns/create',
-  CAMPAIGN_PARTICIPANT: '/campaigns/:campaignId/participant',
+  HOME: '/admin/',
+  SERVICE_MANAGE: '/admin/service-manage',
+  CAMPAIGN_MANAGE: '/admin/campaign-manage',
+  CREATE_CAMPAIGN: '/admin/campaigns/create',
+  CAMPAIGN_PARTICIPANT: '/admin/campaigns/:campaignId/participant',
 };

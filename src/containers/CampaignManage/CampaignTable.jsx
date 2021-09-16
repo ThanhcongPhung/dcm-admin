@@ -120,7 +120,7 @@ export default function CampaignTable(props) {
 
   const handleParticipant = (campaignId) => (e) => {
     e.stopPropagation();
-    history.push(`/campaigns/${campaignId}/participant`);
+    history.push(`/admin/campaigns/${campaignId}/participant`);
   };
 
   return (

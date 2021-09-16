@@ -113,11 +113,11 @@ export default function CampaignManage() {
   };
 
   const onHandleCreate = () => {
-    history.push(`/campaigns/create?step=0`);
+    history.push(`/admin/campaigns/create?step=0`);
   };
 
   const onHandleEdit = (campaignId) => {
-    history.push(`/campaigns/create?campaignId=${campaignId}&step=0`);
+    history.push(`/admin/campaigns/create?campaignId=${campaignId}&step=0`);
   };
 
   useEffect(() => {

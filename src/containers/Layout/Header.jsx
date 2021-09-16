@@ -57,7 +57,7 @@ export default function Header({ handleDrawerToggle }) {
           </IconButton>
         </Hidden>
         <div className="title">
-          <a className="brandName" href="/">
+          <a className="brandName" href="/admin/">
             {t('dataCollectionAdmin')}
           </a>
         </div>
