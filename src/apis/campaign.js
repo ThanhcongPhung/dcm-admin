@@ -126,11 +126,12 @@ export async function updateServiceCampaign(campaignId, detailCampaign) {
   }
 }
 
-export async function getCampaign(campaignId) {
+export async function getCampaign({ campaignId, fields }) {
   try {
     const response = await api({
       method: 'GET',
       url: `/campaigns/${campaignId}`,
+      params: { fields },
     });
     return response;
   } catch (error) {

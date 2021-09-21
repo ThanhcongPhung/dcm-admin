@@ -174,7 +174,7 @@ export default function BaseContents({
   };
 
   const fetchCampaign = async () => {
-    const { data } = await api.campaign.getCampaign(campaignId);
+    const { data } = await api.campaign.getCampaign({ campaignId });
     if (data.status) {
       setBaseCampaign({ ...data.result, serviceId: data.result.service.id });
       if (data.result.description)

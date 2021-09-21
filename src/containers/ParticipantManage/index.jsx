@@ -50,7 +50,7 @@ export default function ParticipantManage() {
   };
 
   const fetchCampaign = async () => {
-    const { data } = await api.campaign.getCampaign(campaignId);
+    const { data } = await api.campaign.getCampaign({ campaignId });
     if (data.status) setCampaign(data.result);
   };
 
