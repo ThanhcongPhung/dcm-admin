@@ -23,11 +23,13 @@ function DetailCampaign({
 
   const checkInValidChatbotUsecase = () =>
     campaignType === CAMPAIGN_TYPE.CHATBOT_USECASE &&
-    (!detailCampaign.usecases ||
+    (!detailCampaign ||
+      !detailCampaign.usecases ||
       (detailCampaign.usecases && !detailCampaign.usecases.length));
   const checkInValidChatbotIntent = () =>
     campaignType === CAMPAIGN_TYPE.CHATBOT_INTENT &&
-    (!detailCampaign.intents ||
+    (!detailCampaign ||
+      !detailCampaign.intents ||
       (detailCampaign.intents && !detailCampaign.intents.length));
 
   const saveDetailCampaign = async ({ prevStep, save }) => {

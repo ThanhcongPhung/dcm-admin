@@ -43,7 +43,10 @@ export default function CreateCampaign() {
   };
 
   const fetchCampaign = async () => {
-    const { data } = await api.campaign.getCampaign(campaignId);
+    const { data } = await api.campaign.getCampaign({
+      campaignId,
+      fields: 'detailCampaign',
+    });
     if (data.status) {
       setCampaignType(data.result.campaignType);
       setDetailCampaign(data.result.detailCampaign);
