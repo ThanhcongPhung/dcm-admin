@@ -19,11 +19,11 @@ import { Edit } from '@material-ui/icons';
 import AudioPlayer from './AudioPlayer';
 
 export default function AudioRow({
-                                   audioContent,
-                                   setSelected,
-                                   isItemSelected,
-                                   selected,
-                                 }) {
+  audioContent,
+  setSelected,
+  isItemSelected,
+  selected,
+}) {
   const [openASR, setOpenASR] = useState(false);
   const [isHover, setIsHover] = useState(true);
 
