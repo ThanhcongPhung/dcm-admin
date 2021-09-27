@@ -20,5 +20,5 @@ export default [
     heading: 'audioASRManage',
     icon: 'queue_music',
     route: routes.AUDIO_MANAGE,
-  }
+  },
 ];

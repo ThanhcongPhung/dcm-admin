@@ -6,7 +6,6 @@ import CreateCampaign from '../pages/CreateCampaign';
 import ParticipantManage from '../pages/ParticipantManage';
 import AudioASRManage from '../pages/AudioASRManage';
 
-
 const appRoutes = {
   home: {
     url: routes.HOME,
@@ -33,10 +32,10 @@ const appRoutes = {
     component: ParticipantManage,
     private: true,
   },
-  audioASRManage:{
+  audioASRManage: {
     url: routes.AUDIO_MANAGE,
     component: AudioASRManage,
-    private:true,
-  }
+    private: true,
+  },
 };
 export default appRoutes;

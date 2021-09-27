@@ -6,4 +6,4 @@ import * as upload from './upload';
 import * as user from './user';
 import * as audioASR from './audioASR';
 
-export default { auth, service, campaign, app, upload, user ,audioASR};
+export default { auth, service, campaign, app, upload, user, audioASR };
