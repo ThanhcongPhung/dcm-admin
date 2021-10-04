@@ -132,9 +132,11 @@ export default function AddParticipant({
           onChange={(e) => setSelectedRole(e.target.value)}
           variant="outlined"
         >
-          {Object.keys(CAMPAIGN_ROLE).map((value) => (
-            <MenuItem value={value}>{t(value)}</MenuItem>
-          ))}
+          {Object.keys(CAMPAIGN_ROLE)
+            .filter((item) => item !== CAMPAIGN_ROLE.OWNER)
+            .map((value) => (
+              <MenuItem value={value}>{t(value)}</MenuItem>
+            ))}
         </TextField>
       </Grid>
       <Grid item sx={6} sm={2}>
