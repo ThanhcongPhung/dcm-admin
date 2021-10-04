@@ -4,6 +4,7 @@ import ServiceManage from '../pages/ServiceManage';
 import CampaignManage from '../pages/CampaignManage';
 import CreateCampaign from '../pages/CreateCampaign';
 import ParticipantManage from '../pages/ParticipantManage';
+import AudioASRManage from '../pages/AudioASRManage';
 
 const appRoutes = {
   home: {
@@ -29,6 +30,11 @@ const appRoutes = {
   participants: {
     url: routes.CAMPAIGN_PARTICIPANT,
     component: ParticipantManage,
+    private: true,
+  },
+  audioASRManage: {
+    url: routes.AUDIO_MANAGE,
+    component: AudioASRManage,
     private: true,
   },
 };
