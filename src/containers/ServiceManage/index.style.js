@@ -71,6 +71,13 @@ const TableStyled = styled.div`
       padding: 8px 16px;
     }
   }
+  .viewManager {
+    cursor: pointer;
+    color: ${FEATURE_COLOR.havelockBlue};
+    &:hover {
+      text-decoration: underline;
+    }
+  }
   .dropdownItem {
     display: flex;
     text-transform: capitalize;
@@ -126,4 +133,37 @@ const ServiceInfoStyled = styled.div`
   }
 `;
 
-export { ServiceManageStyled, SearchStyled, TableStyled, ServiceInfoStyled };
+const ServiceManagerStyled = styled.div`
+  .addManager {
+    .addButton {
+      display: flex;
+      align-items: center;
+    }
+  }
+  .tableManager {
+    margin-top: 20px;
+    .titleTable {
+      margin-bottom: 20px;
+    }
+    .headerCell {
+      background: ${FEATURE_COLOR.havelockBlue};
+      border: 1px solid ${FEATURE_COLOR.white};
+      color: ${FEATURE_COLOR.white};
+      padding: 12px;
+    }
+    .bodyCell {
+      padding: 8px;
+      .avatar {
+        margin: 0 auto;
+      }
+    }
+  }
+`;
+
+export {
+  ServiceManageStyled,
+  SearchStyled,
+  TableStyled,
+  ServiceInfoStyled,
+  ServiceManagerStyled,
+};

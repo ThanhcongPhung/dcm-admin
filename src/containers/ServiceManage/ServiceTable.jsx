@@ -11,6 +11,7 @@ import {
   MenuItem,
   Icon,
   Chip,
+  Typography,
 } from '@material-ui/core';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { useTranslation } from 'react-i18next';
@@ -26,6 +27,7 @@ const tableTitle = [
   'serviceActions',
   'campaignType',
   'url',
+  'serviceManager',
   'action',
 ];
 
@@ -36,6 +38,7 @@ function ServerTable({
   handleClickServiceEdit,
   pagination,
   onHandleDelete,
+  handleShowManager,
 }) {
   const { t } = useTranslation();
   const { enqueueSnackbar } = useSnackbar();
@@ -125,6 +128,14 @@ function ServerTable({
                   </TableCell>
                   <TableCell align="center" className="bodyCell">
                     {serviceItem.url}
+                  </TableCell>
+                  <TableCell align="center" className="bodyCell">
+                    <Typography
+                      className="viewManager"
+                      onClick={() => handleShowManager(serviceItem.id)}
+                    >
+                      {t('view')}
+                    </Typography>
                   </TableCell>
                   <TableCell align="center" className="bodyCell">
                     <IconButton
