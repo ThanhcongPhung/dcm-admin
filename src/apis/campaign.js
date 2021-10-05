@@ -55,6 +55,7 @@ export async function createCampaign({
   campaignType,
   appId,
   botId,
+  apiKey,
 }) {
   try {
     const response = await api({
@@ -72,6 +73,7 @@ export async function createCampaign({
         campaignType,
         appId,
         botId,
+        apiKey,
       },
     });
     return response;
@@ -90,6 +92,7 @@ export async function updateCampaign({
   endTime,
   appId,
   botId,
+  apiKey,
 }) {
   try {
     const response = await api({
@@ -104,6 +107,7 @@ export async function updateCampaign({
         endTime,
         appId,
         botId,
+        apiKey,
       },
     });
     return response;
