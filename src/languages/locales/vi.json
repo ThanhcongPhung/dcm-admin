@@ -198,6 +198,18 @@
   "deleteManagerSuccess": "Xóa người quản lý dịch vụ thành công",
   "deleteManagerError": "Xóa người quản lý dịch vụ không thành công",
   "confirmDeleteManager": "Bạn chắc chắn muốn xóa người quản lý này",
-  "noData": "Hiện không có dữ liệu."
+  "noData": "Hiện không có dữ liệu.",
+  "overview": "Tổng quan",
+  "today": "Ngày",
+  "week": "Tuần",
+  "month": "Tháng",
+  "serviceOverview": "Dịch vụ thu thập",
+  "campaignOverview": "Chiến dịch",
+  "userOverview": "Người dùng",
+  "waitingCampaignOverview": "Sắp diễn ra",
+  "runningCampaignOverview": "Đang diễn ra",
+  "draftCampaignOverview": "Chiến dịch nháp",
+  "pauseCampaignOverview": "Tạm dừng thu thập",
+  "endCampaignOverview": "Đã kết thúc"
 }
 
