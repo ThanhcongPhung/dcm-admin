@@ -2,6 +2,7 @@ import React from 'react';
 import { CAMPAIGN_TYPE } from '../../../constants';
 import DetailIntent from '../Chatbot/DetailIntent';
 import DetailUsecase from '../Chatbot/DetailUsecase';
+import FAQCampaign from '../FAQ/CreateFAQCampaign';
 
 const DETAIL_CAMPAIGN = {
   INTENTS: 'intents',
@@ -13,6 +14,7 @@ export default function DetailCondition({
   campaignIntents,
   detailCampaign,
   onSetDetailCampaign,
+  campaignActions,
 }) {
   switch (campaignType) {
     case CAMPAIGN_TYPE.CHATBOT_INTENT: {
@@ -48,7 +50,16 @@ export default function DetailCondition({
         />
       );
     }
+    case CAMPAIGN_TYPE.FAQ: {
+      return (
+        <FAQCampaign
+          detailCampaign={detailCampaign}
+          onSetDetailCampaign={onSetDetailCampaign}
+          campaignActions={campaignActions}
+        />
+      );
+    }
     default:
-      return <div />;
+      return <div> default </div>;
   }
 }

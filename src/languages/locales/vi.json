@@ -187,6 +187,9 @@
   "note": "Chú thích",
   "content": "Nội dung",
   "play": "Phát",
-  "stop": "Dừng"
+  "stop": "Dừng",
+  "addIntentGroup": "Chọn nhóm ý định",
+  "faqCampaingtags": "Nhãn",
+  "invalidTarget": "Mục tiêu không hợp lệ"
 }
 
