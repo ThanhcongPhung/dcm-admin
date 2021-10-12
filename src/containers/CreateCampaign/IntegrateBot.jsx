@@ -33,7 +33,12 @@ export default function IntegrateBot({ baseCampaign, setBaseCampaign }) {
 
     const { data } = await api.app.getApp(appId);
     if (data.status) {
-      setBaseCampaign((prev) => ({ ...prev, appId, botId: data.result.botId }));
+      setBaseCampaign((prev) => ({
+        ...prev,
+        appId,
+        botId: data.result.botId,
+        apiKey: data.result.apiKey,
+      }));
       setIsUpdate(false);
       return enqueueSnackbar(t('integrateBotSuccess'), { variant: 'success' });
     }

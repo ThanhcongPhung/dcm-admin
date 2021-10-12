@@ -75,7 +75,8 @@ export default function DetailUsecase({
     if (usecase.id) {
       const index = campUsecases.findIndex((item) => item.id === usecase.id);
       const temp = campUsecases;
-      temp[index] = usecase;
+      const newUsecase = { ...usecase, intents };
+      temp[index] = newUsecase;
       onSetCampUsecases(temp);
       return enqueueSnackbar(t('editUsecaseSuccess'), { variant: 'success' });
     }
@@ -161,7 +162,7 @@ export default function DetailUsecase({
                 count={campUsecases.length}
                 rowsPerPage={MAX_ITEMS_SMALL}
                 page={page}
-                onChangePage={handleChangePage}
+                onPageChange={handleChangePage}
               />
             )}
             {!campUsecases.length && (

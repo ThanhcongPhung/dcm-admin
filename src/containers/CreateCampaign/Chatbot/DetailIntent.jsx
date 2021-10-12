@@ -58,6 +58,7 @@ export default function DetailIntent({
 
   useEffect(() => {
     if (chooseIntents) setAutoIntents(chooseIntents);
+    setPage(0);
   }, [chooseIntents, isLoadIntent]);
 
   useEffect(() => {
@@ -152,7 +153,7 @@ export default function DetailIntent({
               count={currentIntents.length}
               rowsPerPage={MAX_ITEMS_SMALL}
               page={page}
-              onChangePage={handleChangePage}
+              onPageChange={handleChangePage}
             />
           )}
         </TableBody>
