@@ -60,6 +60,6 @@ export default function DetailCondition({
       );
     }
     default:
-      return <div> default </div>;
+      return <div> </div>;
   }
 }

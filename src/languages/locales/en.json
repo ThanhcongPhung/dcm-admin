@@ -187,5 +187,8 @@
   "note": "Note",
   "content": "Content",
   "play": "Play",
-  "stop": "Stop"
+  "stop": "Stop",
+  "addIntentGroup": "Choose intents group",
+  "faqCampaingtags": "Label",
+  "invalidTarget": "Invalid target"
 }

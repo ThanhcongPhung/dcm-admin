@@ -37,6 +37,7 @@ const CAMPAIGN_ROLE = {
 };
 
 const MAX_ITEMS_SMALL = 5;
+const DEFAULT_TARGET = '200';
 
 export {
   PAGINATION,
@@ -46,4 +47,5 @@ export {
   MAX_ITEMS_SMALL,
   SYSTEM_ROLE,
   CAMPAIGN_ROLE,
+  DEFAULT_TARGET,
 };

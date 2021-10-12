@@ -8,6 +8,7 @@ import { Autocomplete } from '@material-ui/lab';
 import Select from '../../../components/TreeDropdown';
 import { DetailIntentStyled } from './index.style';
 import { getIntents } from '../../../apis/faq';
+import { DEFAULT_TARGET } from '../../../constants';
 import 'react-dropdown-tree-select/dist/styles.css';
 
 export default function DetailIntent({
@@ -16,6 +17,8 @@ export default function DetailIntent({
   isError,
 }) {
   const [categories, setCategories] = useState([]);
+  const { t } = useTranslation();
+
   useEffect(() => {
     getIntents().then(({ data }) =>
       setCategories(
@@ -34,10 +37,11 @@ export default function DetailIntent({
       ),
     );
   }, []);
+
   useEffect(() => {
-    if (!detailCampaign.target) onSetDetailCampaign('target', '200');
+    if (!detailCampaign.target) onSetDetailCampaign('target', DEFAULT_TARGET);
   }, [detailCampaign]);
-  const { t } = useTranslation();
+
   const onChange = (curr, selected) => {
     let temp = [];
     selected.forEach((item) => {
@@ -49,6 +53,7 @@ export default function DetailIntent({
     });
     onSetDetailCampaign('intents', temp);
   };
+
   return (
     <DetailIntentStyled>
       <Grid container spacing={2} className="infoWrapper">
