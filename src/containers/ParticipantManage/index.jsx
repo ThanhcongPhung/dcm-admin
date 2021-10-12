@@ -243,7 +243,7 @@ export default function ParticipantManage() {
                   count={participants.length}
                   rowsPerPage={MAX_ITEMS_SMALL}
                   page={page}
-                  onChangePage={(event, newPage) => handleChangePage(newPage)}
+                  onPageChange={(event, newPage) => handleChangePage(newPage)}
                 />
               )}
             </TableBody>
