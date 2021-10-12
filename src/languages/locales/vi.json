@@ -187,6 +187,13 @@
   "note": "Chú thích",
   "content": "Nội dung",
   "play": "Phát",
-  "stop": "Dừng"
+  "stop": "Dừng",
+  "serviceManager": "Người quản lý dịch vụ",
+  "addManagerSuccess": "Thêm người quản lý dịch vụ thành công",
+  "addManagerError": "Thêm người quản lý dịch vụ không thành công",
+  "deleteManagerSuccess": "Xóa người quản lý dịch vụ thành công",
+  "deleteManagerError": "Xóa người quản lý dịch vụ không thành công",
+  "confirmDeleteManager": "Bạn chắc chắn muốn xóa người quản lý này",
+  "noData": "Hiện không có dữ liệu."
 }
 
