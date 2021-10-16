@@ -3,10 +3,14 @@ import { CAMPAIGN_TYPE } from '../../../constants';
 import DetailIntent from '../Chatbot/DetailIntent';
 import DetailUsecase from '../Chatbot/DetailUsecase';
 import FAQCampaign from '../FAQ/CreateFAQCampaign';
+import DetailValidASR from '../AudioChatASR/DetailValidASR';
+import DetailCollectASR from '../AudioChatASR/DetailCollectASR';
 
 const DETAIL_CAMPAIGN = {
   INTENTS: 'intents',
   USECASES: 'usecases',
+  VALID_AUDIO_ROOM: 'valid_audio_room',
+  COLLECTION_AUDIO: 'collection_audio',
 };
 
 export default function DetailCondition({
@@ -58,6 +62,18 @@ export default function DetailCondition({
           campaignActions={campaignActions}
         />
       );
+    }
+    case CAMPAIGN_TYPE.ASR_COLLECTION: {
+      const onSetCollectAudio = (value) => {
+        onSetDetailCampaign(DETAIL_CAMPAIGN.COLLECTION_AUDIO, value);
+      };
+      return <DetailCollectASR onSetCollectAudio={onSetCollectAudio} />;
+    }
+    case CAMPAIGN_TYPE.ASR_VALIDATION: {
+      const onSetValidRoom = (value) => {
+        onSetDetailCampaign(DETAIL_CAMPAIGN.VALID_AUDIO_ROOM, value);
+      };
+      return <DetailValidASR onSetValidRoom={onSetValidRoom} />;
     }
     default:
       return <div />;

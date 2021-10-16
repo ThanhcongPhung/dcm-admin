@@ -43,6 +43,12 @@ function DetailCampaign({
     (!detailCampaign ||
       !detailCampaign.target ||
       Number.isNaN(parseInt(detailCampaign.target)));
+  const checkInValidValidCampaign = () =>
+    campaignType === CAMPAIGN_TYPE.ASR_VALIDATION &&
+    (!detailCampaign ||
+      !detailCampaign.valid_audio_room ||
+      (detailCampaign.valid_audio_room &&
+        !detailCampaign.valid_audio_room.length));
 
   const saveDetailCampaign = async ({ prevStep, save }) => {
     if (checkInValidChatbotIntent())
@@ -59,6 +65,10 @@ function DetailCampaign({
       });
     if (checkInValidFAQTarget())
       return enqueueSnackbar(t('invalidTarget'), {
+        variant: 'error',
+      });
+    if (checkInValidValidCampaign())
+      return enqueueSnackbar(t('errorAtLeastOneMoreValidRoom'), {
         variant: 'error',
       });
     const { data } = await api.campaign.updateServiceCampaign(
