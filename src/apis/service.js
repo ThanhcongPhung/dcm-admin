@@ -75,3 +75,42 @@ export async function deleteService(serviceId) {
     return error.response;
   }
 }
+
+export async function getServiceManagers(serviceId) {
+  try {
+    const response = await api({
+      method: 'GET',
+      url: `/managers`,
+      headers: { 'service-id': serviceId },
+    });
+    return response;
+  } catch (error) {
+    return error.response;
+  }
+}
+
+export async function addServiceManager(serviceId, userId) {
+  try {
+    const response = await api({
+      method: 'POST',
+      url: `/managers/${userId}`,
+      headers: { 'service-id': serviceId },
+    });
+    return response;
+  } catch (error) {
+    return error.response;
+  }
+}
+
+export async function deleteServiceManager(serviceId, userId) {
+  try {
+    const response = await api({
+      method: 'DELETE',
+      url: `/managers/${userId}`,
+      headers: { 'service-id': serviceId },
+    });
+    return response;
+  } catch (error) {
+    return error.response;
+  }
+}

@@ -25,6 +25,7 @@ const CAMPAIGN_TYPE = {
 
 const SYSTEM_ROLE = {
   ADMIN: 'ADMIN',
+  SERVICE_MANAGER: 'SERVICE_MANAGER',
   USER: 'USER',
 };
 

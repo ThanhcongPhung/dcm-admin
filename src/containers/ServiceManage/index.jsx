@@ -9,6 +9,7 @@ import ServiceInfo from './ServiceInfo';
 import SearchInput from '../../components/SearchInput';
 import { PAGINATION } from '../../constants';
 import { ServiceManageStyled } from './index.style';
+import ServiceManager from './ServiceManager';
 
 function ServerManage() {
   const { t } = useTranslation();
@@ -21,6 +22,7 @@ function ServerManage() {
   const [isLoading, setIsLoading] = useState(false);
   const [isCreate, setIsCreate] = useState(false);
   const [serviceEdit, setServiceEdit] = useState(null);
+  const [selectedId, setSelectedId] = useState(null);
 
   const fetchGetServices = async (serviceFields) => {
     const { data } = await api.service.getServices({
@@ -91,6 +93,8 @@ function ServerManage() {
     setServiceEdit(service);
   };
 
+  const handleShowManager = (serviceId) => setSelectedId(serviceId);
+
   useEffect(() => {
     setIsLoading(true);
     fetchGetServices();
@@ -123,11 +127,11 @@ function ServerManage() {
             <ServiceTable
               serviceList={serviceList}
               isLoading={isLoading}
-              fetchGetServices={fetchGetServices}
               setIsLoading={setIsLoading}
               handleClickServiceEdit={handleClickServiceEdit}
               pagination={pagination}
               onHandleDelete={onHandleDelete}
+              handleShowManager={handleShowManager}
             />
           </div>
           <div className="pagination">
@@ -139,17 +143,19 @@ function ServerManage() {
           </div>
         </Paper>
       </ServiceManageStyled>
-      {isCreate && (
-        <ServiceInfo
-          open={isCreate}
-          handleClose={onCancelShowService}
-          setIsLoading={setIsLoading}
-          fetchGetServices={fetchGetServices}
-          serviceEdit={serviceEdit}
-          onHandleEdit={onHandleEdit}
-          onHandleAdd={onHandleAdd}
-        />
-      )}
+      <ServiceInfo
+        open={isCreate}
+        handleClose={onCancelShowService}
+        setIsLoading={setIsLoading}
+        serviceEdit={serviceEdit}
+        onHandleEdit={onHandleEdit}
+        onHandleAdd={onHandleAdd}
+      />
+      <ServiceManager
+        open={!!selectedId}
+        handleClose={() => setSelectedId(null)}
+        serviceId={selectedId}
+      />
     </div>
   );
 }

@@ -191,6 +191,13 @@
   "addIntentGroup": "Chọn nhóm ý định",
   "faqCampaingtags": "Nhãn",
   "invalidTarget": "Mục tiêu không hợp lệ",
-  "campaignTarget": "Mục tiêu"
+  "campaignTarget": "Mục tiêu",
+  "serviceManager": "Người quản lý dịch vụ",
+  "addManagerSuccess": "Thêm người quản lý dịch vụ thành công",
+  "addManagerError": "Thêm người quản lý dịch vụ không thành công",
+  "deleteManagerSuccess": "Xóa người quản lý dịch vụ thành công",
+  "deleteManagerError": "Xóa người quản lý dịch vụ không thành công",
+  "confirmDeleteManager": "Bạn chắc chắn muốn xóa người quản lý này",
+  "noData": "Hiện không có dữ liệu."
 }
 

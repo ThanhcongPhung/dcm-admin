@@ -191,5 +191,12 @@
   "addIntentGroup": "Choose intents group",
   "faqCampaingtags": "Label",
   "invalidTarget": "Invalid target",
-  "campaignTarget": "Target"
+  "campaignTarget": "Target",
+  "serviceManager": "Service Manager",
+  "addManagerSuccess": "Add Service Manager Success",
+  "addManagerError": "Add Service Manager Error",
+  "deleteManagerSuccess": "Delete Service Manager Success",
+  "deleteManagerError": "Delete Service Manager Error",
+  "confirmDeleteManager": "Are you sure delete this manager?",
+  "noData": "There is no data."
 }
