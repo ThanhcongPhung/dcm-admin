@@ -9,7 +9,6 @@ import Select from '../../../components/TreeDropdown';
 import { DetailIntentStyled } from './index.style';
 import { getIntents } from '../../../apis/faq';
 import { DEFAULT_TARGET } from '../../../constants';
-import 'react-dropdown-tree-select/dist/styles.css';
 
 export default function DetailIntent({
   detailCampaign,
@@ -117,7 +116,7 @@ export default function DetailIntent({
               inputError: isError,
             })}
           >
-            Mục tiêu
+            {t('campaignTarget')}
           </Typography>
         </Grid>
         <Grid item sx={4} sm={4}>

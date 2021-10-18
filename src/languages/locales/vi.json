@@ -190,6 +190,7 @@
   "stop": "Dừng",
   "addIntentGroup": "Chọn nhóm ý định",
   "faqCampaingtags": "Nhãn",
-  "invalidTarget": "Mục tiêu không hợp lệ"
+  "invalidTarget": "Mục tiêu không hợp lệ",
+  "campaignTarget": "Mục tiêu"
 }
 

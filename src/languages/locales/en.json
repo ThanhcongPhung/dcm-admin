@@ -190,5 +190,6 @@
   "stop": "Stop",
   "addIntentGroup": "Choose intents group",
   "faqCampaingtags": "Label",
-  "invalidTarget": "Invalid target"
+  "invalidTarget": "Invalid target",
+  "campaignTarget": "Target"
 }

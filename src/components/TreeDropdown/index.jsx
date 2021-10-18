@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import DropdownTreeSelect from 'react-dropdown-tree-select';
 import isEqual from 'lodash/isEqual'
 
-export default class Container extends Component {
+export default class TreeDropdown extends Component {
   constructor(props){
     super(props)
     this.state = { data: props.data }
