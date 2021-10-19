@@ -1,11 +1,11 @@
 /* eslint-disable import/no-named-as-default-member */
 /* eslint-disable import/no-named-as-default */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import { Typography, Grid, TextField } from '@material-ui/core';
 import { Autocomplete } from '@material-ui/lab';
-import Select from '../../../components/TreeDropdown';
+import DropdownTreeSelect from 'react-dropdown-tree-select';
 import { DetailIntentStyled } from './index.style';
 import { getIntents } from '../../../apis/faq';
 import { DEFAULT_TARGET } from '../../../constants';
@@ -50,9 +50,18 @@ export default function DetailIntent({
         temp.push(item.value);
       }
     });
-    onSetDetailCampaign('intents', temp);
+    onSetDetailCampaign('intentIds', temp);
   };
-
+  const DropDownTree = useMemo(
+    () => (
+      <DropdownTreeSelect
+        data={categories}
+        texts={{ placeholder: 'Chọn ý định' }}
+        onChange={onChange}
+      />
+    ),
+    [categories],
+  );
   return (
     <DetailIntentStyled>
       <Grid container spacing={2} className="infoWrapper">
@@ -66,11 +75,7 @@ export default function DetailIntent({
           </Typography>
         </Grid>
         <Grid item xs={10} sm={10}>
-          <Select
-            data={categories}
-            texts={{ placeholder: 'Chọn ý định' }}
-            onChange={onChange}
-          />
+          {DropDownTree}
         </Grid>
       </Grid>
       <Grid container className="infoWrapper">

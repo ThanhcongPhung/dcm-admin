@@ -36,8 +36,8 @@ function DetailCampaign({
   const checkInValidFAQIntent = () =>
     campaignType === CAMPAIGN_TYPE.FAQ &&
     (!detailCampaign ||
-      !detailCampaign.intents ||
-      (detailCampaign.intents && !detailCampaign.intents.length));
+      !detailCampaign.intentIds ||
+      (detailCampaign.intentIds && !detailCampaign.intentIds.length));
   const checkInValidFAQTarget = () =>
     campaignType === CAMPAIGN_TYPE.FAQ &&
     (!detailCampaign ||
