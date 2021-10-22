@@ -8,6 +8,7 @@ import App from './App';
 import './index.css';
 import './override.css';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import 'react-dropdown-tree-select/dist/styles.css';
 
 ReactDOM.render(<App />, document.getElementById('root'));
 

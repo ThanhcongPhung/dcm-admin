@@ -1,3 +1,4 @@
+/* eslint-disable radix */
 /* eslint-disable consistent-return */
 import React, { useState, useEffect } from 'react';
 import { useSnackbar } from 'notistack';
@@ -13,6 +14,7 @@ function DetailCampaign({
   campaignType,
   detailCampaign,
   onSetDetailCampaign,
+  campaignActions,
   onPrevStep,
   onCancel,
 }) {
@@ -31,6 +33,16 @@ function DetailCampaign({
     (!detailCampaign ||
       !detailCampaign.intents ||
       (detailCampaign.intents && !detailCampaign.intents.length));
+  const checkInValidFAQIntent = () =>
+    campaignType === CAMPAIGN_TYPE.FAQ &&
+    (!detailCampaign ||
+      !detailCampaign.intentIds ||
+      (detailCampaign.intentIds && !detailCampaign.intentIds.length));
+  const checkInValidFAQTarget = () =>
+    campaignType === CAMPAIGN_TYPE.FAQ &&
+    (!detailCampaign ||
+      !detailCampaign.target ||
+      Number.isNaN(parseInt(detailCampaign.target)));
 
   const saveDetailCampaign = async ({ prevStep, save }) => {
     if (checkInValidChatbotIntent())
@@ -41,7 +53,14 @@ function DetailCampaign({
       return enqueueSnackbar(t('errorAtLeastOneMoreUsecase'), {
         variant: 'error',
       });
-
+    if (checkInValidFAQIntent())
+      return enqueueSnackbar(t('errorAtLeastOneMoreIntent'), {
+        variant: 'error',
+      });
+    if (checkInValidFAQTarget())
+      return enqueueSnackbar(t('invalidTarget'), {
+        variant: 'error',
+      });
     const { data } = await api.campaign.updateServiceCampaign(
       campaignId,
       detailCampaign,
@@ -85,6 +104,7 @@ function DetailCampaign({
         campaignIntents={campaignIntents}
         detailCampaign={detailCampaign}
         onSetDetailCampaign={onSetDetailCampaign}
+        campaignActions={campaignActions}
       />
       <CardActions className="cardActions">
         <Button variant="outlined" onClick={onCancel}>

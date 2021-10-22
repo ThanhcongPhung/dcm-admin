@@ -19,6 +19,7 @@ export default function CreateCampaign() {
   const [services, setServices] = useState([]);
   const [campaignId, setCampaignId] = useState();
   const [campaignType, setCampaignType] = useState();
+  const [campaignActions, setCampaignActions] = useState();
   const [detailCampaign, setDetailCampaign] = useState({});
 
   const { t } = useTranslation();
@@ -50,6 +51,7 @@ export default function CreateCampaign() {
     if (data.status) {
       setCampaignType(data.result.campaignType);
       setDetailCampaign(data.result.detailCampaign);
+      setCampaignActions(data.result.actions);
     }
   };
 
@@ -102,6 +104,7 @@ export default function CreateCampaign() {
             campaignType={campaignType}
             detailCampaign={detailCampaign}
             onSetDetailCampaign={onSetDetailCampaign}
+            campaignActions={campaignActions}
             onPrevStep={onPrevStep}
             onCancel={onCancel}
           />
