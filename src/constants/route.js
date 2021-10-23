@@ -1,5 +1,5 @@
 export default {
-  HOME: '/admin/',
+  OVERVIEW: '/admin/',
   SERVICE_MANAGE: '/admin/service-manage',
   CAMPAIGN_MANAGE: '/admin/campaign-manage',
   CREATE_CAMPAIGN: '/admin/campaigns/create',

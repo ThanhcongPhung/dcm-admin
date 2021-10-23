@@ -6,5 +6,16 @@ import * as upload from './upload';
 import * as user from './user';
 import * as audioASR from './audioASR';
 import * as faq from './faq';
+import * as statistic from './statistic';
 
-export default { auth, service, campaign, app, upload, user, audioASR, faq };
+export default {
+  auth,
+  service,
+  campaign,
+  app,
+  upload,
+  user,
+  audioASR,
+  faq,
+  statistic,
+};

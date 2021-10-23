@@ -1,5 +1,5 @@
 import routes from '../constants/route';
-import Home from '../pages/Home';
+import Overview from '../pages/Overview';
 import ServiceManage from '../pages/ServiceManage';
 import CampaignManage from '../pages/CampaignManage';
 import CreateCampaign from '../pages/CreateCampaign';
@@ -8,8 +8,8 @@ import AudioASRManage from '../pages/AudioASRManage';
 
 const appRoutes = {
   home: {
-    url: routes.HOME,
-    component: Home,
+    url: routes.OVERVIEW,
+    component: Overview,
     private: true,
   },
   serviceManage: {

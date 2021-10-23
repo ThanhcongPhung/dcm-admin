@@ -198,5 +198,17 @@
   "deleteManagerSuccess": "Delete Service Manager Success",
   "deleteManagerError": "Delete Service Manager Error",
   "confirmDeleteManager": "Are you sure delete this manager?",
-  "noData": "There is no data."
+  "noData": "There is no data.",
+  "overview": "Overview",
+  "today": "Today",
+  "week": "Week",
+  "month": "Month",
+  "serviceOverview": "Service",
+  "campaignOverview": "Campaign",
+  "userOverview": "User",
+  "waitingCampaignOverview": "Waiting Campaign",
+  "runningCampaignOverview": "Running Campaign",
+  "draftCampaignOverview": "Draft Campaign",
+  "pauseCampaignOverview": "Pause Campaign",
+  "endCampaignOverview": "End Campaign"
 }

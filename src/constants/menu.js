@@ -2,9 +2,9 @@ import routes from './route';
 
 export default [
   {
-    heading: 'home',
+    heading: 'overview',
     icon: 'home',
-    route: routes.HOME,
+    route: routes.OVERVIEW,
   },
   {
     heading: 'serviceManageMenu',
