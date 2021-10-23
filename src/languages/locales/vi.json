@@ -210,6 +210,15 @@
   "runningCampaignOverview": "Đang diễn ra",
   "draftCampaignOverview": "Chiến dịch nháp",
   "pauseCampaignOverview": "Tạm dừng thu thập",
-  "endCampaignOverview": "Đã kết thúc"
+  "endCampaignOverview": "Đã kết thúc",
+  "collectionResult": "Kết quả thu thập",
+  "campaignCollectionResult": "Kết quả thu thập của chiến dịch",
+  "contributor": "Người đóng góp dữ liệu",
+  "usersaySearch": "Tìm kiếm theo từ khóa",
+  "botIntent": "Ý định bot trả về",
+  "contributorIntent": "ý định của người đóng góp",
+  "duplicateNumber": "Số lần lặp",
+  "usersay": "Câu hỏi",
+  "comment": "Góp ý cho câu trả lời"
 }
 
