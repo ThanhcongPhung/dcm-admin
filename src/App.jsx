@@ -4,7 +4,7 @@ import { ThemeProvider as MuiThemeProvider } from '@material-ui/styles';
 import { ThemeProvider as StyledThemeProvider } from 'styled-components';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import { SnackbarProvider } from 'notistack';
-import DateFnsUtils from '@date-io/date-fns';
+import MomentUtils from '@date-io/moment';
 import store from './redux/store';
 import AppRouter from './router';
 import theme from './styles/theme';
@@ -12,7 +12,7 @@ import theme from './styles/theme';
 function App() {
   return (
     <MuiThemeProvider theme={theme}>
-      <MuiPickersUtilsProvider utils={DateFnsUtils}>
+      <MuiPickersUtilsProvider utils={MomentUtils}>
         <StyledThemeProvider theme={theme}>
           <Provider store={store()}>
             <SnackbarProvider>

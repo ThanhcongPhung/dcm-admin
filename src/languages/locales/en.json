@@ -210,5 +210,14 @@
   "runningCampaignOverview": "Running Campaign",
   "draftCampaignOverview": "Draft Campaign",
   "pauseCampaignOverview": "Pause Campaign",
-  "endCampaignOverview": "End Campaign"
+  "endCampaignOverview": "End Campaign",
+  "collectionResult": "Collection Result",
+  "campaignCollectionResult": "Collection Result of Campaign",
+  "contributor": "Contributor",
+  "usersaySearch": "Keyword of usersay",
+  "botIntent": "Intent By Bot",
+  "contributorIntent": "Contributor Intent",
+  "duplicateNumber": "Duplicate Number",
+  "usersay": "usersay",
+  "comment": "Comment"
 }

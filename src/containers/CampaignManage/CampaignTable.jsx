@@ -45,7 +45,7 @@ export default function CampaignTable(props) {
     onHandleDelete,
     onHandleChangeStatus,
   } = props;
-  const [selectCampaignId, setSelectCampaignId] = useState();
+  const [selectCampaign, setSelectCampaign] = useState();
   const [isDelete, setIsDelete] = useState(false);
   const [curStatus, setCurStatus] = useState();
   const [incomingStatus, setIncomingStatus] = useState();
@@ -55,22 +55,22 @@ export default function CampaignTable(props) {
   const { t } = useTranslation();
   const { enqueueSnackbar } = useSnackbar();
 
-  const handleOpenMenu = (campaignId, status) => (e) => {
+  const handleOpenMenu = (campaign, status) => (e) => {
     e.stopPropagation();
     setAnchorEl(e.currentTarget);
-    setSelectCampaignId(campaignId);
+    setSelectCampaign(campaign);
     setCurStatus(status);
   };
 
   const handleCloseMenu = () => {
     setAnchorEl();
-    setSelectCampaignId();
+    setSelectCampaign();
   };
 
   const handleCloseConfirm = () => {
     setIsDelete(false);
     setIncomingStatus();
-    setSelectCampaignId();
+    setSelectCampaign();
   };
 
   const handleClickStatus = (status) => (e) => {
@@ -85,6 +85,7 @@ export default function CampaignTable(props) {
 
   const handleDeleteCampaign = async () => {
     setIsLoading(true);
+    const selectCampaignId = selectCampaign && selectCampaign.id;
     const { data } = await api.campaign.deleteCampaign(selectCampaignId);
     setIsLoading(false);
     if (data.status) {
@@ -98,6 +99,7 @@ export default function CampaignTable(props) {
 
   const handleChangeStatus = async () => {
     setIsLoading(true);
+    const selectCampaignId = selectCampaign && selectCampaign.id;
     const { data } = await api.campaign.updateStatusCampaign(
       selectCampaignId,
       incomingStatus,
@@ -193,7 +195,7 @@ export default function CampaignTable(props) {
                       aria-label="more"
                       aria-controls="long-menu"
                       aria-haspopup="true"
-                      onClick={handleOpenMenu(item.id, item.status)}
+                      onClick={handleOpenMenu(item, item.status)}
                       onMouseEnter={() => setIsHover(false)}
                       onMouseLeave={() => setIsHover(true)}
                     >
@@ -204,13 +206,14 @@ export default function CampaignTable(props) {
                 <Menu
                   id="long-menu"
                   anchorEl={anchorEl}
-                  open={!!selectCampaignId}
+                  open={!!selectCampaign}
                   onClose={handleCloseMenu}
                 >
                   <MenuAction
                     status={curStatus}
                     onClickDelete={handleClickDelete}
                     onChangeStatus={handleClickStatus}
+                    campaign={selectCampaign}
                   />
                 </Menu>
               </React.Fragment>
