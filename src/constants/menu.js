@@ -21,4 +21,15 @@ export default [
     icon: 'queue_music',
     route: routes.AUDIO_MANAGE,
   },
+  {
+    heading: 'faqManage',
+    icon: 'question_answer',
+    subMenus: [
+      {
+        heading: 'intentCategory',
+        icon: 'table_view',
+        route: routes.FAQ_INTENT_CATEGORIES,
+      },
+    ],
+  },
 ];

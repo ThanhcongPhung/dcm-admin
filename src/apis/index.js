@@ -8,6 +8,7 @@ import * as audioASR from './audioASR';
 import * as faq from './faq';
 import * as statistic from './statistic';
 import * as chatbot from './chatbot';
+import * as faqCategory from './faqCategory';
 
 export default {
   auth,
@@ -20,4 +21,5 @@ export default {
   faq,
   statistic,
   chatbot,
+  faqCategory,
 };
