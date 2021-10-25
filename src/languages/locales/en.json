@@ -244,5 +244,16 @@
   "accept": "Accept",
   "roomSelected": "Room Selected",
   "roomListPrepare": "Room List",
-  "hasSelected": "has selected"
+  "hasSelected": "has selected",
+  "deleteIntentSuccess": "Delete intent success",
+  "deleteIntentError": "Delete intent error",
+  "intentManage": "Manage Intent ",
+  "searchIntent": "Search intent",
+  "createIntent": "Create intent",
+  "slotAmount": "Slot Quantity",
+  "deleteIntent": "Delete intent",
+  "confirmDeleteIntent": "Are you sure delete this intent?",
+  "emptyData": "No data",
+  "nluManageMenu": "Manage NLU",
+  "intentManageMenu": "Manage Intent"
 }

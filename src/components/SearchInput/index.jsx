@@ -4,7 +4,7 @@ import { TextField, InputAdornment, Icon } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { SearchInputStyled } from './index.style';
 
-export default function SearchInput({ onHandleSearch, title }) {
+export default function SearchInput({ onHandleSearch, title, size = 'large' }) {
   const { t } = useTranslation();
   const [search, setSearch] = useState('');
 
@@ -25,6 +25,7 @@ export default function SearchInput({ onHandleSearch, title }) {
       <TextField
         fullWidth
         value={search}
+        size={size}
         onChange={onHandleSearchFields}
         name="search"
         variant="outlined"

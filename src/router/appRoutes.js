@@ -9,6 +9,7 @@ import ChatbotCampaignResult from '../pages/ChatbotCampaignResult';
 import CategoryManage from '../pages/FAQ/CategoryManage';
 import CategoryCreate from '../pages/FAQ/CategoryCreate';
 import CategoryEdit from '../pages/FAQ/CategoryEdit';
+import IntentNLUManage from '../pages/NLU/IntentManage';
 
 const appRoutes = {
   home: {
@@ -59,6 +60,11 @@ const appRoutes = {
   intentCategoryEdit: {
     url: routes.FAQ_INTENT_CATEGORIES_EDIT,
     component: CategoryEdit,
+    private: true,
+  },
+  intentNLUManage: {
+    url: routes.NLU_MANAGE_INTENTS,
+    component: IntentNLUManage,
     private: true,
   },
 };
