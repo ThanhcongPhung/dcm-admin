@@ -9,6 +9,7 @@ import * as faq from './faq';
 import * as statistic from './statistic';
 import * as chatbot from './chatbot';
 import * as faqCategory from './faqCategory';
+import * as faqStaff from './faqStaff';
 
 export default {
   auth,
@@ -22,4 +23,5 @@ export default {
   statistic,
   chatbot,
   faqCategory,
+  faqStaff,
 };

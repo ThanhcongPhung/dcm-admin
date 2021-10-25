@@ -7,4 +7,6 @@ export default {
   AUDIO_MANAGE: '/admin/audios/manage',
   CHATBOT_CAMPAIGN_RESULT: '/admin/campaigns/:campaignId/chatbot/result',
   FAQ_INTENT_CATEGORIES: '/admin/faq/categories',
+  FAQ_INTENT_CATEGORIES_CREATE: '/admin/faq/categories/create',
+  FAQ_INTENT_CATEGORIES_EDIT: '/admin/faq/categories/:categoryId/edit',
 };

@@ -6,7 +6,9 @@ import CreateCampaign from '../pages/CreateCampaign';
 import ParticipantManage from '../pages/ParticipantManage';
 import AudioASRManage from '../pages/AudioASRManage';
 import ChatbotCampaignResult from '../pages/ChatbotCampaignResult';
-import CategoryManage from '../pages/FAQCategoryManage';
+import CategoryManage from '../pages/FAQ/CategoryManage';
+import CategoryCreate from '../pages/FAQ/CategoryCreate';
+import CategoryEdit from '../pages/FAQ/CategoryEdit';
 
 const appRoutes = {
   home: {
@@ -47,6 +49,16 @@ const appRoutes = {
   intentCategory: {
     url: routes.FAQ_INTENT_CATEGORIES,
     component: CategoryManage,
+    private: true,
+  },
+  intentCategoryCreate: {
+    url: routes.FAQ_INTENT_CATEGORIES_CREATE,
+    component: CategoryCreate,
+    private: true,
+  },
+  intentCategoryEdit: {
+    url: routes.FAQ_INTENT_CATEGORIES_EDIT,
+    component: CategoryEdit,
     private: true,
   },
 };
