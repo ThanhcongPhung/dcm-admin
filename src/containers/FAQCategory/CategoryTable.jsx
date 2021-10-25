@@ -34,7 +34,10 @@ export default function CategoryTable({
   setIsLoading,
   isLoading,
   onHandleEdit,
+<<<<<<< HEAD
   pagination,
+=======
+>>>>>>> intent category manage
 }) {
   const { history } = useHistory();
   const { enqueueSnackbar } = useSnackbar();
@@ -98,9 +101,13 @@ export default function CategoryTable({
           {listCategory &&
             listCategory.map((category, index) => (
               <TableRow key={category.id}>
+<<<<<<< HEAD
                 <TableCell className="bodyCell" align="center">
                   {(pagination.page - 1) * pagination.limit + index + 1}
                 </TableCell>
+=======
+                <TableCell className="bodyCell">{index + 1}</TableCell>
+>>>>>>> intent category manage
                 <TableCell component="th" scope="row" className="bodyCell">
                   {category.title}
                 </TableCell>
@@ -115,7 +122,11 @@ export default function CategoryTable({
                       </div>
                     ))}
                 </TableCell>
+<<<<<<< HEAD
                 <TableCell className="bodyCell" align="center">
+=======
+                <TableCell className="bodyCell">
+>>>>>>> intent category manage
                   <IconButton
                     aria-label="more"
                     aria-controls="long-menu"

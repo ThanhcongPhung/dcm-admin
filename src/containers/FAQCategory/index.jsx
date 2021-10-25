@@ -98,7 +98,10 @@ export default function CategoryManage() {
             setIsLoading={setIsLoading}
             onHandleDelete={onHandleDelete}
             onHandleEdit={onHandleEdit}
+<<<<<<< HEAD
             pagination={pagination}
+=======
+>>>>>>> intent category manage
           />
         </div>
         <div className="pagination">
