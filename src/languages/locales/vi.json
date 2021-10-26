@@ -219,6 +219,24 @@
   "contributorIntent": "ý định của người đóng góp",
   "duplicateNumber": "Số lần lặp",
   "usersay": "Câu hỏi",
-  "comment": "Góp ý cho câu trả lời"
+  "comment": "Góp ý cho câu trả lời",
+  "faqManage": "Quản lý dịch vụ FAQ",
+  "intentCategory": "Nhóm dữ liệu",
+  "faqIntent": "Ý định",
+  "faqStaff": "Thành viên",
+  "deleteCategory": "Xoá nhóm",
+  "categoryTitle": "Tên nhóm",
+  "subCategories": "Nhóm nhỏ",
+  "categoryManage": "Quản lý nhóm dữ liệu",
+  "titleConfirmDelete": "Bạn chắc chắn muốn xoá dữ liệu này chứ?",
+  "deleteCategorySuccess": "Xoá nhóm ý định thành công",
+  "deleteCategoryError": "Xoá nhóm ý định không thành công",
+  "requiedField": "Đây là trường bắt buộc",
+  "addSubCategory": "Thêm nhóm nhỏ",
+  "categoryPlaceholder": "Nhập mô tả về nhóm dữ liệu này",
+  "createCategory": "Thêm nhóm dữ liệu",
+  "editCategory": "Chỉnh sửa nhóm dữ liệu",
+  "infoBase": "Thông tin cơ bản",
+  "participant": "Thông tin thành viên",
+  "categoryDescription": "Nhập mô tả về nhóm dữ liệu này"
 }
-
