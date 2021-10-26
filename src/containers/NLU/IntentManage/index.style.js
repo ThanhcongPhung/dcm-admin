@@ -66,4 +66,36 @@ const TableStyled = styled.div`
   }
 `;
 
-export { IntentManageStyled, TableStyled };
+const CreateIntentModalStyled = styled.div`
+  .contentModal {
+    width: 500px;
+    padding: 16px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    max-height: 80vh;
+    overflow: auto;
+    .header {
+      .headTitle {
+        margin-bottom: 16px;
+      }
+    }
+    .form {
+      .item {
+        margin-top: 8px;
+        margin-bottom: 8px;
+      }
+      .slotHeaderText {
+        margin: 0;
+      }
+    }
+    .emptyDataText {
+      margin-top: 8px;
+      margin-bottom: 8px;
+      text-align: center;
+    }
+  }
+`;
+
+export { IntentManageStyled, TableStyled, CreateIntentModalStyled };

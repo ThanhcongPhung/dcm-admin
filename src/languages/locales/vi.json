@@ -249,7 +249,6 @@
   "deleteIntentError": "Xóa ý định không thành công",
   "intentManage": "Quản lí ý định",
   "searchIntent": "Tìm kiếm ý định",
-  "createIntent": "Tạo ý định",
   "slotAmount": "Số lượng thông tin",
   "deleteIntent": "Xóa ý định",
   "confirmDeleteIntent": "Bạn chắc chắn muốn xóa ý định này?",
@@ -258,7 +257,7 @@
   "intentManageMenu": "Quản lý ý định",
   "category": "Nhóm dữ liệu ",
   "intentTags": "Nhãn ý định",
-  "scenarioASRManage" : "Quản lý kịch bản ASR",
+  "scenarioASRManage": "Quản lý kịch bản ASR",
   "domain": "Miền dữ liệu",
   "roleUser1": "Vai trò của người 1",
   "roleUser2": "Vai trò của người 2",
@@ -271,9 +270,11 @@
   "typeRoleName": "Nhập tên vai trò",
   "typeRoleDescription": "Nhập mô tả vai trò",
   "createScenario": "Thêm kịch bản",
-  "slots": "Slot",
   "typeSlotName": "Nhập tên slot",
   "typeSlotTag": "Nhập tag slot",
   "typeSlotValueName": "Nhập giá trị của tên slot",
-  "typeSlotValueTag": "Nhập giá trị của tag slot"
+  "typeSlotValueTag": "Nhập giá trị của tag slot",
+  "slots": "Danh sách thông tin",
+  "tag": "Tag",
+  "create": "Tạo"
 }

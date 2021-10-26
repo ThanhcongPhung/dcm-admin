@@ -249,7 +249,6 @@
   "deleteIntentError": "Delete intent error",
   "intentManage": "Manage Intent ",
   "searchIntent": "Search intent",
-  "createIntent": "Create intent",
   "slotAmount": "Slot Quantity",
   "deleteIntent": "Delete intent",
   "confirmDeleteIntent": "Are you sure delete this intent?",
@@ -271,9 +270,11 @@
   "typeRoleName": "Type Role Name",
   "typeRoleDescription": "Type Role Description",
   "createScenario": "Create Scenario",
-  "slots": "Slot",
   "typeSlotName": "Type Slot Name",
   "typeSlotTag": "Type Slot Tag",
   "typeSlotValueName": "Type Slot Value Name",
-  "typeSlotValueTag": "Type Slot Value Tag"
+  "typeSlotValueTag": "Type Slot Value Tag",
+  "slots": "Slots",
+  "tag": "Tag",
+  "create": "Create"
 }

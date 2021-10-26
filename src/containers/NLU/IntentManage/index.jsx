@@ -6,12 +6,14 @@ import AddIcon from '@material-ui/icons/Add';
 import api from '../../../apis';
 import IntentTable from './IntentTable';
 import SearchInput from '../../../components/SearchInput';
+import CreateIntentModal from './CreateIntentModal';
 import { PAGINATION } from '../../../constants';
 import { IntentManageStyled } from './index.style';
 
 export default function IntentManage() {
   const [intentList, setIntentList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [openCreateModal, setOpenCreateModal] = useState(false);
   const [pagination, setPagination] = useState({
     page: 1,
     limit: PAGINATION.TABLE_MANAGE,
@@ -76,8 +78,17 @@ export default function IntentManage() {
     }
   };
 
+  const handleOpenCreateModal = () => {
+    setOpenCreateModal(true);
+  };
+
+  const handleCloseCreateModal = () => {
+    setOpenCreateModal(false);
+  };
+
   const onHandleCreate = () => {
-    //  TODO
+    handleOpenCreateModal();
+    // history.push('/admin/nlu-manage/intents/create');
   };
 
   const onHandleEdit = () => {
@@ -105,7 +116,7 @@ export default function IntentManage() {
             />
           </div>
           <div className="headButtons">
-            <Tooltip title={t('createIntent')}>
+            <Tooltip title={t('addIntent')}>
               <Button
                 variant="contained"
                 color="primary"
@@ -135,6 +146,10 @@ export default function IntentManage() {
             onChange={handleChangePagination}
           />
         </div>
+        <CreateIntentModal
+          open={openCreateModal}
+          handleClose={handleCloseCreateModal}
+        />
       </Paper>
     </IntentManageStyled>
   );
