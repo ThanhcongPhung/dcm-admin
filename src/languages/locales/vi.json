@@ -102,6 +102,7 @@
   "usecaseDescRequired": "Mô tả kịch bản là bắt buộc",
   "errorAtLeastOneMoreIntent": "Cần thêm ít nhất 1 ý định",
   "errorAtLeastOneMoreUsecase": "Cần thêm ít nhất 1 kịch bản",
+  "errorAtLeastOneMoreValidRoom": "Cần thêm ít nhất 1 phòng xác thực và bấm xác nhận",
   "editUsecaseSuccess": "Chỉnh sửa kịch bản thành công",
   "addUsecaseSuccess": "Thêm kịch bản thành công",
   "deleteUsecaseSuccess": "Xóa kịch bản thành công",
@@ -239,5 +240,10 @@
   "infoBase": "Thông tin cơ bản",
   "participant": "Thông tin thành viên",
   "categoryDescription": "Nhập mô tả về nhóm dữ liệu này",
-  "sumParticipant": "Tổng số người tham gia"
+  "sumParticipant": "Tổng số người tham gia",
+  "accept": "Xác nhận",
+  "roomSelected": "Phòng đã được chọn",
+  "roomListPrepare": "Danh sách phòng",
+  "hasSelected": "đã được chọn"
 }
+

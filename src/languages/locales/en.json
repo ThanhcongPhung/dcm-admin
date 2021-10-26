@@ -102,6 +102,7 @@
   "usecaseDescRequired": "Usecase description is required",
   "errorAtLeastOneMoreIntent": "Need at least 1 more intent",
   "errorAtLeastOneMoreUsecase": "Need at least 1 more usecase",
+  "errorAtLeastOneMoreValidRoom": "Need at least 1 more valid room and press Accept",
   "editUsecaseSuccess": "Edit usecase success",
   "addUsecaseSuccess": "Add usecase success",
   "deleteUsecaseSuccess": "Delete usecase success",
@@ -239,5 +240,9 @@
   "infoBase": "Basic Info",
   "participant": "Members Info",
   "categoryDescription": "Enter description about this category",
-  "sumParticipant": "Sum Participant"
+  "sumParticipant": "Sum Participant",
+  "accept": "Accept",
+  "roomSelected": "Room Selected",
+  "roomListPrepare": "Room List",
+  "hasSelected": "has selected"
 }
