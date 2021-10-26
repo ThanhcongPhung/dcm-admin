@@ -238,5 +238,6 @@
   "editCategory": "Edit Category",
   "infoBase": "Basic Info",
   "participant": "Members Info",
-  "categoryDescription": "Enter description about this category"
+  "categoryDescription": "Enter description about this category",
+  "sumParticipant": "Sum Participant"
 }

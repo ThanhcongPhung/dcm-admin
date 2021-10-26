@@ -238,5 +238,6 @@
   "editCategory": "Chỉnh sửa nhóm dữ liệu",
   "infoBase": "Thông tin cơ bản",
   "participant": "Thông tin thành viên",
-  "categoryDescription": "Nhập mô tả về nhóm dữ liệu này"
+  "categoryDescription": "Nhập mô tả về nhóm dữ liệu này",
+  "sumParticipant": "Tổng số người tham gia"
 }

@@ -50,6 +50,9 @@ const TableStyled = styled.div`
   }
   .bodyCell {
     padding: 8px;
+    .customChip {
+      margin: 5px;
+    }
   }
   .iconAction {
     margin-right: 5px;

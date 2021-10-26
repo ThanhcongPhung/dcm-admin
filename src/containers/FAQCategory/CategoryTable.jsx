@@ -110,9 +110,11 @@ export default function CategoryTable({
                 <TableCell className="bodyCell">
                   {category.childs &&
                     category.childs.map((sub) => (
-                      <div className="custom-chip" key={sub.id}>
-                        <Chip label={sub.title} />
-                      </div>
+                      <Chip
+                        label={sub.title}
+                        className="customChip"
+                        key={sub.id}
+                      />
                     ))}
                 </TableCell>
                 <TableCell className="bodyCell" align="center">

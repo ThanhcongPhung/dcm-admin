@@ -19,3 +19,29 @@ export async function deleteCategory(id) {
   });
   return response;
 }
+
+export async function createCategory(data) {
+  const response = await api({
+    method: 'POST',
+    url: baseURL,
+    data,
+  });
+  return response;
+}
+
+export async function updateCategory(id, data) {
+  const response = await api({
+    method: 'PUT',
+    url: `${baseURL}/${id}`,
+    data,
+  });
+  return response;
+}
+
+export async function getCategory(id) {
+  const category = await api({
+    method: 'GET',
+    url: `${baseURL}/${id}`,
+  });
+  return category;
+}

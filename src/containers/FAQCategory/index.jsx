@@ -29,6 +29,7 @@ export default function CategoryManage() {
     const { data } = await api.faqCategory.getCategories({
       offset: offset || 0,
       search: search || '',
+      limit: pagination.limit,
       fields: '',
       sort: 'createdAt_desc',
     });
