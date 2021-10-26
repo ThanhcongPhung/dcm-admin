@@ -32,4 +32,15 @@ export default [
       },
     ],
   },
+  {
+    heading: 'nluManageMenu',
+    icon: 'library_books',
+    subMenus: [
+      {
+        heading: 'intentManageMenu',
+        icon: 'assignment',
+        route: routes.NLU_MANAGE_INTENTS,
+      },
+    ],
+  },
 ];

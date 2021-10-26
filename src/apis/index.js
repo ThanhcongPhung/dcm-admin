@@ -11,6 +11,7 @@ import * as chatbot from './chatbot';
 import * as faqCategory from './faqCategory';
 import * as faqStaff from './faqStaff';
 import * as validRoomASR from './validRoomASR';
+import * as nluIntent from './nluIntent';
 
 export default {
   auth,
@@ -26,4 +27,5 @@ export default {
   faqCategory,
   faqStaff,
   validRoomASR,
+  nluIntent,
 };
