@@ -7,7 +7,7 @@ import { Typography, Grid, TextField } from '@material-ui/core';
 import { Autocomplete } from '@material-ui/lab';
 import DropdownTreeSelect from 'react-dropdown-tree-select';
 import { DetailIntentStyled } from './index.style';
-import { getIntents } from '../../../apis/faq';
+import api from '../../../apis';
 import { DEFAULT_TARGET } from '../../../constants';
 
 export default function DetailIntent({
@@ -19,7 +19,7 @@ export default function DetailIntent({
   const { t } = useTranslation();
 
   useEffect(() => {
-    getIntents().then(({ data }) =>
+    api.faqIntent.getIntents({ type: 'CATEGORY' }).then(({ data }) =>
       setCategories(
         data.result.map((item) => ({
           label: item.title,

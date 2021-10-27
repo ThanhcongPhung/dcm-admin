@@ -5,7 +5,7 @@ import * as app from './app';
 import * as upload from './upload';
 import * as user from './user';
 import * as audioASR from './audioASR';
-import * as faq from './faq';
+import * as faqIntent from './faqIntent';
 import * as statistic from './statistic';
 import * as chatbot from './chatbot';
 import * as faqCategory from './faqCategory';
@@ -21,7 +21,7 @@ export default {
   upload,
   user,
   audioASR,
-  faq,
+  faqIntent,
   statistic,
   chatbot,
   faqCategory,

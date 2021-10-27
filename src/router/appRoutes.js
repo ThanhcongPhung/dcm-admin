@@ -10,6 +10,7 @@ import CategoryManage from '../pages/FAQ/CategoryManage';
 import CategoryCreate from '../pages/FAQ/CategoryCreate';
 import CategoryEdit from '../pages/FAQ/CategoryEdit';
 import IntentNLUManage from '../pages/NLU/IntentManage';
+import intentFAQManage from '../pages/FAQ/IntentManage';
 
 const appRoutes = {
   home: {
@@ -65,6 +66,11 @@ const appRoutes = {
   intentNLUManage: {
     url: routes.NLU_MANAGE_INTENTS,
     component: IntentNLUManage,
+    private: true,
+  },
+  intentFAQManage: {
+    url: routes.FAQ_INTENT_MANAGE,
+    component: intentFAQManage,
     private: true,
   },
 };
