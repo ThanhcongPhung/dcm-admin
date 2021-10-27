@@ -255,5 +255,7 @@
   "confirmDeleteIntent": "Are you sure delete this intent?",
   "emptyData": "No data",
   "nluManageMenu": "Manage NLU",
-  "intentManageMenu": "Manage Intent"
+  "intentManageMenu": "Manage Intent",
+  "category": "Category",
+  "intentTags": "intent tags"
 }

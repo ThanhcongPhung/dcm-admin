@@ -255,5 +255,7 @@
   "confirmDeleteIntent": "Bạn chắc chắn muốn xóa ý định này?",
   "emptyData": "Không có dữ liệu nào",
   "nluManageMenu": "Quản lý NLU",
-  "intentManageMenu": "Quản lý ý định"
+  "intentManageMenu": "Quản lý ý định",
+  "category": "Nhóm dữ liệu ",
+  "intentTags": "Nhãn ý định"
 }

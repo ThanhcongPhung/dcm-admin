@@ -30,6 +30,11 @@ export default [
         icon: 'table_view',
         route: routes.FAQ_INTENT_CATEGORIES,
       },
+      {
+        heading: 'intentManage',
+        icon: 'article',
+        route: routes.FAQ_INTENT_MANAGE,
+      },
     ],
   },
   {
