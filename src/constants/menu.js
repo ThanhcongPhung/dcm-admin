@@ -22,6 +22,11 @@ export default [
     route: routes.AUDIO_MANAGE,
   },
   {
+    heading: 'scenarioASRManage',
+    icon: 'subject',
+    route: routes.ASR_SCENARIO_MANAGE,
+  },
+  {
     heading: 'faqManage',
     icon: 'question_answer',
     subMenus: [

@@ -11,6 +11,7 @@ import CategoryCreate from '../pages/FAQ/CategoryCreate';
 import CategoryEdit from '../pages/FAQ/CategoryEdit';
 import IntentNLUManage from '../pages/NLU/IntentManage';
 import intentFAQManage from '../pages/FAQ/IntentManage';
+import ScenarioASRManage from '../pages/ScenarioASRManage';
 
 const appRoutes = {
   home: {
@@ -41,6 +42,11 @@ const appRoutes = {
   audioASRManage: {
     url: routes.AUDIO_MANAGE,
     component: AudioASRManage,
+    private: true,
+  },
+  scenarioASRManage: {
+    url: routes.ASR_SCENARIO_MANAGE,
+    component: ScenarioASRManage,
     private: true,
   },
   chatbotCampaignResult: {
