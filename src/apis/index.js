@@ -12,6 +12,7 @@ import * as faqCategory from './faqCategory';
 import * as faqStaff from './faqStaff';
 import * as validRoomASR from './validRoomASR';
 import * as nluIntent from './nluIntent';
+import * as scenarioASR from './scenarioASR';
 
 export default {
   auth,
@@ -28,4 +29,5 @@ export default {
   faqStaff,
   validRoomASR,
   nluIntent,
+  scenarioASR,
 };
