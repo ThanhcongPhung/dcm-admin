@@ -5,65 +5,42 @@ import {
   Backdrop,
   Typography,
   TextField,
-  List,
-  ListItem,
-  Grid,
   Box,
   Button,
-  ListItemSecondaryAction,
-  ListItemText,
   IconButton,
-  Menu,
-  MenuItem,
+  CircularProgress,
+  TableContainer,
+  Table,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableBody,
+  Tooltip,
 } from '@material-ui/core';
+import CloseIcon from '@material-ui/icons/Close';
 import AddIcon from '@material-ui/icons/Add';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
+import DeleteIcon from '@material-ui/icons/Delete';
 import { useTranslation } from 'react-i18next';
+import { useSnackbar } from 'notistack';
 import { CreateIntentModalStyled } from './index.style';
-
-const actionMenus = ['edit', 'delete'];
-
-const MenuAction = ({ menus, anchorEl, handleClose, onClick }) => {
-  const { t } = useTranslation();
-
-  const handleClickItem = (action) => {
-    handleClose();
-    onClick(action);
-  };
-
-  return (
-    <Menu
-      id="long-menu"
-      anchorEl={anchorEl}
-      keepMounted
-      open={Boolean(anchorEl)}
-      onClose={handleClose}
-    >
-      {menus.map((action) => (
-        <MenuItem key={action} onClick={() => handleClickItem(action)}>
-          {t(action)}
-        </MenuItem>
-      ))}
-    </Menu>
-  );
-};
+import api from '../../../apis';
 
 const EditSlot = ({ isAdd, slot, slots, handleCancel, handleSave }) => {
   const { t } = useTranslation();
-  const [slotData, setSlotData] = useState();
+  const [slotData, setSlotData] = useState({});
   const [slotDataError, setSlotDataError] = useState();
 
   const validateSlotData = () => {
     const { name, tag } = slotData;
     const error = {};
-    if (!name || !name.trim()) error.name = 'Name cannot be blank';
-    if (!tag || !tag.trim()) error.tag = 'Tag cannot be blank';
+    if (!name || !name.trim()) error.name = 'requiredField';
+    if (!tag || !tag.trim()) error.tag = 'requiredField';
     else {
       const slotExist = slots.find(
         (el) =>
           ((slot && el.tag !== slot.tag) || !slot) && el.tag === slotData.tag,
       );
-      if (slotExist) error.tag = 'Tag already exists';
+      if (slotExist) error.tag = 'tagExistError';
     }
     if (error && Object.keys(error).length) {
       setSlotDataError({ ...error });
@@ -74,7 +51,7 @@ const EditSlot = ({ isAdd, slot, slots, handleCancel, handleSave }) => {
 
   const handleBeforeSave = () => {
     if (!validateSlotData()) return;
-    setSlotData();
+    setSlotData({});
     handleSave(slotData);
   };
 
@@ -88,97 +65,94 @@ const EditSlot = ({ isAdd, slot, slots, handleCancel, handleSave }) => {
   }, [slot]);
 
   return (
-    <ListItem key={slot && slot.tag}>
-      <Grid container spacing={2}>
-        <Grid item xs={3}>
+    <React.Fragment key={slot && slot.tag}>
+      <TableRow className="bodyRow">
+        <TableCell align="center" className="bodyCell" size="small">
           <TextField
             value={slotData && slotData.name}
             name="name"
+            variant="outlined"
+            size="small"
             onChange={handleChange}
             error={slotDataError && slotDataError.name}
-            helperText={slotDataError && slotDataError.name}
+            helperText={slotDataError && t(slotDataError.name)}
           />
-        </Grid>
-        <Grid item xs={3}>
+        </TableCell>
+        <TableCell align="center" className="bodyCell" size="small">
           <TextField
             value={slotData && slotData.tag}
             name="tag"
+            variant="outlined"
+            size="small"
             onChange={handleChange}
             error={slotDataError && slotDataError.tag}
-            helperText={slotDataError && slotDataError.tag}
+            helperText={slotDataError && t(slotDataError.tag)}
           />
-        </Grid>
-        <Grid item xs={6}>
-          <Box display="flex">
-            <Box m={0.5}>
-              <Button
-                variant="outlined"
-                color="primary"
-                onClick={handleBeforeSave}
-              >
-                {isAdd ? t('create') : t('save')}
-              </Button>
-            </Box>
-            <Box m={0.5}>
-              <Button
-                variant="outlined"
-                color="secondary"
-                onClick={handleCancel}
-              >
-                {t('cancel')}
-              </Button>
-            </Box>
+        </TableCell>
+        <TableCell align="center" className="bodyCell" size="small">
+          <Box display="flex" justifyContent="flex-end" alignItems="center" ggr>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleBeforeSave}
+              className="mr2"
+            >
+              {isAdd ? t('create') : t('save')}
+            </Button>
+            <Button variant="outlined" color="primary" onClick={handleCancel}>
+              {t('cancel')}
+            </Button>
           </Box>
-        </Grid>
-      </Grid>
-    </ListItem>
+        </TableCell>
+      </TableRow>
+    </React.Fragment>
   );
 };
 
-const SlotItem = ({ slot, key, handleClickMenu }) => {
-  return (
-    <ListItem key={key}>
-      <ListItemText>
-        <Grid container spacing={2}>
-          <Grid item xs={3}>
-            {slot.name}
-          </Grid>
-          <Grid item xs={3}>
-            {slot.tag}
-          </Grid>
-          <Grid item xs={6} />
-        </Grid>
-      </ListItemText>
-      <ListItemSecondaryAction>
-        <IconButton
-          aria-label="more"
-          aria-controls="long-menu"
-          aria-haspopup="true"
-          onClick={(e) => handleClickMenu(e, slot)}
-        >
-          <MoreVertIcon />
-        </IconButton>
-      </ListItemSecondaryAction>
-    </ListItem>
-  );
-};
-
-export default function CreateIntentModal({ open, handleClose, intent }) {
+const SlotItem = ({ slot, key, handleEdit, handleDelete }) => {
   const { t } = useTranslation();
-  const [intentData, setIntentData] = useState();
-  const [slotSelect, setSlotSelect] = useState();
+  return (
+    <React.Fragment key={key}>
+      <TableRow className="bodyRow" onClick={() => handleEdit(slot)}>
+        <TableCell align="center" className="bodyCell" size="small">
+          {slot.name}
+        </TableCell>
+        <TableCell align="center" className="bodyCell" size="small">
+          {slot.tag}
+        </TableCell>
+        <TableCell align="center" className="bodyCell" size="small">
+          <Tooltip title={t('deleteIntent')}>
+            <IconButton
+              onClick={(e) => {
+                e.stopPropagation();
+                handleDelete(slot);
+              }}
+              className="iconButton"
+            >
+              <DeleteIcon className="deleteIcon" />
+            </IconButton>
+          </Tooltip>
+        </TableCell>
+      </TableRow>
+    </React.Fragment>
+  );
+};
+const tableTitle = ['name', 'tag', 'action'];
+export default function CreateIntentModal({
+  open,
+  handleClose,
+  intent,
+  handleCreate,
+  handleUpdate,
+}) {
+  const { t } = useTranslation();
+  const { enqueueSnackbar } = useSnackbar();
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [intentData, setIntentData] = useState({});
+  const [intentDataError, setIntentDataError] = useState();
   const [slotEdit, setSlotEdit] = useState();
   const [isAdd, setIsAdd] = useState(false);
-  const [anchorMenuEl, setAnchorMenuEl] = useState(null);
-
-  const handleOpenMenu = (e, slot) => {
-    setSlotSelect({ ...slot });
-    setAnchorMenuEl(e.currentTarget);
-  };
-
-  const handleCloseMenu = () => {
-    setAnchorMenuEl(null);
-  };
 
   const handleChangeIntentName = (e) => {
     setIntentData({
@@ -192,30 +166,30 @@ export default function CreateIntentModal({ open, handleClose, intent }) {
     setSlotEdit();
   };
 
-  const handleOpenEditSlot = () => {
-    setSlotEdit({ ...slotSelect });
+  const handleOpenEditSlot = (slot) => {
+    setIsAdd(false);
+    setSlotEdit({ ...slot });
   };
 
-  const handleDeleteSlot = () => {
+  const handleDeleteSlot = (slotDelete) => {
     const newSlots = intentData.slots.filter(
-      (slot) => slot.tag !== slotSelect.tag,
+      (slot) => slot.tag !== slotDelete.tag,
     );
     setIntentData({ ...intentData, slots: [...newSlots] });
-    setSlotSelect();
   };
 
   const handleAddSlot = (slotAdd) => {
     const tempSlots = (intentData && intentData.slots) || [];
     setIntentData({
       ...intentData,
-      slots: [...tempSlots, { ...slotAdd }],
+      slots: [...tempSlots, { ...slotAdd, type: 'TEXT' }],
     });
   };
 
   const handleEditSlot = (newSlotEdit) => {
     const newSlots = [...intentData.slots];
     const slotEditIndex = newSlots.findIndex(
-      (slot) => slot.tag === slotSelect.tag,
+      (slot) => slot.tag === slotEdit.tag,
     );
     newSlots[slotEditIndex] = { ...newSlotEdit };
     setIntentData({ ...intentData, slots: [...newSlots] });
@@ -225,7 +199,6 @@ export default function CreateIntentModal({ open, handleClose, intent }) {
   const handleCancelEdit = () => {
     setSlotEdit();
     setIsAdd(false);
-    setSlotSelect();
   };
 
   const handleSaveSlot = (newSlot) => {
@@ -238,30 +211,83 @@ export default function CreateIntentModal({ open, handleClose, intent }) {
     handleCancelEdit();
   };
 
-  const handleClickMenuItem = (action) => {
-    switch (action) {
-      case 'edit':
-        handleOpenEditSlot();
-        break;
-      case 'delete':
-        handleDeleteSlot();
-        break;
-      default:
+  const handleRemoveAll = () => {
+    setIntentData({});
+    setIntentDataError();
+    setSlotEdit();
+    setIsAdd(false);
+    handleClose();
+  };
+
+  const handleUpdateIntent = async () => {
+    setIsLoading(true);
+    const { name, slots } = intentData;
+    const newSlots = slots.map((el) => ({
+      name: el.name,
+      tag: el.tag,
+      type: el.type,
+    }));
+    const { data } = await api.nluIntent.updateIntent(intent.id, {
+      name,
+      slots: [...newSlots],
+    });
+    setIsLoading(false);
+    handleRemoveAll();
+    if (data && data.status) {
+      handleUpdate();
+      enqueueSnackbar(t('updateIntentSuccess'), { variant: 'success' });
+    } else {
+      enqueueSnackbar(t('updateIntentError'), { variant: 'error' });
     }
   };
 
-  useEffect(() => {
-    if (intent) {
-      setIntentData({ ...intent });
+  const handleCreateIntent = async () => {
+    setIsLoading(true);
+    const { name, slots } = intentData;
+    const { data } = await api.nluIntent.createIntent({
+      name,
+      slots,
+    });
+    setIsLoading(false);
+    handleRemoveAll();
+    if (data && data.status) {
+      handleCreate();
+      enqueueSnackbar(t('createIntentSuccess'), { variant: 'success' });
+    } else {
+      enqueueSnackbar(t('createIntentError'), { variant: 'error' });
     }
-  }, [intent]);
+  };
+
+  const validateIntentData = () => {
+    const { name, slots } = intentData;
+    const error = {};
+    if (!name || !name.trim()) error.name = 'requiredField';
+    if (!slots || !slots.length) error.slots = 'requiredField';
+    if (error && Object.keys(error).length > 0) {
+      setIntentDataError({ ...error });
+      return false;
+    }
+    return true;
+  };
+
+  const handleSave = () => {
+    if (!validateIntentData()) return;
+    if (intent) {
+      handleUpdateIntent();
+      return;
+    }
+    handleCreateIntent();
+  };
+
+  useEffect(() => {
+    if (intent && open) setIntentData({ ...intent });
+  }, [open]);
 
   return (
     <Modal
       aria-labelledby="transition-modal-title"
       aria-describedby="transition-modal-description"
       open={open}
-      onClose={handleClose}
       closeAfterTransition
       BackdropComponent={Backdrop}
       BackdropProps={{
@@ -269,93 +295,114 @@ export default function CreateIntentModal({ open, handleClose, intent }) {
       }}
     >
       <CreateIntentModalStyled>
-        <Paper elevation={3} className="contentModal">
-          <div className="header">
-            <Typography variant="h5" className="headTitle">
-              {t('addIntent')}
-            </Typography>
-          </div>
-          <div className="form">
-            <div className="item">
-              <TextField
-                fullWidth
-                size="small"
-                label={t('name')}
-                variant="outlined"
-                value={intentData && intentData.name}
-                onChange={handleChangeIntentName}
-              />
+        {isLoading && <CircularProgress />}
+        {!isLoading && (
+          <Paper elevation={3} className="contentModal">
+            <div className="header">
+              <Typography variant="h5" className="headTitle">
+                {t('addIntent')}
+              </Typography>
+              <IconButton aria-label="close" onClick={handleRemoveAll}>
+                <CloseIcon size="small" />
+              </IconButton>
             </div>
-            <div className="item">
-              <Typography variant="body2">{t('slots')}</Typography>
-              <List dense>
-                <ListItem>
-                  <Grid container spacing={2}>
-                    <Grid item xs={3}>
-                      <Typography variant="body2" className="slotHeaderText">
-                        {t('name')}
-                      </Typography>
-                    </Grid>
-                    <Grid item xs={3}>
-                      <Typography variant="body2" className="slotHeaderText">
-                        {' '}
-                        {t('tag')}
-                      </Typography>
-                    </Grid>
-                    <Grid item xs={6} />
-                  </Grid>
-                </ListItem>
-              </List>
-              <List dense>
-                {intentData &&
-                  intentData.slots &&
-                  intentData.slots.map((slot) =>
-                    slotEdit && slotEdit.tag === slot.tag ? (
-                      <EditSlot
-                        slot={slotEdit}
-                        handleCancel={handleCancelEdit}
-                        handleSave={handleSaveSlot}
-                        slots={intentData.slots}
-                      />
-                    ) : (
-                      <SlotItem
-                        slot={slot}
-                        key={slot.tag}
-                        handleClickMenu={handleOpenMenu}
-                      />
-                    ),
-                  )}
-              </List>
-
-              {isAdd ? (
-                <EditSlot
-                  isAdd
-                  handleCancel={handleCancelEdit}
-                  handleSave={handleSaveSlot}
-                  slots={(intentData && intentData.slots) || []}
+            <div className="form">
+              <div className="nameItem">
+                <Typography variant="body1" className="label">
+                  {t('name')}
+                </Typography>
+                <TextField
+                  fullWidth
+                  size="small"
+                  variant="outlined"
+                  value={intentData && intentData.name}
+                  onChange={handleChangeIntentName}
+                  error={intentDataError && intentDataError.name}
+                  helperText={intentDataError && t(intentDataError.name)}
                 />
-              ) : (
-                <div className="addItem">
-                  <Button
-                    fullWidth
-                    variant="outlined"
-                    color="primary"
-                    startIcon={<AddIcon />}
-                    onClick={handleOpenAddSlot}
-                  >
-                    {t('add')}
-                  </Button>
-                </div>
-              )}
+              </div>
+              <div className="slotItem">
+                <Typography variant="body1" className="label">
+                  {t('slots')}
+                </Typography>
+                <TableContainer component={Paper} className="tableContainer">
+                  <Table className="table">
+                    <TableHead>
+                      <TableRow>
+                        {tableTitle.map((item) => (
+                          <TableCell
+                            key={item}
+                            align="center"
+                            variant="head"
+                            className="headerCell"
+                          >
+                            {t(item)}
+                          </TableCell>
+                        ))}
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {intentData &&
+                        intentData.slots &&
+                        intentData.slots.map((slot) =>
+                          slotEdit && slotEdit.tag === slot.tag ? (
+                            <EditSlot
+                              slot={slotEdit}
+                              handleCancel={handleCancelEdit}
+                              handleSave={handleSaveSlot}
+                              slots={intentData.slots}
+                            />
+                          ) : (
+                            <SlotItem
+                              slot={slot}
+                              key={slot.tag}
+                              handleEdit={handleOpenEditSlot}
+                              handleDelete={handleDeleteSlot}
+                            />
+                          ),
+                        )}
+                      {isAdd && (
+                        <EditSlot
+                          isAdd
+                          handleCancel={handleCancelEdit}
+                          handleSave={handleSaveSlot}
+                          slots={(intentData && intentData.slots) || []}
+                        />
+                      )}
+                    </TableBody>
+                  </Table>
+                  {!isAdd && (
+                    <div className="addItem">
+                      <Button
+                        fullWidth
+                        color="primary"
+                        startIcon={<AddIcon />}
+                        onClick={handleOpenAddSlot}
+                      >
+                        {t('add')}
+                      </Button>
+                    </div>
+                  )}
+                </TableContainer>
+              </div>
+              <div className="errorText">
+                {intentDataError && t(intentDataError.slots)}
+              </div>
             </div>
-          </div>
-        </Paper>
-        <MenuAction
-          menus={actionMenus}
-          anchorEl={anchorMenuEl}
-          onClick={handleClickMenuItem}
-          handleClose={handleCloseMenu}
-        />
+            <div className="btnContainer">
+              <Button
+                variant="outlined"
+                color="primary"
+                onClick={handleRemoveAll}
+              >
+                {t('cancel')}
+              </Button>
+              <Button variant="contained" color="primary" onClick={handleSave}>
+                {t('save')}
+              </Button>
+            </div>
+          </Paper>
+        )}
       </CreateIntentModalStyled>
     </Modal>
   );

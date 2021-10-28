@@ -12,7 +12,6 @@ import CategoryEdit from '../pages/FAQ/CategoryEdit';
 import IntentNLUManage from '../pages/NLU/IntentManage';
 import intentFAQManage from '../pages/FAQ/IntentManage';
 import ScenarioASRManage from '../pages/ScenarioASRManage';
-import CreateIntentNLU from '../pages/NLU/CreateIntent';
 
 const appRoutes = {
   home: {
@@ -78,11 +77,6 @@ const appRoutes = {
   intentFAQManage: {
     url: routes.FAQ_INTENT_MANAGE,
     component: intentFAQManage,
-    private: true,
-  },
-  createIntentNLU: {
-    url: routes.NLU_MANAGE_INTENTS_CREATE,
-    component: CreateIntentNLU,
     private: true,
   },
 };

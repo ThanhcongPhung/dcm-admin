@@ -92,7 +92,7 @@
   "add": "Thêm",
   "hasParticipant": "Người tham gia",
   "role": "Quyền",
-  "emailExitsError": "Email đã thêm",
+  "emailExistError": "Email đã thêm",
   "confirmCampaign": "Xác nhận chiến dịch",
   "detailCampaign": "Chi tiết chiến dịch",
   "addIntent": "Thêm ý định",
@@ -232,7 +232,7 @@
   "titleConfirmDelete": "Bạn chắc chắn muốn xoá dữ liệu này chứ?",
   "deleteCategorySuccess": "Xoá nhóm ý định thành công",
   "deleteCategoryError": "Xoá nhóm ý định không thành công",
-  "requiedField": "Đây là trường bắt buộc",
+  "requiredField": "Đây là trường bắt buộc",
   "addSubCategory": "Thêm nhóm nhỏ",
   "categoryPlaceholder": "Nhập mô tả về nhóm dữ liệu này",
   "createCategory": "Thêm nhóm dữ liệu",
@@ -276,5 +276,10 @@
   "typeSlotValueTag": "Nhập giá trị của tag slot",
   "slots": "Danh sách thông tin",
   "tag": "Tag",
-  "create": "Tạo"
+  "create": "Tạo",
+  "tagExistError": "Tag đã tồn tại",
+  "createIntentError": "Tạo ý định không thành công",
+  "createIntentSuccess": "Tạo ý định thành công",
+  "updateIntentSuccess": "Cập nhật ý định thành công",
+  "updateIntentError": "Cập nhật ý định không thành công"
 }

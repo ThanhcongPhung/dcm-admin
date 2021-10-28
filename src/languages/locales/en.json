@@ -92,7 +92,7 @@
   "add": "Add",
   "hasParticipant": "Participant",
   "role": "Role",
-  "emailExitsError": "Email is exits",
+  "emailExistError": "Email is exist",
   "confirmCampaign": "Confirm Campaign",
   "detailCampaign": "Detail Campaign",
   "addIntent": "Add Intent",
@@ -232,7 +232,7 @@
   "titleConfirmDelete": "Are you sure you want to delete this data?",
   "deleteCategorySuccess": "Delete Intent Category Success",
   "deleteCategoryError": "Delete Intent Category Error",
-  "requiedField": "This field is required",
+  "requiredField": "This field is required",
   "addSubCategory": "Add sub categories",
   "categoryPlaceholder": "Enter category's title",
   "createCategory": "create Category",
@@ -276,5 +276,10 @@
   "typeSlotValueTag": "Type Slot Value Tag",
   "slots": "Slots",
   "tag": "Tag",
-  "create": "Create"
+  "create": "Create",
+  "tagExistError": "Tag is exist",
+  "createIntentError": "Create Intent Error",
+  "createIntentSuccess": "Create Intent Success",
+  "updateIntentSuccess": "Update Intent Success",
+  "updateIntentError": "Update Intent Error"
 }

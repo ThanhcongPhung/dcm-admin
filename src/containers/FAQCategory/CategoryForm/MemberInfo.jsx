@@ -42,7 +42,7 @@ export default function MemberInfo({ category = {}, setCategory, pageType }) {
     if (userExist >= 0) {
       setInputValue('');
       setNewParticipant({});
-      enqueueSnackbar(t('errorEmailExits'), { variant: 'error' });
+      enqueueSnackbar(t('emailExistError'), { variant: 'error' });
       return;
     }
     setCategory((prev) => ({

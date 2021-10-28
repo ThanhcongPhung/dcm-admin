@@ -13,6 +13,7 @@ import { IntentManageStyled } from './index.style';
 export default function IntentManage() {
   const [intentList, setIntentList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [intentEdit, setIntentEdit] = useState();
   const [openCreateModal, setOpenCreateModal] = useState(false);
   const [pagination, setPagination] = useState({
     page: 1,
@@ -83,16 +84,25 @@ export default function IntentManage() {
   };
 
   const handleCloseCreateModal = () => {
+    setIntentEdit();
     setOpenCreateModal(false);
   };
 
   const onHandleCreate = () => {
     handleOpenCreateModal();
-    // history.push('/admin/nlu-manage/intents/create');
   };
 
-  const onHandleEdit = () => {
-    // TODO
+  const onHandleEdit = (intentEditId) => {
+    const intentEditFind = intentList.find((el) => el.id === intentEditId);
+    setIntentEdit(intentEditFind);
+    handleOpenCreateModal();
+  };
+
+  const handleSaveIntent = () => {
+    fetchIntents({
+      offset: (pagination.page - 1) * pagination.limit,
+      ...intentSearch,
+    });
   };
 
   useEffect(() => {
@@ -147,8 +157,11 @@ export default function IntentManage() {
           />
         </div>
         <CreateIntentModal
+          intent={intentEdit}
           open={openCreateModal}
           handleClose={handleCloseCreateModal}
+          handleCreate={handleSaveIntent}
+          handleUpdate={handleSaveIntent}
         />
       </Paper>
     </IntentManageStyled>
