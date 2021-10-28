@@ -88,5 +88,12 @@ const DetailCollectASRStyled = styled.div`
   .detailValidButton {
     margin: 0.5em 0;
   }
+
+  .icon {
+    cursor: pointer;
+    &.iconDelete {
+      color: ${FEATURE_COLOR.froly};
+    }
+  }
 `;
 export { DetailValidASRStyled, DetailCollectASRStyled };

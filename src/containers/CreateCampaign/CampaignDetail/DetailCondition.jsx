@@ -67,7 +67,14 @@ export default function DetailCondition({
       const onSetCollectAudio = (value) => {
         onSetDetailCampaign(DETAIL_CAMPAIGN.COLLECTION_AUDIO, value);
       };
-      return <DetailCollectASR onSetCollectAudio={onSetCollectAudio} />;
+      return (
+        <DetailCollectASR
+          currentScenario={
+            (detailCampaign && detailCampaign.collection_audio) || []
+          }
+          onSetCollectAudio={onSetCollectAudio}
+        />
+      );
     }
     case CAMPAIGN_TYPE.ASR_VALIDATION: {
       const onSetValidRoom = (value) => {

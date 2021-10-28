@@ -281,5 +281,8 @@
   "createIntentError": "Create Intent Error",
   "createIntentSuccess": "Create Intent Success",
   "updateIntentSuccess": "Update Intent Success",
-  "updateIntentError": "Update Intent Error"
+  "updateIntentError": "Update Intent Error",
+  "addScenario": "Add Scenario",
+  "chooseScenario": "Choose Scenario",
+  "errorAtLeastOneMoreScenario": "Choose At Least Scenario"
 }

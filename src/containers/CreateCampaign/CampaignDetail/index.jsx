@@ -49,6 +49,12 @@ function DetailCampaign({
       !detailCampaign.valid_audio_room ||
       (detailCampaign.valid_audio_room &&
         !detailCampaign.valid_audio_room.length));
+  const checkInValidCollectCampaign = () =>
+    campaignType === CAMPAIGN_TYPE.ASR_COLLECTION &&
+    (!detailCampaign ||
+      !detailCampaign.collection_audio ||
+      (detailCampaign.collection_audio &&
+        !detailCampaign.collection_audio.length));
 
   const saveDetailCampaign = async ({ prevStep, save }) => {
     if (checkInValidChatbotIntent())
@@ -69,6 +75,10 @@ function DetailCampaign({
       });
     if (checkInValidValidCampaign())
       return enqueueSnackbar(t('errorAtLeastOneMoreValidRoom'), {
+        variant: 'error',
+      });
+    if (checkInValidCollectCampaign())
+      return enqueueSnackbar(t('errorAtLeastOneMoreScenario'), {
         variant: 'error',
       });
     const { data } = await api.campaign.updateServiceCampaign(
