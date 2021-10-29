@@ -10,6 +10,9 @@ export default {
   FAQ_INTENT_CATEGORIES: '/admin/faq/categories',
   FAQ_INTENT_CATEGORIES_CREATE: '/admin/faq/categories/create',
   FAQ_INTENT_CATEGORIES_EDIT: '/admin/faq/categories/:categoryId/edit',
-  NLU_MANAGE_INTENTS: '/admin/nlu-manage/intents',
   FAQ_INTENT_MANAGE: '/admin/faq/intents',
+  NLU_MANAGE_INTENTS: '/admin/nlu-manage/intents',
+  NLU_MANAGE_DOMAINS: '/admin/nlu-manage/domains',
+  NLU_MANAGE_DOMAINS_CREATE: '/admin/nlu-manage/domains/create',
+  NLU_MANAGE_DOMAINS_EDIT: '/admin/nlu-manage/domains/:domainId/edit',
 };

@@ -51,6 +51,11 @@ export default [
         icon: 'assignment',
         route: routes.NLU_MANAGE_INTENTS,
       },
+      {
+        heading: 'domainManageMenu',
+        icon: 'description',
+        route: routes.NLU_MANAGE_DOMAINS,
+      },
     ],
   },
 ];
