@@ -22,3 +22,14 @@ export async function getIntents({
     return error.response;
   }
 }
+export async function getIntentsByCategory() {
+  try {
+    const response = await api({
+      method: 'GET',
+      url: `${baseURL}/category`,
+    });
+    return response;
+  } catch (error) {
+    return error.response;
+  }
+}

@@ -19,7 +19,7 @@ export default function DetailIntent({
   const { t } = useTranslation();
 
   useEffect(() => {
-    api.faqIntent.getIntents({ type: 'CATEGORY' }).then(({ data }) =>
+    api.faqIntent.getIntentsByCategory().then(({ data }) =>
       setCategories(
         data.result.map((item) => ({
           label: item.title,
@@ -30,7 +30,9 @@ export default function DetailIntent({
             label: child.intent,
             value: child.intentId,
             categoryId: item.id,
-            checked: false,
+            checked:
+              detailCampaign.intentIds &&
+              detailCampaign.intentIds.indexOf(child.intentId) > -1,
           })),
         })),
       ),
