@@ -3,11 +3,11 @@ import { NLU_URL } from '../configs';
 
 const baseURL = `${NLU_URL}/api/nlu/v1`;
 
-export async function getIntents({ search, fields, offset, limit, sort }) {
+export async function getDomains({ search, fields, offset, limit, sort }) {
   try {
     const response = await api({
       method: 'GET',
-      url: `${baseURL}/intents`,
+      url: `${baseURL}/domains`,
       params: { search, fields, offset, limit, sort },
     });
     return response;
@@ -16,11 +16,11 @@ export async function getIntents({ search, fields, offset, limit, sort }) {
   }
 }
 
-export async function getIntent(intentId) {
+export async function getDomain(domainId) {
   try {
     const response = await api({
       method: 'GET',
-      url: `${baseURL}/intents/${intentId}`,
+      url: `${baseURL}/domains/${domainId}`,
     });
     return response;
   } catch (error) {
@@ -28,12 +28,12 @@ export async function getIntent(intentId) {
   }
 }
 
-export async function createIntent(intent) {
+export async function createDomain(domain) {
   try {
     const response = await api({
       method: 'POST',
-      url: `${baseURL}/intents`,
-      data: intent,
+      url: `${baseURL}/domains`,
+      data: domain,
     });
     return response;
   } catch (error) {
@@ -41,12 +41,12 @@ export async function createIntent(intent) {
   }
 }
 
-export async function updateIntent(intentId, intent) {
+export async function updateDomain(domainId, domain) {
   try {
     const response = await api({
       method: 'PUT',
-      url: `${baseURL}/intents/${intentId}`,
-      data: intent,
+      url: `${baseURL}/domains/${domainId}`,
+      data: domain,
     });
     return response;
   } catch (error) {
@@ -54,11 +54,11 @@ export async function updateIntent(intentId, intent) {
   }
 }
 
-export async function deleteIntent(intentId) {
+export async function deleteDomain(domainId) {
   try {
     const response = await api({
       method: 'DELETE',
-      url: `${baseURL}/intents/${intentId}`,
+      url: `${baseURL}/domains/${domainId}`,
     });
     return response;
   } catch (error) {

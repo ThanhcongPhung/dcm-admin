@@ -49,7 +49,12 @@ export default [
       {
         heading: 'intentManageMenu',
         icon: 'assignment',
-        route: routes.NLU_MANAGE_INTENTS,
+        route: routes.NLU_INTENTS,
+      },
+      {
+        heading: 'domainManageMenu',
+        icon: 'description',
+        route: routes.NLU_DOMAINS,
       },
     ],
   },

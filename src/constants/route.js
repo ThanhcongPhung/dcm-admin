@@ -10,6 +10,9 @@ export default {
   FAQ_INTENT_CATEGORIES: '/admin/faq/categories',
   FAQ_INTENT_CATEGORIES_CREATE: '/admin/faq/categories/create',
   FAQ_INTENT_CATEGORIES_EDIT: '/admin/faq/categories/:categoryId/edit',
-  NLU_MANAGE_INTENTS: '/admin/nlu-manage/intents',
   FAQ_INTENT_MANAGE: '/admin/faq/intents',
+  NLU_INTENTS: '/admin/nlu/intents',
+  NLU_DOMAINS: '/admin/nlu/domains',
+  NLU_DOMAINS_CREATE: '/admin/nlu/domains/create',
+  NLU_DOMAINS_EDIT: '/admin/nlu/domains/:domainId/edit',
 };
