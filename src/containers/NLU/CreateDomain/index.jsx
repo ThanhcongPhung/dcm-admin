@@ -63,7 +63,7 @@ export default function CreateIntentModal() {
     setIsLoading(false);
     if (data && data.status) {
       enqueueSnackbar(t('updateDomainSuccess'), { variant: 'success' });
-      history.push('/admin/nlu-manage/domains');
+      history.push('/admin/nlu/domains');
     } else {
       enqueueSnackbar(t('updateDomainError'), { variant: 'error' });
     }
@@ -84,7 +84,7 @@ export default function CreateIntentModal() {
     setIsLoading(false);
     if (data && data.status) {
       enqueueSnackbar(t('createDomainSuccess'), { variant: 'success' });
-      history.push('/admin/nlu-manage/domains');
+      history.push('/admin/nlu/domains');
     } else {
       enqueueSnackbar(t('createDomainError'), { variant: 'error' });
     }

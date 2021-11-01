@@ -92,11 +92,11 @@ export default function DomainManage() {
   };
 
   const onHandleCreate = () => {
-    history.push('/admin/nlu-manage/domains/create');
+    history.push('/admin/nlu/domains/create');
   };
 
   const onHandleEdit = (domainId) => {
-    history.push(`/admin/nlu-manage/domains/${domainId}/edit`);
+    history.push(`/admin/nlu/domains/${domainId}/edit`);
   };
 
   useEffect(() => {

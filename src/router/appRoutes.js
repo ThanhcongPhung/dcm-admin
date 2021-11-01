@@ -72,22 +72,22 @@ const appRoutes = {
     private: true,
   },
   intentNLUManage: {
-    url: routes.NLU_MANAGE_INTENTS,
+    url: routes.NLU_INTENTS,
     component: IntentNLUManage,
     private: true,
   },
   domainNLUManage: {
-    url: routes.NLU_MANAGE_DOMAINS,
+    url: routes.NLU_DOMAINS,
     component: DomainNLUManage,
     private: true,
   },
   createDomainNLU: {
-    url: routes.NLU_MANAGE_DOMAINS_CREATE,
+    url: routes.NLU_DOMAINS_CREATE,
     component: CreateDomainNLU,
     private: true,
   },
   editDomainNLU: {
-    url: routes.NLU_MANAGE_DOMAINS_EDIT,
+    url: routes.NLU_DOMAINS_EDIT,
     component: CreateDomainNLU,
     private: true,
   },
