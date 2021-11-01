@@ -303,5 +303,6 @@
   "domainManageMenu": "Manage Domain",
   "addDomain": "Add Domain",
   "selectIntent": "Select Intent",
-  "selectCampaign": "Select Campaign"
+  "selectCampaign": "Select Campaign",
+  "statisticsMenu": "Statistics"
 }

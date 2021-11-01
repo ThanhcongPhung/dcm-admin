@@ -304,5 +304,6 @@
   "addDomain": "Thêm kịch bản",
   "updateDomain": "Cập nhật kịch bản",
   "selectIntent": "Chọn ý định",
-  "selectCampaign": "Chọn chiến dịch"
+  "selectCampaign": "Chọn chiến dịch",
+  "statisticsMenu": "Thống kê thu thập"
 }

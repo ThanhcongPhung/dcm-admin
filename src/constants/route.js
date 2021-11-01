@@ -15,4 +15,5 @@ export default {
   NLU_DOMAINS: '/admin/nlu/domains',
   NLU_DOMAINS_CREATE: '/admin/nlu/domains/create',
   NLU_DOMAINS_EDIT: '/admin/nlu/domains/:domainId/edit',
+  NLU_STATISTICS: '/admin/nlu/statistics',
 };

@@ -56,6 +56,11 @@ export default [
         icon: 'description',
         route: routes.NLU_DOMAINS,
       },
+      {
+        heading: 'statisticsMenu',
+        icon: 'assessment',
+        route: routes.NLU_STATISTICS,
+      },
     ],
   },
 ];
