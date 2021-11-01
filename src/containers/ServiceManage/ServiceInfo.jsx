@@ -27,6 +27,7 @@ export default function CreateServer(props) {
     onHandleEdit,
     onHandleAdd,
   } = props;
+
   const { t } = useTranslation();
   const { enqueueSnackbar } = useSnackbar();
   const [service, setService] = useState({
@@ -113,7 +114,7 @@ export default function CreateServer(props) {
 
   useEffect(() => {
     if (serviceEdit) setService(serviceEdit);
-  }, []);
+  }, [serviceEdit]);
 
   return (
     <Dialog open={open} onClose={handleClose} maxWidth={false}>
