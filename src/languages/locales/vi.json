@@ -281,5 +281,8 @@
   "createIntentError": "Tạo ý định không thành công",
   "createIntentSuccess": "Tạo ý định thành công",
   "updateIntentSuccess": "Cập nhật ý định thành công",
-  "updateIntentError": "Cập nhật ý định không thành công"
+  "updateIntentError": "Cập nhật ý định không thành công",
+  "addScenario": "Thêm kịch bản",
+  "chooseScenario": "Chọn kịch bản",
+  "errorAtLeastOneMoreScenario": "Chọn ít nhất một kịch bản"
 }
