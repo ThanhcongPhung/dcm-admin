@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useSnackbar } from 'notistack';
 import {
   Table,
   TableBody,
@@ -14,14 +13,12 @@ import {
   Typography,
 } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
-import api from '../../../apis';
 import ConfirmDialog from '../../../components/Dialog/ConfirmDialog';
 import { TableStyled } from './index.style';
 
 export default function SlotTable({
   slots,
   patternSlots,
-  campaignList,
   handleEdit,
   handleDelete,
 }) {
@@ -43,13 +40,6 @@ export default function SlotTable({
   const handleDeleteSlot = () => {
     handleDelete(selectSlot);
     handleCloseConfirm();
-  };
-
-  const getCampaign = (campaignId) => {
-    const campaignFind = campaignList.find(
-      (campaign) => campaign.id === campaignId,
-    );
-    return campaignFind.name;
   };
 
   const getSlotValue = (slotId, tempPatternSlots) => {

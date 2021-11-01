@@ -20,7 +20,7 @@ export default function DomainManage() {
   const { t } = useTranslation();
   const history = useHistory();
   const [domainList, setDomainList] = useState([]);
-  const [campaignList, setCampaignList] = useState([]);
+  const [campaignList, setCampaignList] = useState();
   const [isLoading, setIsLoading] = useState(false);
   const [pagination, setPagination] = useState({
     page: 1,
@@ -31,7 +31,7 @@ export default function DomainManage() {
 
   const fetchCampaigns = async () => {
     const { data } = await api.campaign.getCampaigns({});
-    if (data.status) {
+    if (data && data.status) {
       setCampaignList(data.result.campaigns);
     }
   };
@@ -47,7 +47,7 @@ export default function DomainManage() {
       sort: 'createdAt_desc',
     });
     setIsLoading(false);
-    if (data.status) {
+    if (data && data.status) {
       setDomainList(data.result.domains);
       setPagination((prev) => ({
         ...prev,
@@ -101,7 +101,7 @@ export default function DomainManage() {
 
   useEffect(() => {
     fetchDomains(domainSearch);
-    // fetchCampaigns();
+    fetchCampaigns();
   }, []);
 
   if (!campaignList) return <CircularProgress />;

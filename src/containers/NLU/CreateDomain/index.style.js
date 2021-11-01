@@ -27,8 +27,10 @@ const TableStyled = styled.div`
   }
 `;
 
-const CreateDomainModalStyled = styled.div`
-  padding: 20px;
+const CreateDomainStyled = styled.div`
+  .paper {
+    padding: 20px;
+  }
   .header {
     display: flex;
     justify-content: space-between;
@@ -115,7 +117,7 @@ const CreateSlotPatternModalStyled = styled.div`
   transform: translate(-50%, -50%);
   position: absolute;
   .contentModal {
-    width: 650px;
+    width: 350px;
     padding: 16px;
     top: 50%;
     left: 50%;
@@ -192,4 +194,4 @@ const CreateSlotPatternModalStyled = styled.div`
     }
   }
 `;
-export { TableStyled, CreateDomainModalStyled, CreateSlotPatternModalStyled };
+export { TableStyled, CreateDomainStyled, CreateSlotPatternModalStyled };

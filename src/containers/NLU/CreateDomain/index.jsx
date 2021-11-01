@@ -13,10 +13,7 @@ import { Autocomplete } from '@material-ui/lab';
 import AddIcon from '@material-ui/icons/Add';
 import { useSnackbar } from 'notistack';
 import SlotTable from './SlotTable';
-import {
-  CreateDomainModalStyled,
-  CreateSlotPatternModalStyled,
-} from './index.style';
+import { CreateDomainStyled } from './index.style';
 import api from '../../../apis';
 import CreateSlotPatternModal from './CreateSlotPatternModal';
 
@@ -24,10 +21,10 @@ export default function CreateIntentModal() {
   const { domainId } = useParams();
   const { t } = useTranslation();
   const { enqueueSnackbar } = useSnackbar();
-  const { history } = useHistory();
+  const history = useHistory();
 
   const [intents, setIntents] = useState();
-  const [campaigns, setCampaigns] = useState([]);
+  const [campaigns, setCampaigns] = useState();
   const [isLoading, setIsLoading] = useState(false);
   const [domainData, setDomainData] = useState({ patternSlots: [] });
   const [domainDataError, setDomainDataError] = useState();
@@ -65,8 +62,8 @@ export default function CreateIntentModal() {
     });
     setIsLoading(false);
     if (data && data.status) {
-      history.push('/admin/nlu-manage/domains');
       enqueueSnackbar(t('updateDomainSuccess'), { variant: 'success' });
+      history.push('/admin/nlu-manage/domains');
     } else {
       enqueueSnackbar(t('updateDomainError'), { variant: 'error' });
     }
@@ -86,8 +83,8 @@ export default function CreateIntentModal() {
     });
     setIsLoading(false);
     if (data && data.status) {
-      history.push('/admin/nlu-manage/domains');
       enqueueSnackbar(t('createDomainSuccess'), { variant: 'success' });
+      history.push('/admin/nlu-manage/domains');
     } else {
       enqueueSnackbar(t('createDomainError'), { variant: 'error' });
     }
@@ -112,12 +109,11 @@ export default function CreateIntentModal() {
 
   const handleSave = () => {
     if (!validateDomainData()) return;
-    console.log({ domainData });
-    // if (domainId) {
-    //   handleUpdateDomain();
-    //   return;
-    // }
-    // handleCreateDomain();
+    if (domainId) {
+      handleUpdateDomain();
+      return;
+    }
+    handleCreateDomain();
   };
 
   const handleOpenEditPatternSlot = (patternSlotIdx) => {
@@ -159,6 +155,7 @@ export default function CreateIntentModal() {
       patternSlots: [...newPatternSlots],
     });
   };
+
   const handleDeletePatternSlot = (patternSlotDeleteIdx) => {
     const newPatternSlots = [...domainData.patternSlots];
     newPatternSlots.splice(patternSlotDeleteIdx, 1);
@@ -170,7 +167,7 @@ export default function CreateIntentModal() {
 
   const fetchIntents = async () => {
     const { data } = await api.nluIntent.getIntents({});
-    if (data.status) {
+    if (data && data.status) {
       setIntents(data.result.intents);
     }
   };
@@ -184,7 +181,7 @@ export default function CreateIntentModal() {
 
   const fetchDomain = async () => {
     const { data } = await api.nluDomain.getDomain(domainId);
-    if (data.status) {
+    if (data && data.status) {
       setDomainData(data.result);
     }
   };
@@ -195,15 +192,15 @@ export default function CreateIntentModal() {
 
   useEffect(() => {
     fetchIntents();
-    // fetchCampaigns();
+    fetchCampaigns();
   }, []);
 
   if (!intents || !campaigns || (domainId && !domainData) || isLoading)
     return <CircularProgress />;
 
   return (
-    <Paper elevation={3}>
-      <CreateDomainModalStyled>
+    <CreateDomainStyled>
+      <Paper elevation={3} className="paper">
         <div className="header">
           <Typography variant="h5" className="headTitle">
             {t(!domainId ? 'addDomain' : 'updateDomain')}
@@ -364,7 +361,7 @@ export default function CreateIntentModal() {
             {t('save')}
           </Button>
         </div>
-      </CreateDomainModalStyled>
-    </Paper>
+      </Paper>
+    </CreateDomainStyled>
   );
 }

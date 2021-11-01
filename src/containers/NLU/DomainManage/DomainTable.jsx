@@ -19,7 +19,7 @@ import api from '../../../apis';
 import ConfirmDialog from '../../../components/Dialog/ConfirmDialog';
 import { TableStyled } from './index.style';
 
-const tableTitle = ['no', 'name', 'intent', 'action'];
+const tableTitle = ['no', 'name', 'campaign', 'intent', 'action'];
 
 export default function DomainTable(props) {
   const {
@@ -52,7 +52,7 @@ export default function DomainTable(props) {
     const selectDomainId = selectDomain && selectDomain.id;
     const { data } = await api.nluDomain.deleteDomain(selectDomainId);
     setIsLoading(false);
-    if (data.status) {
+    if (data && data.status) {
       onHandleDelete(selectDomainId);
       enqueueSnackbar(t('deleteDomainSuccess'), { variant: 'success' });
     } else {
@@ -111,7 +111,10 @@ export default function DomainTable(props) {
                     <TableCell align="left" className="bodyCell nameBodyCell">
                       {item.name}
                     </TableCell>
-                    <TableCell align="center" className="bodyCell time">
+                    <TableCell align="left" className="bodyCell">
+                      {getCampaign(item.campaign)}
+                    </TableCell>
+                    <TableCell align="center" className="bodyCell">
                       {item.intent.name}
                     </TableCell>
                     <TableCell align="center" className="bodyCell">

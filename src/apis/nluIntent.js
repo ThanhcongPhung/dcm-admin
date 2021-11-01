@@ -1,7 +1,7 @@
 import api from './api';
 import { NLU_URL } from '../configs';
 
-const baseURL = `${NLU_URL}/api/base/v1`;
+const baseURL = `${NLU_URL}/api/nlu/v1`;
 
 export async function getIntents({ search, fields, offset, limit, sort }) {
   try {

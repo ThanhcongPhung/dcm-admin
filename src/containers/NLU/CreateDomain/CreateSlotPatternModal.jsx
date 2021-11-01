@@ -88,7 +88,7 @@ export default function CreateSlotPatternModal({
           </div>
           <div className="form">
             {slots.map((item) => (
-              <div className="nameItem">
+              <div className="nameItem" key={item}>
                 <Typography variant="body1" className="label">
                   {t(item.name)}
                 </Typography>
