@@ -6,12 +6,15 @@ import AddIcon from '@material-ui/icons/Add';
 import api from '../../../apis';
 import IntentTable from './IntentTable';
 import SearchInput from '../../../components/SearchInput';
+import CreateIntentModal from './CreateIntentModal';
 import { PAGINATION } from '../../../constants';
 import { IntentManageStyled } from './index.style';
 
 export default function IntentManage() {
   const [intentList, setIntentList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [intentEdit, setIntentEdit] = useState();
+  const [openCreateModal, setOpenCreateModal] = useState(false);
   const [pagination, setPagination] = useState({
     page: 1,
     limit: PAGINATION.TABLE_MANAGE,
@@ -76,12 +79,30 @@ export default function IntentManage() {
     }
   };
 
-  const onHandleCreate = () => {
-    //  TODO
+  const handleOpenCreateModal = () => {
+    setOpenCreateModal(true);
   };
 
-  const onHandleEdit = () => {
-    // TODO
+  const handleCloseCreateModal = () => {
+    setIntentEdit();
+    setOpenCreateModal(false);
+  };
+
+  const onHandleCreate = () => {
+    handleOpenCreateModal();
+  };
+
+  const onHandleEdit = (intentEditId) => {
+    const intentEditFind = intentList.find((el) => el.id === intentEditId);
+    setIntentEdit(intentEditFind);
+    handleOpenCreateModal();
+  };
+
+  const handleSaveIntent = () => {
+    fetchIntents({
+      offset: (pagination.page - 1) * pagination.limit,
+      ...intentSearch,
+    });
   };
 
   useEffect(() => {
@@ -105,7 +126,7 @@ export default function IntentManage() {
             />
           </div>
           <div className="headButtons">
-            <Tooltip title={t('createIntent')}>
+            <Tooltip title={t('addIntent')}>
               <Button
                 variant="contained"
                 color="primary"
@@ -135,6 +156,13 @@ export default function IntentManage() {
             onChange={handleChangePagination}
           />
         </div>
+        <CreateIntentModal
+          intent={intentEdit}
+          open={openCreateModal}
+          handleClose={handleCloseCreateModal}
+          handleCreate={handleSaveIntent}
+          handleUpdate={handleSaveIntent}
+        />
       </Paper>
     </IntentManageStyled>
   );

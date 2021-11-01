@@ -50,7 +50,7 @@ export default function CategoryBase({
             fullWidth
             error={submitted && !category.title}
             helperText={
-              submitted && !category.title ? `${t('requiedField')}` : ''
+              submitted && !category.title ? `${t('requiredField')}` : ''
             }
             value={category.title}
             onChange={handleChangeInput}

@@ -89,10 +89,14 @@ export default function IntentTable(props) {
             </Typography>
           )}
           <TableBody>
-            {intentList &&
+            {!isLoading &&
+              intentList &&
               intentList.map((item, index) => (
                 <React.Fragment key={item.id}>
-                  <TableRow onClick={() => onHandleEdit(item.id)}>
+                  <TableRow
+                    onClick={() => onHandleEdit(item.id)}
+                    className="bodyRow"
+                  >
                     <TableCell align="center" className="bodyCell">
                       {(pagination.page - 1) * pagination.limit + index + 1}
                     </TableCell>
