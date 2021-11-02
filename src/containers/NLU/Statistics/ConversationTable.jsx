@@ -8,9 +8,10 @@ import {
   TableRow,
   CircularProgress,
 } from '@material-ui/core';
+import DoneOutlineIcon from '@material-ui/icons/DoneOutline';
 import { TableStyled } from './index.style';
 
-const tableTitle = ['no', 'status', 'domain', 'campaign', 'client', 'agent'];
+const tableTitle = ['no', 'domainNLU', 'campaign', 'client', 'agent', 'status'];
 
 export default function ConversationTable(props) {
   const { t } = useTranslation();
@@ -72,6 +73,9 @@ export default function ConversationTable(props) {
                   </TableCell>
                   <TableCell align="left" className="bodyCell nameBodyCell">
                     {getUserName(item.client)}
+                  </TableCell>
+                  <TableCell align="center" className="bodyCell">
+                    {item.status && <DoneOutlineIcon />}
                   </TableCell>
                 </TableRow>
               </React.Fragment>

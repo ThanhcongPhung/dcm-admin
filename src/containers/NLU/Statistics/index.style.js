@@ -1,10 +1,9 @@
 import styled from 'styled-components';
 import { BOX_SHADOW, FEATURE_COLOR } from '../../../styles/configs';
 
-const ServiceManageStyled = styled.div`
+const StatisticsStyled = styled.div`
   .container {
-    min-height: 70vh;
-    padding: 10px;
+    padding: 20px;
     display: flex;
     flex-direction: column;
   }
@@ -28,6 +27,10 @@ const ServiceManageStyled = styled.div`
         color: ${FEATURE_COLOR.white};
       }
     }
+  }
+  .statisticsOverview {
+    margin-top: 10px;
+    margin-bottom: 10px;
   }
   .conversationSearch {
     margin-bottom: 10px;
@@ -89,15 +92,28 @@ const ConversationSearchStyled = styled.div`
   }
 `;
 
-const MenuActionStyled = styled.div`
-  .iconAction {
-    margin-right: 5px;
+const StatisticsOverviewStyled = styled.div``;
+
+const StatisticsCardStyled = styled.div`
+  padding: 20px;
+  border-left: 5px solid
+    ${(props) => props.borderColor || FEATURE_COLOR.havelockBlue};
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%),
+    0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
+  .labelText {
+    font-size: 18px;
+  }
+  .valueText {
+    font-weight: bold;
   }
 `;
 
 export {
-  ServiceManageStyled,
+  StatisticsStyled,
   TableStyled,
   ConversationSearchStyled,
-  MenuActionStyled,
+  StatisticsOverviewStyled,
+  StatisticsCardStyled,
 };

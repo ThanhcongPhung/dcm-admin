@@ -1,18 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Paper, Typography } from '@material-ui/core';
+import { CircularProgress, Paper, Typography } from '@material-ui/core';
 import Pagination from '@material-ui/lab/Pagination';
 import ConversationSearch from './ConversationSearch';
 import ConversationTable from './ConversationTable';
+import StatisticsOverview from './StatisticsOverview';
+
 import api from '../../../apis';
 import { PAGINATION } from '../../../constants';
-import { ServiceManageStyled } from './index.style';
+import { StatisticsStyled } from './index.style';
 
-export default function CampaignManage() {
+export default function Statistics() {
   const [conversationList, setConversationList] = useState([]);
   const [domainList, setDomainList] = useState([]);
   const [campaignList, setCampaignList] = useState([]);
   const [userList, setUserList] = useState([]);
+  const [statisticsData, setStatisticsData] = useState();
 
   const [isLoading, setIsLoading] = useState(false);
   const [pagination, setPagination] = useState({
@@ -20,18 +23,12 @@ export default function CampaignManage() {
     limit: PAGINATION.TABLE_MANAGE,
     totalPages: 1,
   });
-  const [conversationSearch, setConversationSearch] = useState({
-    status: 'total',
-    domainId: 'total',
-    campaignId: 'total',
-    clientId: 'total',
-    agentId: 'total',
-  });
+  const [conversationSearch, setConversationSearch] = useState({});
 
   const { t } = useTranslation();
 
   const fetchDomains = async () => {
-    const { data } = await api.domain.getDomains({});
+    const { data } = await api.nluDomain.getDomains({});
     if (data && data.status) {
       setDomainList(data.result.domains);
     }
@@ -51,18 +48,25 @@ export default function CampaignManage() {
     }
   };
 
+  const fetchConversationStatistics = async () => {
+    const { data } = await api.nluConversation.getConversationStatistics();
+    if (data && data.status) {
+      setStatisticsData(data.result);
+    }
+  };
+
   const fetchConversations = async (fields) => {
     setIsLoading(true);
     const { offset, search, status, domainId, campaignId, clientId, agentId } =
       fields;
-    const { data } = await api.conversation.getConversations({
+    const { data } = await api.nluConversation.getConversations({
       offset: offset || 0,
       search: search || '',
-      domainId: domainId && domainId !== 'total' ? domainId : '',
-      campaignId: campaignId && campaignId !== 'total' ? campaignId : '',
-      clientId: clientId && clientId !== 'total' ? clientId : '',
-      agentId: agentId && agentId !== 'total' ? agentId : '',
-      status: status && status !== 'total' ? status : '',
+      domainId: domainId || '',
+      campaignId: campaignId || '',
+      clientId: clientId || '',
+      agentId: agentId || '',
+      status: status || '',
       limit: pagination.limit,
       fields: '',
       sort: 'createdAt_desc',
@@ -92,20 +96,25 @@ export default function CampaignManage() {
   };
 
   useEffect(() => {
-    fetchConversations();
+    fetchConversations({});
+    fetchConversationStatistics();
     fetchDomains();
     fetchCampaigns();
     fetchUsers();
   }, []);
 
+  if (!domainList || !campaignList || !userList) return <CircularProgress />;
   return (
-    <ServiceManageStyled>
+    <StatisticsStyled>
+      <div className="header">
+        <Typography variant="h5" className="headTitle">
+          {t('collectionStatistics')}
+        </Typography>
+      </div>
+      <div className="statisticsOverview">
+        <StatisticsOverview statisticsData={statisticsData} />
+      </div>
       <Paper className="container">
-        <div className="header">
-          <Typography variant="h5" className="headTitle">
-            {t('collectionStatistics')}
-          </Typography>
-        </div>
         <div className="conversationSearch">
           <ConversationSearch
             domains={domainList}
@@ -132,6 +141,6 @@ export default function CampaignManage() {
           />
         </div>
       </Paper>
-    </ServiceManageStyled>
+    </StatisticsStyled>
   );
 }

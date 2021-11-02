@@ -49,3 +49,15 @@ export async function getConversation(conversationId) {
     return error.response;
   }
 }
+
+export async function getConversationStatistics() {
+  try {
+    const response = await api({
+      method: 'GET',
+      url: `${baseURL}/conversations/statistics`,
+    });
+    return response;
+  } catch (error) {
+    return error.response;
+  }
+}

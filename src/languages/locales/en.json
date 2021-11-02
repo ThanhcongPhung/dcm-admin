@@ -304,5 +304,9 @@
   "addDomain": "Add Domain",
   "selectIntent": "Select Intent",
   "selectCampaign": "Select Campaign",
-  "statisticsMenu": "Statistics"
+  "statisticsMenu": "Statistics",
+  "collectionStatistics": "Collection Statistics",
+  "client": "Client",
+  "agent": "Agent",
+  "domainNLU": "Domain"
 }

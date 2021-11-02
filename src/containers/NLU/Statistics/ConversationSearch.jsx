@@ -29,7 +29,6 @@ export default function ConversationSearch({
   dataSearch,
 }) {
   const { t } = useTranslation();
-
   return (
     <ConversationSearchStyled>
       <div className="searchItem">
@@ -37,7 +36,7 @@ export default function ConversationSearch({
           items={domains}
           value={dataSearch && dataSearch.domainId}
           onChange={handleChangeSearch}
-          label={t('selectDomain')}
+          label={t('domainNLU')}
           varName="domainId"
         />
       </div>
@@ -46,7 +45,7 @@ export default function ConversationSearch({
           items={campaigns}
           value={dataSearch && dataSearch.campaignId}
           onChange={handleChangeSearch}
-          label={t('selectCampaign')}
+          label={t('campaign')}
           varName="campaignId"
         />
       </div>
@@ -55,7 +54,7 @@ export default function ConversationSearch({
           items={users}
           value={dataSearch && dataSearch.agentId}
           onChange={handleChangeSearch}
-          label={t('selectAgent')}
+          label={t('agent')}
           varName="agentId"
         />
       </div>
@@ -64,7 +63,7 @@ export default function ConversationSearch({
           items={users}
           value={dataSearch && dataSearch.clientId}
           onChange={handleChangeSearch}
-          label={t('selectClient')}
+          label={t('client')}
           varName="clientId"
         />
       </div>
