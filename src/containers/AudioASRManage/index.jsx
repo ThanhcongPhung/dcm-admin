@@ -13,6 +13,7 @@ function AudioASRManage() {
   const [audioList, setAudioList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [openFormInput, setOpenFormInput] = useState(false);
+  const [step, setStep] = useState(0);
 
   const [pagination, setPagination] = useState({
     page: 1,
@@ -85,7 +86,7 @@ function AudioASRManage() {
         openPopup={openFormInput}
         handleClose={() => setOpenFormInput(false)}
       >
-        <ImportAudio />
+        <ImportAudio step={step} setStep={setStep} />
       </PopupForm>
     </AudioASRManageStyle>
   );
