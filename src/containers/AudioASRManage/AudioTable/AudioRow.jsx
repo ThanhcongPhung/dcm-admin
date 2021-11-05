@@ -73,14 +73,14 @@ export default function AudioRow({
         </TableCell>
         <TableCell align="center" className="bodyCell">
           <Typography className="audioContent">
-            {audioContent.transcript}
+            {audioContent.transcript.botTranscript.script}
           </Typography>
         </TableCell>
         <TableCell align="center" className="bodyCell">
           {(Math.round(audioContent.duration * 100) / 100).toFixed(2)}
         </TableCell>
         <TableCell align="center" className="bodyCell">
-          {audioContent.username}
+          {audioContent.speakerName}
         </TableCell>
         <TableCell align="center" className="bodyCell">
           {audioContent.audioStyle}
@@ -124,16 +124,13 @@ export default function AudioRow({
                 <TableBody>
                   <TableRow>
                     <TableCell align="center" className="tableCell">
-                      {audioContent.originTranscript}
+                      {audioContent.transcript.originTranscript.script}
                     </TableCell>
                     <TableCell align="center" className="tableCell">
-                      {audioContent.botTranscript}
+                      {audioContent.transcript.botTranscript.script}
                     </TableCell>
                     <TableCell align="center" className="tableCell">
-                      {audioContent.transcript}
-                    </TableCell>
-                    <TableCell align="center" className="tableCell">
-                      {audioContent.finalTranscript}
+                      {audioContent.transcript.finalTranscript}
                     </TableCell>
                   </TableRow>
                 </TableBody>

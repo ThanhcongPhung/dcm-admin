@@ -310,5 +310,7 @@
   "collectionStatistics": "Thống kê thu thập dữ liệu",
   "client": "Khách hàng",
   "agent": "Tư vấn viên",
-  "domainNLU": "Kịch bản"
+  "domainNLU": "Kịch bản",
+  "audioImported": "Số audio đã được thêm:",
+  "close": "Đóng"
 }

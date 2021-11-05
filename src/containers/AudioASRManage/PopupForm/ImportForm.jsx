@@ -17,7 +17,6 @@ import {
 } from '@material-ui/core';
 import { CloudUpload, CloudDownload } from '@material-ui/icons';
 import { useSnackbar } from 'notistack';
-import { ImportAudioStyle } from './index.style';
 import api from '../../../apis';
 
 function createData(name, detail, description) {
@@ -47,7 +46,7 @@ const rows = [
   createData('Record Device', 'Thu âm trong môi trường nào'),
 ];
 
-function ImportForm({ setStep, setAudioList, setFilePath }) {
+function ImportForm({ setStep, setAudioList }) {
   const [importType, setImportType] = useState('');
   const [fileAudio, setFileAudio] = useState();
   const { enqueueSnackbar } = useSnackbar();
@@ -67,9 +66,7 @@ function ImportForm({ setStep, setAudioList, setFilePath }) {
     formData.append('files', fileAudio[0], fileAudio[0].name);
     const { data } = await api.audioASR.validateFile(formData);
     if (data.status) {
-      const { listAudio, filePath } = data.result;
-      setAudioList(listAudio);
-      setFilePath(filePath);
+      setAudioList(data.result);
       setStep(1);
     } else {
       enqueueSnackbar(data.message, { variant: 'error' });
@@ -106,7 +103,7 @@ function ImportForm({ setStep, setAudioList, setFilePath }) {
         </div>
         <div className="upload-form">
           <input
-            accept=".csv, .zip"
+            accept=".csv"
             type="file"
             className="inputFile"
             onChange={onChange}

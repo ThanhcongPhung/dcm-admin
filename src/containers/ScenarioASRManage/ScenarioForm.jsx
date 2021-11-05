@@ -17,12 +17,6 @@ import { useTranslation } from 'react-i18next';
 import api from '../../apis';
 import { ScenarioFormStyled } from './index.style';
 
-const slotInit = {
-  id: uuidv4(),
-  name: '',
-  tag: '',
-  slotValue: [{ id: uuidv4(), name: '', tag: '' }],
-};
 export default function ScenarioForm({ open, handleClose }) {
   const { t } = useTranslation();
   const { enqueueSnackbar } = useSnackbar();
@@ -31,7 +25,14 @@ export default function ScenarioForm({ open, handleClose }) {
     name: '',
     roleUser1: { name: '', description: '' },
     roleUser2: { name: '', description: '' },
-    slots: [slotInit],
+    slots: [
+      {
+        id: uuidv4(),
+        name: '',
+        tag: '',
+        slotValue: [{ id: uuidv4(), name: '', tag: '' }],
+      },
+    ],
   });
 
   const handleSubmit = async (e) => {
@@ -70,7 +71,15 @@ export default function ScenarioForm({ open, handleClose }) {
   const handleAddFields = () => {
     setScenario((prev) => ({
       ...prev,
-      slots: [...scenario.slots, slotInit],
+      slots: [
+        ...scenario.slots,
+        {
+          id: uuidv4(),
+          name: '',
+          tag: '',
+          slotValue: [{ id: uuidv4(), name: '', tag: '' }],
+        },
+      ],
     }));
   };
 

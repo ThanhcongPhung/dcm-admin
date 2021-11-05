@@ -309,5 +309,7 @@
   "collectionStatistics": "Collection Statistics",
   "client": "Client",
   "agent": "Agent",
-  "domainNLU": "Domain"
+  "domainNLU": "Domain",
+  "audioImported": "Number of Audio Imported:",
+  "close": "Close"
 }

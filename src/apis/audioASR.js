@@ -34,3 +34,16 @@ export async function validateFile(formData) {
     return error.response;
   }
 }
+export async function importAudio({ audioList, userId }) {
+  try {
+    const response = await api({
+      method: 'POST',
+      url: `${ASR_URL}/api/v1/files/import`,
+      data: { audioList, userId },
+    });
+    return response;
+  } catch (error) {
+    return error.response;
+  }
+}
+
