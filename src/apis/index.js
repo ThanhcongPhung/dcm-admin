@@ -14,6 +14,7 @@ import * as validRoomASR from './validRoomASR';
 import * as nluIntent from './nluIntent';
 import * as nluDomain from './nluDomain';
 import * as scenarioASR from './scenarioASR';
+import * as nluConversation from './nluConversation';
 
 export default {
   auth,
@@ -32,4 +33,5 @@ export default {
   nluIntent,
   nluDomain,
   scenarioASR,
+  nluConversation,
 };

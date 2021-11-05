@@ -160,7 +160,7 @@
   "REVIEWER": "Người phê duyệt",
   "VIEWER": "Người theo dõi",
   "OWNER": "Người sở hữu",
-  "campaign": "chiến dịch",
+  "campaign": "Chiến dịch",
   "noOptions": "Không có lựa chọn nào",
   "error": "Lỗi",
   "audioASRManage": "Quản lý tệp âm thanh",
@@ -304,5 +304,10 @@
   "addDomain": "Thêm kịch bản",
   "updateDomain": "Cập nhật kịch bản",
   "selectIntent": "Chọn ý định",
-  "selectCampaign": "Chọn chiến dịch"
+  "selectCampaign": "Chọn chiến dịch",
+  "statisticsMenu": "Thống kê thu thập",
+  "collectionStatistics": "Thống kê thu thập dữ liệu",
+  "client": "Khách hàng",
+  "agent": "Tư vấn viên",
+  "domainNLU": "Kịch bản"
 }

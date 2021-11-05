@@ -12,6 +12,7 @@ import CategoryEdit from '../pages/FAQ/CategoryEdit';
 import IntentNLUManage from '../pages/NLU/IntentManage';
 import DomainNLUManage from '../pages/NLU/DomainManage';
 import CreateDomainNLU from '../pages/NLU/CreateDomain';
+import StatisticsNLU from '../pages/NLU/Statistics';
 import intentFAQManage from '../pages/FAQ/IntentManage';
 import ScenarioASRManage from '../pages/ScenarioASRManage';
 
@@ -91,10 +92,16 @@ const appRoutes = {
     component: CreateDomainNLU,
     private: true,
   },
+  statisticsNLU: {
+    url: routes.NLU_STATISTICS,
+    component: StatisticsNLU,
+    private: true,
+  },
   intentFAQManage: {
     url: routes.FAQ_INTENT_MANAGE,
     component: intentFAQManage,
     private: true,
   },
 };
+
 export default appRoutes;
