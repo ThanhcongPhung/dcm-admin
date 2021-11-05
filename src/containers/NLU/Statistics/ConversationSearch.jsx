@@ -12,7 +12,7 @@ const AutocompleteCustom = ({ items, value, onChange, label, varName }) => {
       value={items.find((el) => el.id === value)}
       getOptionLabel={(option) => option.name}
       onChange={(e, newValue) => {
-        onChange(varName, newValue.id);
+        onChange(varName, (newValue && newValue.id) || null);
       }}
       renderInput={(params) => (
         <TextField {...params} label={label} variant="outlined" />

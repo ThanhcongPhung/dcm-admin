@@ -54,7 +54,7 @@ export async function getConversationStatistics() {
   try {
     const response = await api({
       method: 'GET',
-      url: `${baseURL}/conversations/statistics`,
+      url: `${baseURL}/conversations-stats`,
     });
     return response;
   } catch (error) {
