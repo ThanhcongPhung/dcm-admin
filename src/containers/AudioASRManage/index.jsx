@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Paper, Typography } from '@material-ui/core';
 import Pagination from '@material-ui/lab/Pagination';
+import { useSelector } from 'react-redux';
 import AudioTable from './AudioTable';
 import GroupButton from './AudioTable/GroupButton';
 import PopupForm from './PopupForm/index';
@@ -13,6 +14,9 @@ function AudioASRManage() {
   const [audioList, setAudioList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [openFormInput, setOpenFormInput] = useState(false);
+  const [step, setStep] = useState(0);
+  const [audioLength, setAudioLength] = useState(0);
+  const { user } = useSelector((state) => state.auth);
 
   const [pagination, setPagination] = useState({
     page: 1,
@@ -85,7 +89,14 @@ function AudioASRManage() {
         openPopup={openFormInput}
         handleClose={() => setOpenFormInput(false)}
       >
-        <ImportAudio />
+        <ImportAudio
+          step={step}
+          setStep={setStep}
+          user={user}
+          audioLength={audioLength}
+          setAudioLength={setAudioLength}
+          setOpenFormInput={setOpenFormInput}
+        />
       </PopupForm>
     </AudioASRManageStyle>
   );

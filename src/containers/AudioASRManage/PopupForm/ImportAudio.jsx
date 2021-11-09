@@ -1,146 +1,61 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import {
-  Box,
-  Button,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Paper,
-  Select,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-} from '@material-ui/core';
-import { CloudUpload, CloudDownload } from '@material-ui/icons';
+import { Button } from '@material-ui/core';
+import { Close } from '@material-ui/icons';
 import { ImportAudioStyle } from './index.style';
+import ImportForm from './ImportForm';
+import ImportTable from './ImportTable';
 
-function createData(name, detail, description) {
-  return { name, detail, description };
-}
-
-const rows = [
-  createData('Path', 'Đường dẫn đến folder chứa audio', ''),
-  createData(
-    'Transcript',
-    'Nội dung của tệp âm thanh',
-    '16000 sample rate - mono - wav',
-  ),
-  createData('Audio Name', 'Tên audio', ''),
-  createData('Speaker ID', 'Mã định danh người nói', ''),
-  createData('Speaker Name', 'Tên người nói'),
-  createData('Speaker Accent', 'Giọng vùng miền của người nói'),
-  createData('Speaker Gender', 'Giới tính người nói'),
-  createData('Speaker Age', 'Tuổi người nói'),
-  createData('Audio Duration', 'Thời lượng của audio'),
-  createData(
-    'Audio Content',
-    'Có 3 loại(multi-domain, indomain(bank, fintech)',
-  ),
-  createData('Audio Style', 'Kiểu tệp âm thanh(conversation, read)'),
-  createData('Audio Type', 'Loại tệp âm thanh(news, talkshow, switchboard)'),
-  createData('Record Device', 'Thu âm trong môi trường nào'),
-];
-
-function ImportAudio() {
-  const [importType, setImportType] = useState('');
+function ImportAudio({
+  step,
+  setStep,
+  user,
+  audioLength,
+  setAudioLength,
+  setOpenFormInput,
+}) {
+  const [audioList, setAudioList] = useState([]);
   const { t } = useTranslation();
 
-  const handleChangeDropdown = (event) => setImportType(event.target.value);
-
-  const onChange = (e) => {
-    const { files } = e.target;
-    if (files && files.length > 0) {
-      console.log(files);
-    }
+  const onHandleClose = () => {
+    setOpenFormInput(false);
+    setStep(0);
   };
 
   return (
     <ImportAudioStyle>
-      <div className="title-form">
-        <div>
-          <p>{t('upload')}</p>
-        </div>
-        <hr className="hr" />
-      </div>
-      <div className="text-form-1">
-        <div className="select-type">
-          <Box className="importMode">
-            <FormControl fullWidth>
-              <InputLabel id="demo-simple-select-label">
-                {t('importingMode')}
-              </InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={importType}
-                label="External Resource"
-                onChange={handleChangeDropdown}
-              >
-                <MenuItem value={1}>{t('dataCollectionTool')}</MenuItem>
-                <MenuItem value={2}>{t('externalResource')}</MenuItem>
-              </Select>
-            </FormControl>
-          </Box>
-        </div>
-        <div className="upload-form">
-          <input
-            accept=".csv, .zip"
-            type="file"
-            className="inputFile"
-            onChange={onChange}
-          />
-          <div className="group-button">
+      {/* eslint-disable-next-line no-nested-ternary */}
+      {step === 0 ? (
+        <ImportForm step={step} setStep={setStep} setAudioList={setAudioList} />
+      ) : // eslint-disable-next-line no-nested-ternary
+      step === 1 ? (
+        <ImportTable
+          user={user}
+          setStep={setStep}
+          audioList={audioList}
+          setAudioList={setAudioList}
+          setAudioLength={setAudioLength}
+        />
+      ) : step === 2 ? (
+        <div className="importResult">
+          <div className="resultWrapper">
+            <span className="spanResult">{t('audioImported')}</span>
+            <span className="spanResult">{audioLength}</span>
+          </div>
+          <div className="group-button-step-3">
             <Button
+              onClick={() => onHandleClose()}
+              className="backButton"
               variant="contained"
-              component="label"
-              className="importButton"
-              startIcon={<CloudUpload />}
+              startIcon={<Close />}
             >
-              {t('upload')}
-
-            </Button>
-            <Button
-              className="importButton"
-              variant="contained"
-              startIcon={<CloudDownload />}
-            >
-              {t('csv')}
+              {t('close')}
             </Button>
           </div>
         </div>
-      </div>
-      <div className="title-form">
-        <div>
-          <p>{t('fileFormat')}</p>
-        </div>
-        <hr className="hr" />
-      </div>
-      <TableContainer component={Paper}>
-        <Table aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell>{t('column')}</TableCell>
-              <TableCell align="center">{t('detail')}</TableCell>
-              <TableCell align="center">{t('note')}</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows.map((row) => (
-              <TableRow key={row.name}>
-                <TableCell component="th" scope="row">
-                  {row.name}
-                </TableCell>
-                <TableCell align="center">{row.detail}</TableCell>
-                <TableCell align="center">{row.description}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+      ) : (
+        ''
+      )}
     </ImportAudioStyle>
   );
 }

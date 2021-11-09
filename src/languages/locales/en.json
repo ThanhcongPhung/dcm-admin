@@ -166,6 +166,7 @@
   "audioASRManage": "Audio Manage",
   "duration": "Duration (s)",
   "speakerName": "Speaker Name",
+  "speakerAccent": "Speaker Accent",
   "audioType": "Audio Type",
   "audioResource": "Audio Resource",
   "createdAt": "Create Date",
@@ -308,5 +309,7 @@
   "collectionStatistics": "Collection Statistics",
   "client": "Client",
   "agent": "Agent",
-  "domainNLU": "Domain"
+  "domainNLU": "Domain",
+  "audioImported": "Number of Audio Imported:",
+  "close": "Close"
 }

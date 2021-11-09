@@ -166,6 +166,7 @@
   "audioASRManage": "Quản lý tệp âm thanh",
   "duration": "Thời lượng (s)",
   "speakerName": "Người nói",
+  "speakerAccent": "Giọng vùng miền",
   "audioType": "Kiểu dữ liệu",
   "audioResource": "Nguồn dữ liệu",
   "createdAt": "Ngày tạo",
@@ -309,5 +310,7 @@
   "collectionStatistics": "Thống kê thu thập dữ liệu",
   "client": "Khách hàng",
   "agent": "Tư vấn viên",
-  "domainNLU": "Kịch bản"
+  "domainNLU": "Kịch bản",
+  "audioImported": "Số audio đã được thêm:",
+  "close": "Đóng"
 }
