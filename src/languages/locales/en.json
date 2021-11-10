@@ -311,5 +311,11 @@
   "agent": "Agent",
   "domainNLU": "Domain",
   "audioImported": "Number of Audio Imported:",
-  "close": "Close"
+  "close": "Close",
+  "mainIntent": "Main Intent",
+  "otherIntents": "Other Intents",
+  "redRowNote": "The line highlighted in red indicates the collection conversation failed",
+  "totalConversation": "Total Conversation",
+  "totalConversationSuccess": "Conversation Success",
+  "totalConversationFailed": "Conversation Failed"
 }

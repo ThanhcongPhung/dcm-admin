@@ -30,7 +30,7 @@ const StatisticsStyled = styled.div`
   }
   .statisticsOverview {
     margin-top: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
   }
   .conversationSearch {
     margin-bottom: 10px;
@@ -39,29 +39,34 @@ const StatisticsStyled = styled.div`
     flex: 1;
   }
   .pagination {
+    margin-top: 10px;
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
+    align-items: center;
   }
 `;
 
 const TableStyled = styled.div`
   .headerCell {
     background: ${FEATURE_COLOR.havelockBlue};
-    border: 1px solid ${FEATURE_COLOR.white};
     color: ${FEATURE_COLOR.white};
     padding: 13px 8px;
   }
+
   .bodyRow {
     cursor: pointer;
     &:hover {
       background-color: ${FEATURE_COLOR.backgroundMenu};
     }
   }
+  .bodyRowFalse {
+    background: rgba(178, 34, 52, 0.1);
+  }
   .bodyCell {
     cursor: pointer;
     padding: 8px;
-    &.nameBodyCell {
-      min-width: 140px;
+    .intentText {
+      font-weight: bold;
     }
     &.status {
       font-weight: bold;

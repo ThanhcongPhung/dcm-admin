@@ -271,7 +271,7 @@ export default function CreateIntentModal() {
               onChange={(e, newValue) => {
                 setDomainData({
                   ...domainData,
-                  campaign: newValue.id,
+                  campaign: (newValue && newValue.id) || null,
                 });
               }}
               renderInput={(params) => (

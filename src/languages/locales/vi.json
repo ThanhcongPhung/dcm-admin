@@ -312,5 +312,11 @@
   "agent": "Tư vấn viên",
   "domainNLU": "Kịch bản",
   "audioImported": "Số audio đã được thêm:",
-  "close": "Đóng"
+  "close": "Đóng",
+  "mainIntent": "Ý định chính",
+  "otherIntents": "Các ý định khác",
+  "redRowNote": "Dòng được tô màu đỏ cho biết cuộc hội thoại thu thập không thành công",
+  "totalConversation": "Tổng hội thoại",
+  "totalConversationSuccess": "Hội thoại thành công",
+  "totalConversationFailed": "Hội thoại thất bại"
 }

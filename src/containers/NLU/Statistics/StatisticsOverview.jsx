@@ -23,19 +23,34 @@ const StatisticsCard = ({ label, value = 0, borderColor }) => {
 
 const statisticsDataTitle = [
   {
+    label: 'totalConversation',
+    varName: 'total',
+    borderColor: '#015668',
+  },
+  {
+    label: 'totalConversationSuccess',
+    varName: 'totalSuccess',
+    borderColor: '#59B582',
+  },
+  {
+    label: 'totalConversationFailed',
+    varName: 'totalFailed',
+    borderColor: '#EE8585',
+  },
+  {
     label: 'domainNLU',
     varName: 'domain',
-    borderColor: '#B3000C',
+    borderColor: '#090F87',
   },
   {
     label: 'campaign',
     varName: 'campaign',
-    borderColor: '#0000F9',
+    borderColor: '#B991D9',
   },
   {
     label: 'user',
     varName: 'user',
-    borderColor: '#008018',
+    borderColor: '#F0944D',
   },
 ];
 

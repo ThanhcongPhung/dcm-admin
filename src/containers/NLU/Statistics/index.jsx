@@ -129,11 +129,11 @@ export default function Statistics() {
             conversationList={conversationList}
             isLoading={isLoading}
             pagination={pagination}
-            users={userList}
             campaigns={campaignList}
           />
         </div>
         <div className="pagination">
+          <Typography variant="body2">* {t('redRowNote')}</Typography>
           <Pagination
             page={pagination.page}
             count={pagination.totalPages}
