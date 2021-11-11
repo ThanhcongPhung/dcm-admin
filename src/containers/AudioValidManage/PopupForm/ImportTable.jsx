@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import {
   ArrowBack,
-  CloudDownload,
   CloudUpload,
   Delete,
-  Edit,
 } from '@material-ui/icons';
 import {
   Button,
@@ -21,7 +19,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import { v4 as uuidv4 } from 'uuid';
 import { useSnackbar } from 'notistack';
-import AudioPlayer from '../AudioTable/AudioPlayer';
+import AudioPlayer from '../../AudioASRManage/AudioTable/AudioPlayer';
 import { MAX_ITEMS_SMALL } from '../../../constants';
 import api from '../../../apis';
 
@@ -93,7 +91,9 @@ function ImportAudio({
                   </TableCell>
                   <TableCell align="left" className="bodyCell">
                     <Typography className="audioContent">
-                      {audio.transcript}
+                      {audio.originTranscript !== ''
+                        ? audio.originTranscript
+                        : audio.botTranscript}
                     </Typography>
                   </TableCell>
                   <TableCell align="center" className="bodyCell">

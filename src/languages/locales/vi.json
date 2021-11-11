@@ -318,5 +318,8 @@
   "redRowNote": "Dòng được tô màu đỏ cho biết cuộc hội thoại thu thập không thành công",
   "totalConversation": "Tổng hội thoại",
   "totalConversationSuccess": "Hội thoại thành công",
-  "totalConversationFailed": "Hội thoại thất bại"
+  "totalConversationFailed": "Hội thoại thất bại",
+  "asrServiceManager": "Quản lý dịch vụ ASR",
+  "audioValidManage": "Quản lý dữ liệu âm thanh",
+  "validServiceManager": "Quản lý xác thực"
 }

@@ -5,6 +5,7 @@ export default {
   CREATE_CAMPAIGN: '/admin/campaigns/create',
   CAMPAIGN_PARTICIPANT: '/admin/campaigns/:campaignId/participant',
   AUDIO_MANAGE: '/admin/audios/manage',
+  AUDIO_VALID_MANAGE: '/admin/validation/audios',
   ASR_SCENARIO_MANAGE: '/admin/asr/scenarios',
   CHATBOT_CAMPAIGN_RESULT: '/admin/campaigns/:campaignId/chatbot/result',
   FAQ_INTENT_CATEGORIES: '/admin/faq/categories',

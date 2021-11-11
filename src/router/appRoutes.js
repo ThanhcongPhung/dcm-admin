@@ -15,6 +15,7 @@ import CreateDomainNLU from '../pages/NLU/CreateDomain';
 import StatisticsNLU from '../pages/NLU/Statistics';
 import intentFAQManage from '../pages/FAQ/IntentManage';
 import ScenarioASRManage from '../pages/ScenarioASRManage';
+import AudioValidManage from '../pages/AudioValidManager';
 
 const appRoutes = {
   home: {
@@ -100,6 +101,11 @@ const appRoutes = {
   intentFAQManage: {
     url: routes.FAQ_INTENT_MANAGE,
     component: intentFAQManage,
+    private: true,
+  },
+  audioValidManage: {
+    url: routes.AUDIO_VALID_MANAGE,
+    component: AudioValidManage,
     private: true,
   },
 };

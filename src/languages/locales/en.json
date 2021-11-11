@@ -317,5 +317,8 @@
   "redRowNote": "The line highlighted in red indicates the collection conversation failed",
   "totalConversation": "Total Conversation",
   "totalConversationSuccess": "Conversation Success",
-  "totalConversationFailed": "Conversation Failed"
+  "totalConversationFailed": "Conversation Failed",
+  "asrServiceManager": "ASR Service Manage",
+  "audioValidManage": "Audio Data Manage",
+  "validServiceManager": "Valid Service Manager"
 }

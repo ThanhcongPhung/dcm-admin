@@ -3,14 +3,18 @@ import { useTranslation } from 'react-i18next';
 import { Paper, Typography } from '@material-ui/core';
 import Pagination from '@material-ui/lab/Pagination';
 import { useSelector } from 'react-redux';
-import AudioTable from './AudioTable';
 import GroupButton from './AudioTable/GroupButton';
+import PopupForm from './PopupForm';
+import ImportAudio from './PopupForm/ImportAudio';
 import api from '../../apis';
-import { AudioASRManageStyle } from './index.style';
+import AudioTable from './AudioTable';
+import { AudioValidManageStyled } from './index.style';
 
-function AudioASRManage() {
+function AudioValidManage() {
   const [audioList, setAudioList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [openFormInput, setOpenFormInput] = useState(false);
+  const [step, setStep] = useState(0);
   const [audioLength, setAudioLength] = useState(0);
   const { user } = useSelector((state) => state.auth);
 
@@ -25,7 +29,7 @@ function AudioASRManage() {
   const fetchAudios = async (fields) => {
     setIsLoading(true);
     const { offset, search } = fields;
-    const { data } = await api.audioASR.getAudioList({
+    const { data } = await api.audioASR.getAudioValidList({
       offset,
       search,
       limit: pagination.limit,
@@ -54,14 +58,14 @@ function AudioASRManage() {
   }, []);
 
   return (
-    <AudioASRManageStyle>
+    <AudioValidManageStyled>
       <Paper className="container">
         <div className="header">
           <Typography variant="h5" className="headTitle">
-            {t('audioASRManage')}
+            {t('audioValidManage')}
           </Typography>
           <div className="headButtons">
-            <GroupButton />
+            <GroupButton setOpenFormInput={setOpenFormInput} />
           </div>
         </div>
         <div className="audio-list">
@@ -80,8 +84,22 @@ function AudioASRManage() {
           />
         </div>
       </Paper>
-    </AudioASRManageStyle>
+      <PopupForm
+        title={t('inputAudioForm')}
+        openPopup={openFormInput}
+        handleClose={() => setOpenFormInput(false)}
+      >
+        <ImportAudio
+          step={step}
+          setStep={setStep}
+          user={user}
+          audioLength={audioLength}
+          setAudioLength={setAudioLength}
+          setOpenFormInput={setOpenFormInput}
+        />
+      </PopupForm>
+    </AudioValidManageStyled>
   );
 }
 
-export default AudioASRManage;
+export default AudioValidManage;

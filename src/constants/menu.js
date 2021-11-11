@@ -17,14 +17,20 @@ export default [
     route: routes.CAMPAIGN_MANAGE,
   },
   {
-    heading: 'audioASRManage',
-    icon: 'queue_music',
-    route: routes.AUDIO_MANAGE,
-  },
-  {
-    heading: 'scenarioASRManage',
-    icon: 'subject',
-    route: routes.ASR_SCENARIO_MANAGE,
+    heading: 'asrServiceManager',
+    icon: 'record_voice_over',
+    subMenus: [
+      {
+        heading: 'audioASRManage',
+        icon: 'queue_music',
+        route: routes.AUDIO_MANAGE,
+      },
+      {
+        heading: 'scenarioASRManage',
+        icon: 'subject',
+        route: routes.ASR_SCENARIO_MANAGE,
+      },
+    ],
   },
   {
     heading: 'faqManage',
@@ -60,6 +66,17 @@ export default [
         heading: 'statisticsMenu',
         icon: 'assessment',
         route: routes.NLU_STATISTICS,
+      },
+    ],
+  },
+  {
+    heading: 'validServiceManager',
+    icon: 'fact_check',
+    subMenus: [
+      {
+        heading: 'audioValidManage',
+        icon: 'playlist_add',
+        route: routes.AUDIO_VALID_MANAGE,
       },
     ],
   },
