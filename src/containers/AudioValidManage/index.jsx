@@ -8,12 +8,15 @@ import PopupForm from './PopupForm';
 import ImportAudio from './PopupForm/ImportAudio';
 import api from '../../apis';
 import AudioTable from './AudioTable';
+import FormCreateValidRoom from './FormCreateValidRoom';
 import { AudioValidManageStyled } from './index.style';
 
 function AudioValidManage() {
   const [audioList, setAudioList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [openFormInput, setOpenFormInput] = useState(false);
+  const [openFormCreateRoom, setFormCreateRoom] = useState(false);
+  const [stepCreate, setStepCreate] = useState(1);
   const [step, setStep] = useState(0);
   const [audioLength, setAudioLength] = useState(0);
   const { user } = useSelector((state) => state.auth);
@@ -65,7 +68,10 @@ function AudioValidManage() {
             {t('audioValidManage')}
           </Typography>
           <div className="headButtons">
-            <GroupButton setOpenFormInput={setOpenFormInput} />
+            <GroupButton
+              setOpenFormInput={setOpenFormInput}
+              setFormCreateRoom={setFormCreateRoom}
+            />
           </div>
         </div>
         <div className="audio-list">
@@ -98,6 +104,22 @@ function AudioValidManage() {
           setOpenFormInput={setOpenFormInput}
         />
       </PopupForm>
+      <PopupForm
+        title="Hãy chọn loại xác thực"
+        openPopup={openFormCreateRoom}
+        handleClose={() => setFormCreateRoom(false)}
+      >
+        <FormCreateValidRoom
+          audioList={audioList}
+          stepCreate={stepCreate}
+          setStepCreate={setStepCreate}
+        />
+      </PopupForm>
+      <FormCreateValidRoom
+        audioList={audioList}
+        stepCreate={stepCreate}
+        setStepCreate={setStepCreate}
+      />
     </AudioValidManageStyled>
   );
 }

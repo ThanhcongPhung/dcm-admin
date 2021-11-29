@@ -4,7 +4,7 @@ import { Button } from '@material-ui/core';
 import { Publish, GetApp, AddBox, Delete } from '@material-ui/icons';
 import { GroupButtonStyle } from './index.style';
 
-export default function GroupButton({ setOpenFormInput }) {
+export default function GroupButton({ setOpenFormInput, setFormCreateRoom }) {
   const { t } = useTranslation();
 
   return (
@@ -43,6 +43,7 @@ export default function GroupButton({ setOpenFormInput }) {
             variant="contained"
             className="functionButton createButton"
             startIcon={<AddBox />}
+            onClick={() => setFormCreateRoom(true)}
           >
             {t('createValidateAudioRoom')}
           </Button>
