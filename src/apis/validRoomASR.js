@@ -25,3 +25,16 @@ export async function getValidRoomList({
     return error.response;
   }
 }
+
+export async function createValidRoom(validRoom) {
+  try {
+    const response = await api({
+      method: 'POST',
+      url: `${ASR_URL}/api/v1/valid-rooms`,
+      data: validRoom,
+    });
+    return response;
+  } catch (error) {
+    return error.response;
+  }
+}
